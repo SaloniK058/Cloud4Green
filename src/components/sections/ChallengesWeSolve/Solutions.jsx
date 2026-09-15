@@ -31,7 +31,7 @@ import sol3 from "@/assets/images/solution3.webp";
 
 // Add the remaining files, then swap the `null`s for the imports:
 // import sol3 from "@/assets/images/Solution3.webp";
-import sol4 from "@/assets/images/Solution4.webp";
+import sol4 from "@/assets/images/solution4.webp";
 import sol5 from "@/assets/images/solution5.webp";
 
 
