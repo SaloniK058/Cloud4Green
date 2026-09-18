@@ -1,0 +1,12 @@
+# Netlify SPA fallback.
+#
+# App.jsx routes with BrowserRouter, so /contact, /products/e-learning and the
+# rest exist only once React has booted. The build emits a single index.html and
+# no file at any of those paths, so without this rule Netlify answers a direct
+# visit, a refresh or a shared link with its own 404 page — the routes work only
+# when reached by in-app navigation, which is exactly the case nobody tests.
+#
+# 200 rather than 301: serve index.html at the requested URL instead of
+# redirecting to /, so React Router still sees the real path and renders the
+# right page.
+/*  /index.html  200

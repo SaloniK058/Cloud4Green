@@ -2,7 +2,7 @@ import customerStories from '@/assets/images/clients.jpg'
 import update from '@/assets/images/big.png'
 
 export const navigation = [
-  { label: "Enterprise", href: "/enterprise" },
+  { label: "Home", href: "/" },
   {
   label: "Products",
 
@@ -80,7 +80,6 @@ export const navigation = [
     ],
   },
 },
-  { label: "Individual", href: "/individual" },
   { label: "Resources", href: "/resources" },
   { label: "Case study", href: "/about" },
 ];

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
+import BookingEmbed from "@/components/contact/BookingEmbed";
 
 import {
   Reveal,
@@ -15,15 +16,19 @@ import {
  * /contact — the page every "Contact us" in the nav, the mega menu and the
  * closing CTA points at.
  *
- * Same house language as the product pages: cream ground (#FAFAF7) with a
- * white form card on it, display type in Recoleta — uppercase, tracked in,
+ * Same house language as the product pages: cream ground (#FAFAF7) with the
+ * white cards on it, display type in Recoleta — uppercase, tracked in,
  * with the blue full stop — #101418 ink over #4A5261 body copy, and #0B5CFF
  * used only as an accent. Recoleta ships as a single Medium file (see the
  * @font-face in index.css), so every display line here is font-medium; asking
  * for a heavier weight would get a synthesised bold.
  *
  * The section rhythm is the one the rest of the site keeps: a masthead, then
- * bands at py-20 / lg:py-28 separated by a border-[#101418]/8 hairline.
+ * bands at py-20 / lg:py-28 separated by a border-[#101418]/8 hairline. Three
+ * of them here — masthead, then the form paired with the booking embed, then
+ * the sales band that closes the page into the footer. Every one of the three
+ * is split on the same 1.05fr / 0.95fr columns, which is the whole reason the
+ * page reads as aligned: there is one seam down it, not three.
  */
 
 /* --- The house marks ------------------------------------------------------ */
@@ -72,8 +77,8 @@ function Eyebrow({ children }) {
 /**
  * A rail label — the same tracked-out small caps as the eyebrow, in ink rather
  * than blue. Blue is the page's accent and it is spent on the masthead eyebrow,
- * the full stops and the button badge; four more blue labels down the right
- * column would make it a colour scheme instead of an accent.
+ * the full stops and the button badge; four more blue labels through the
+ * closing band would make it a colour scheme instead of an accent.
  */
 function RailLabel({ children }) {
   return (
@@ -199,10 +204,14 @@ export default function Contact() {
           </Container>
         </section>
 
-        {/* ── Form + contact rail ──────────────────────────────────── */}
+        {/* ── Form + booking ───────────────────────────────────────── */}
+        {/* Two panels, deliberately paired: the same card treatment on both,
+            because they are the same offer twice — write to us, or take a slot.
+            The column split is the masthead's, so the seam between them lands
+            on the line the heading and the intro copy already set above. */}
         <section className="py-16 lg:py-24">
           <Container>
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16">
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-start lg:gap-16">
               {/* ── Left: the form, on the site's white card ────────── */}
               <Reveal>
                 <div className="rounded-[18px] border border-[#DFE6F5] bg-white p-6 shadow-[0_24px_60px_-28px_rgba(16,32,74,0.28)] sm:p-9 lg:p-10">
@@ -329,79 +338,134 @@ export default function Contact() {
                 </div>
               </Reveal>
 
-              {/* ── Right: the rail ────────────────────────────────── */}
-              {/* No card. The form is the one panel in the section, and a
-                  second one beside it would make the page two boxes rather
-                  than a page — so the rail is hairlines on the cream ground,
-                  the way the product pages set their lists. */}
+              {/* ── Right: book a slot ─────────────────────────────── */}
+              {/* The Bookings frame brings its own white ground and its own
+                  inner padding, so the card here is padded thinner than the
+                  form's — matching p-10 on both would sit the calendar a full
+                  inch inside its border. */}
               <Reveal delay={0.08}>
-                <div className="lg:pl-4">
-                  {/* SALES */}
-                  <RailLabel>Sales</RailLabel>
-
-                  <h2 className="mt-4 font-recoleta text-[1.7rem] font-medium uppercase leading-[1.06] tracking-[-0.015em] text-[#101418] sm:text-[1.9rem]">
-                    Talk with our team
+                <div
+                  id="book"
+                  className="scroll-mt-28 rounded-[18px] border border-[#DFE6F5] bg-white p-6 shadow-[0_24px_60px_-28px_rgba(16,32,74,0.28)] sm:p-7"
+                >
+                  <h2 className="font-recoleta text-[1.7rem] font-medium uppercase leading-[1.06] tracking-[-0.015em] text-[#101418] sm:text-[2rem]">
+                    Book a slot
                     <span className="text-[#0B5CFF]">.</span>
                   </h2>
 
-                  <p className="mt-4 max-w-md text-[14.5px] leading-7 text-[#4A5261]">
-                    Have a project in mind or need help choosing the right
-                    solution? Let&apos;s talk about your requirements.
+                  <p className="mt-4 max-w-xl text-[14.5px] leading-7 text-[#4A5261]">
+                    Rather talk it through? Take 30 minutes with our team —
+                    pick a time below and you&apos;ll get the invite straight
+                    away.
                   </p>
 
-                  <a
-                    href="mailto:sales@cloud4green.com"
-                    className="group mt-6 inline-flex items-center gap-2.5 rounded-[10px] border border-[#101418]/12 bg-white px-5 py-2.5 text-sm font-semibold text-[#101418] shadow-sm transition-colors hover:border-[#101418]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5CFF] focus-visible:ring-offset-2"
-                  >
-                    Contact Sales
-
-                    <Chevrons className="h-3.5 w-3.5 stroke-[#0B5CFF] transition-transform group-hover:translate-x-0.5" />
-                  </a>
-
-                  {/* WHAT WE DO */}
-                  <div className="mt-12 border-t border-[#101418]/10 pt-10">
-                    <RailLabel>What we do</RailLabel>
-
-                    <div className="mt-6">
-                      {solutions.map((solution) => (
-                        <Link
-                          key={solution.label}
-                          to={solution.href}
-                          className="group flex items-center justify-between gap-6 border-b border-[#101418]/10 py-4 first:border-t"
-                        >
-                          <span className="text-[15px] font-medium text-[#101418] transition-colors group-hover:text-[#0B5CFF]">
-                            {solution.label}
-                          </span>
-
-                          <Chevrons className="h-3.5 w-3.5 stroke-[#101418]/35 transition-all group-hover:translate-x-0.5 group-hover:stroke-[#0B5CFF]" />
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* DIRECT LINES */}
-                  <div className="mt-12 border-t border-[#101418]/10 pt-10">
-                    <RailLabel>Prefer to reach us directly?</RailLabel>
-
-                    <div className="mt-6 space-y-3">
-                      <DirectLine
-                        href="mailto:sales@cloud4green.com"
-                        icon={<MailMark />}
-                        label="Email"
-                        value="sales@cloud4green.com"
-                      />
-
-                      <DirectLine
-                        href="tel:+910000000000"
-                        icon={<PhoneMark />}
-                        label="Phone"
-                        value="+91 XX XXXX XXXX"
-                      />
-                    </div>
+                  <div className="mt-7 border-t border-[#101418]/8 pt-5">
+                    <BookingEmbed />
                   </div>
                 </div>
               </Reveal>
             </div>
+          </Container>
+        </section>
+
+        {/* ── Talk with our team ───────────────────────────────────── */}
+        {/* The closing band. Same two-column split as the masthead and the
+            section above it, so one vertical seam runs the length of the page
+            — heading left, the answer to it right, three times down. No cards:
+            the two panels above are the page's boxes, and this band is set the
+            way the product pages set their lists, on hairlines over cream. */}
+        <section className="border-t border-[#101418]/8 py-16 lg:py-24">
+          <Container>
+            <RevealGroup
+              delay={0.08}
+              className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-end lg:gap-16"
+            >
+              <div>
+                <RevealItem as="div">
+                  <RailLabel>Sales</RailLabel>
+                </RevealItem>
+
+                <RevealLines
+                  nested
+                  as="h2"
+                  lines={[
+                    <>
+                      Talk with our team
+                      <span className="text-[#0B5CFF]">.</span>
+                    </>,
+                  ]}
+                  className="mt-4 font-recoleta text-[1.75rem] font-medium uppercase leading-[1.04] tracking-[-0.02em] text-[#101418] sm:text-[2.4rem] lg:text-[2.8rem]"
+                />
+              </div>
+
+              <RevealItem as="div" className="lg:pb-1">
+                <p className="max-w-md text-[15px] leading-7 text-[#4A5261]">
+                  Have a project in mind or need help choosing the right
+                  solution? Let&apos;s talk about your requirements.
+                </p>
+
+                <a
+                  href="mailto:sales@cloud4green.com"
+                  className="group mt-6 inline-flex items-center gap-2.5 rounded-[10px] border border-[#101418]/12 bg-white px-5 py-2.5 text-sm font-semibold text-[#101418] shadow-sm transition-colors hover:border-[#101418]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5CFF] focus-visible:ring-offset-2"
+                >
+                  Contact Sales
+
+                  <Chevrons className="h-3.5 w-3.5 stroke-[#0B5CFF] transition-transform group-hover:translate-x-0.5" />
+                </a>
+              </RevealItem>
+            </RevealGroup>
+
+            {/* The two lists, under the band's own hairline and on the same
+                column edges as the heading row above them. */}
+            <RevealGroup
+              delay={0.24}
+              className="mt-12 grid gap-10 border-t border-[#101418]/10 pt-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16"
+            >
+              {/* WHAT WE DO */}
+              <RevealItem>
+                <RailLabel>What we do</RailLabel>
+
+                <div className="mt-6">
+                  {solutions.map((solution) => (
+                    <Link
+                      key={solution.label}
+                      to={solution.href}
+                      className="group flex items-center justify-between gap-6 border-b border-[#101418]/10 py-4 first:border-t"
+                    >
+                      <span className="text-[15px] font-medium text-[#101418] transition-colors group-hover:text-[#0B5CFF]">
+                        {solution.label}
+                      </span>
+
+                      <Chevrons className="h-3.5 w-3.5 stroke-[#101418]/35 transition-all group-hover:translate-x-0.5 group-hover:stroke-[#0B5CFF]" />
+                    </Link>
+                  ))}
+                </div>
+              </RevealItem>
+
+              {/* DIRECT LINES */}
+              {/* Side by side from sm up: the column is the full page width's
+                  worth here rather than a rail's, and two stacked tiles in it
+                  would leave the band bottom-heavy on one side. */}
+              <RevealItem>
+                <RailLabel>Prefer to reach us directly?</RailLabel>
+
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  <DirectLine
+                    href="mailto:sales@cloud4green.com"
+                    icon={<MailMark />}
+                    label="Email"
+                    value="sales@cloud4green.com"
+                  />
+
+                  <DirectLine
+                    href="tel:+910000000000"
+                    icon={<PhoneMark />}
+                    label="Phone"
+                    value="+91 XX XXXX XXXX"
+                  />
+                </div>
+              </RevealItem>
+            </RevealGroup>
           </Container>
         </section>
       </main>

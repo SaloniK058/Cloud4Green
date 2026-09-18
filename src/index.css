@@ -650,9 +650,12 @@ body {
    * of the headline — if the display size is ever changed.
    *
    * The second term gives it back on a window too short to spend it. Below
-   * ~745px of window height the gap is 28% of the fold instead, which is what
-   * keeps the partner strip inside the fold on a 1280x720; at every full-height
-   * laptop and desktop the em term is the smaller of the two and binds alone.
+   * ~745px of window height the gap is 28% of the fold instead; at every
+   * full-height laptop and desktop the em term is the smaller of the two and
+   * binds alone. It buys the short window some room but it does not on its own
+   * keep the partner strip inside the fold — that is the third cap on
+   * --hero-partners-drop in the lg block, and this comment used to claim the
+   * job was done here.
    *
    * The map's foot is held from the other end now, by the map's own height at
    * lg — it grows past 75vw, to at most 100vw, to reach the bottom of the fold.
@@ -1176,18 +1179,44 @@ a.hero-meta:hover {
      * holds the same relationship to the headline at every desktop width, and
      * moves only if the headline's own size or leading does.
      *
-     * The cap is the map's foot, not a screen size. Below the latitude there
-     * is (1 - line) of map left, and the strip's own foot hangs 3.5rem under
-     * the line it rides — half the 5rem logo row plus the banner's 1rem of
-     * padding, the mirror of the measurement --hero-partners-lift is built
-     * from. Spend whichever is smaller and the logos can never cross the map's
-     * bottom edge, which is also the bottom of the fold: on the short, wide
-     * cases where the map is small (1280x800 leaves 58px of room against the
-     * 62px the leading asks for) the drop simply gives back the difference. */
+     * There are two caps, and they are different edges. Below the latitude
+     * there is (1 - line) of map left, and the strip's own foot hangs 3.5rem
+     * under the line it rides — half the 5rem logo row plus the banner's 1rem
+     * of padding, the mirror of the measurement --hero-partners-lift is built
+     * from. The first cap spends no more than that, so the logos never cross
+     * the map's bottom edge.
+     *
+     * The map's foot is NOT the bottom of the fold, which is what this used to
+     * assume and is the bug that assumption caused. The two coincide only while
+     * the fold-filling term wins in --hero-map-height. On a short, wide window
+     * the 75vw term wins instead — the map is meant to be taller than the fold
+     * there and run off the bottom of the screen — so its foot is below the
+     * clip edge, and a cap measured against it drops the strip into the
+     * overhang, where `overflow: hidden` on the hero section cuts it in half.
+     * That is the sliced logo row teammates saw on 1366x768 and 1280x720: at
+     * 1366x768 the map overhangs the fold by 44px and the strip lost 33px of
+     * its box, at 1366x728 it lost the logos outright. (The note on
+     * --hero-gap-top claiming the 28% term keeps the strip inside the fold at
+     * 1280x720 was measuring the same wrong edge; it doesn't.)
+     *
+     * So the third term is the fold's own bottom edge, stated from the same
+     * origin the strip is positioned from: the stage's top padding, then the
+     * map's top, then the latitude, then the strip's 3.5rem foot. Whatever is
+     * left is all the drop there is to spend. When the map fits the fold this
+     * is exactly equal to the map-foot term — substitute
+     * --hero-map-height = fold - gap-top - map-top and the two reduce to the
+     * same expression — so it changes nothing on a full-height desktop and
+     * binds only on the short windows where it is the real limit. On those it
+     * can reach zero or just past it, which is the strip giving the drop back
+     * and riding the latitude itself rather than below it. */
     --hero-partners-drop: min(
       calc(var(--hero-fs) * var(--hero-leading)),
       calc(
         var(--hero-map-height) * (1 - var(--hero-partners-line)) - 3.5rem
+      ),
+      calc(
+        var(--hero-fold) - var(--hero-gap-top) - var(--hero-map-top) -
+          var(--hero-map-height) * var(--hero-partners-line) - 3.5rem
       )
     );
   }
