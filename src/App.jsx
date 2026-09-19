@@ -8,6 +8,7 @@ import Contact from "@/pages/Contact";
 import EnterpriseLabs from "@/pages/products/EnterpriseLabs";
 import ELearning from "@/pages/ELearning";
 import Certifications from "@/pages/Certifications";
+import EnterpriseTraining from "@/pages/EnterpriseTraining";
 
 function App() {
   return (
@@ -22,10 +23,11 @@ function App() {
         <Route path="/individual" element={<Individual/>}/>
         <Route path="/contact" element={<Contact/>}/>
         {/* Products — linked from the navbar mega menu (src/config/navigation.js).
-            The other two items there have no route yet and fall through to Notfound. */}
+            Individual Trainings has no route yet and falls through to Notfound. */}
         <Route path="/products/enterprise-labs" element={<EnterpriseLabs />} />
         <Route path="/products/e-learning" element={<ELearning />} />
         <Route path="/products/certifications" element={<Certifications />} />
+        <Route path="/products/enterprise-training" element={<EnterpriseTraining />} />
         <Route path="*" element={<Notfound/>}/>
       </Routes>
     </BrowserRouter>

@@ -6,33 +6,14 @@ import Container from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
 import img1 from "@/assets/images/CertBanner2.png";
 import backgroundimg from "@/assets/images/certBanner.png";
+import CertificationFlow from "../illustrations/CertificationFlow";
 
 /* ------------------------------------------------------------------
    Cloud4Green — the /products/certifications masthead.
 
-   The mirror of the Learning Solutions masthead (see
-   pages/products/LearningSolutions.jsx): same fold, same Container
-   gutters, same full-bleed image under a white scrim, same house
-   typography. The one difference is the axis — the image column sits on
-   the LEFT and the copy column on the right, so the two mastheads read
-   as a pair rather than a repeat when a visitor moves between them.
-
-   The two columns are equal halves (lg:grid-cols-2) on a desktop
-   screen: the image and the copy-plus-buttons block get the same width,
-   so the fold reads as two matched panels rather than a wide picture
-   with a caption beside it.
-
-   One thing flips with the axis: the scrim runs to the right
-   (`to-white/85`) so its heaviest white still lands under the copy —
-   #0B5CFF needs a ground no darker than the ~#B9D9FC that leaves.
-
-   Source order stays copy-first so a narrow screen reads the headline
-   before the artwork; `order-*` puts the image back on the left from
-   lg up.
-
-   The image slot is deliberately unconstrained: no aspect ratio, no
-   fixed height, no inner padding. It spans its column at the image's
-   own proportions and is never cropped.
+   Same stacked layout as the Enterprise Labs "How it works" masthead
+   (components/EnterpriseLabs/Howitworks.jsx): the illustration across
+   the top, then the centred eyebrow, headline, lede and buttons.
 ------------------------------------------------------------------ */
 
 /** The brand asterisk, as it appears on every section eyebrow. `stroke` is a
@@ -61,7 +42,7 @@ export default function Certifications({ imageSrc = img1, imageAlt = "" }) {
          navbar's scroll sentinel and the navbar row. --c4g-chrome-h is
          defined in index.css next to the heights it adds up, so the fold is
          stated once rather than re-counted per page. */
-      className="relative isolate flex min-h-[calc(100svh_-_var(--c4g-chrome-h))] scroll-mt-24 items-center overflow-hidden border-b border-[#101418]/8 py-16 lg:py-20"
+      className="relative isolate flex min-h-[calc(100svh_-_var(--c4g-chrome-h))] scroll-mt-24 items-center overflow-hidden border-b border-[#101418]/8 py-6 lg:py-7"
     >
       {/* Full-bleed image, the same masthead treatment as Learning Solutions. */}
       <img
@@ -71,36 +52,31 @@ export default function Certifications({ imageSrc = img1, imageAlt = "" }) {
         className="absolute inset-0 -z-10 h-full w-full object-cover"
       />
 
-      {/* The scrim is the Learning Solutions gradient read backwards: the
-          copy column is on the right here, so the heaviest white ends
-          there and the blue mass is held back under the text. */}
+      {/* Copy is centred under the illustration, so the scrim runs top to
+          bottom: lightest behind the drawing, heaviest under the type. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-r from-white/50 via-white/55 to-white/85"
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-white/45 via-white/60 to-white/80"
       />
 
       <Container>
-        {/* Equal halves from lg up: the image and the copy get the same column
-            width, so neither side dominates the fold on a desktop screen. */}
-        <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
-          {/* ------------------------------------- LEFT (lg): the image */}
-          {/* Second in source order so a narrow screen gets the headline
-              first; `lg:order-1` moves it to the left of the copy once
-              there are two columns. No fixed height and no aspect ratio:
-              the frame takes the image's own proportions and spans the
-              full width of the column. */}
-          <div className="order-2 lg:order-1 relative overflow-hidden rounded-[14px] border border-[#101418]/8 bg-white/85 shadow-[0_24px_60px_-32px_rgba(16,32,74,0.35)] backdrop-blur-xl">
-            <img src={imageSrc} alt={imageAlt} className="block h-auto w-full" />
+        <div className="flex flex-col items-center">
+          {/* ---------------------------------------------- the band */}
+          {/* Width is capped so the 960:440 drawing never takes more than
+              60% of the fold in height, leaving the copy room below it. */}
+          <div className="relative isolate mx-auto w-full max-w-[min(1216px,(100svh_-_var(--c4g-chrome-h))*0.6*960/440)]">
+            {/* Same soft bloom as the Enterprise Labs diagram: a light ground
+                for the thin strokes with no card edge to see. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[125%] w-[112%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-white/75 blur-3xl"
+            />
+            <CertificationFlow />
           </div>
 
-          {/* ------------------------------------ RIGHT (lg): the copy */}
-          {/* The 560px cap is a reading measure for the one-column layout; from
-              lg up the column itself is the measure, so the cap comes off and
-              the copy block fills its half exactly as the image fills its own. */}
-          <div className="order-1 lg:order-2 max-w-[560px] lg:max-w-none">
-            {/* On the light ground the eyebrow and the full stop are the
-                brand blue, as they are in every cream section. */}
-            <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
+          {/* ---------------------------------------------- the words */}
+          <div className="mx-auto mt-4 max-w-[860px] text-center lg:mt-5">
+            <p className="flex items-center justify-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
               <Asterisk />
               Certifications
             </p>
@@ -108,19 +84,16 @@ export default function Certifications({ imageSrc = img1, imageAlt = "" }) {
             {/* Recoleta ships as a single Medium file (see the @font-face in
                 index.css), so the headline is font-medium — asking for
                 bolder gets a synthesised bold. */}
-            <h1 className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
+            <h1 className="mt-2.5 font-recoleta text-[1.85rem] font-medium uppercase leading-[1.06] tracking-[-0.02em] text-[#101418] sm:text-[2.35rem] lg:text-[2.6rem]">
               Turn Hands-On Skills Into Industry Credentials
               <span className="text-[#0B5CFF]">.</span>
             </h1>
 
-            <p className="mt-5 text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
-              {/* Exam-aligned paths across AWS, Azure, Google Cloud, Kubernetes and
-              security — each one paired with the labs, practice tests and
-              readiness checks that turn preparation into a pass. */}
+            <p className="mx-auto mt-3.5 max-w-[560px] text-[15px] leading-6 text-[#4A5261] lg:text-[16px] lg:leading-7">
               Get that career in IT. Earn that promotion. Stand out in your field.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3.5">
+            <div className="mt-5 flex flex-wrap justify-center gap-3.5 lg:mt-6">
               <Button arrow render={<Link to="/contact" />}>
                 Talk to an advisor
               </Button>

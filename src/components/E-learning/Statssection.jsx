@@ -17,7 +17,7 @@ import '@/styles/statssection.css';
 const STATS = [
   { key: "users", figure: "1M+", label: "learners trained" },
   { key: "years", figure: "13+", label: "years of enterprise L&D" },
-  { key: "industries", figure: "10+", label: "industries served" },
+  { key: "industries", figure: "20+", label: "industries served" },
 ];
 
 export default function StatsSection({

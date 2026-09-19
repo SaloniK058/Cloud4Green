@@ -704,7 +704,7 @@ export default function WhoItsFor() {
       id="who-its-for"
       className="relative scroll-mt-24 overflow-hidden bg-[#FCFBF8] py-24 lg:py-32"
     >
-      <BackgroundPattern />
+      {/* <BackgroundPattern /> */}
 
       <Container className="relative z-10">
         {/* ---------------------------------------------------------------- */}

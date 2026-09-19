@@ -8,30 +8,32 @@ import {
 } from "@/components/motion/Reveal";
 
 /**
- * CtaSection — closing CTA, structured after the Webflow MCP card:
- * pitch on the left, a video thumbnail on the right.
+ * CtaSection — closing CTA, set as a poster.
  *
- * Light on purpose. The footer below is black, so an ink card here would have
- * made the whole bottom third of the page one dark slab. The card is a white →
- * pale-blue wash instead, and the video panel is the single dark element —
- * which then reads as a deliberate step down into the footer rather than a
- * collision with it.
+ * The card used to be a pale wash with ink type. It is now the one saturated
+ * block on the page: brand blue edge to edge, cream type, hairline rules, and
+ * the display line sized to fill its column the way a printed poster fills a
+ * sheet. The reasoning for the swap is the same one that made it light before,
+ * read the other way round — the section has to be the last thing the eye
+ * stops on before the black footer, and a wash doesn't stop anything.
  *
- * Palette sampled off the live homepage:
- *   ink    #101418   primary button, display type
- *   blue   #0B5CFF   hero asterisk, terminal period, button badge
- *   cream  #FAFAF7   page background
- *   cream  #ecece9   page background
- *   grid   #EFEFEC   the hero's faint rules
+ * Palette:
+ *   blue   #0B5CFF   --brand-blue, the site's one accent, here as the ground
+ *   cream  #FAFAF7   page background, here as the display/ink colour
+ *   beige  #E7E0CE   the poster's second voice — eyebrow, meta, sign-off
+ *   ink    #101418   buttons and the video panel
  *
- * Numbers are the portfolio's (28 domains, 415 technologies, 3–5 working days),
- * relabelled in plain words.
+ * Type is the house setting: Recoleta, medium (the only weight shipped),
+ * uppercase, tracked in. Tighter leading than elsewhere on the site because
+ * at this size the two lines are a block, not a sentence.
  */
 export default function CtaSection({
   onPlay,
   demoHref = "/book-a-demo",
   contactHref = "/contact",
   hook = "No slides. Real consoles.",
+  stamp = "Enterprise enablement",
+  signOff = "Skills that ship.",
   video = {
     label: "Inside a real lab",
     caption: "Forty people, real cloud accounts, one afternoon.",
@@ -41,49 +43,43 @@ export default function CtaSection({
   },
 }) {
   return (
-    <section className="bg-[#FAFAF7] px-6 py-16 sm:px-8 lg:px-12" >
+    <section className="bg-[#FAFAF7] px-6 py-16 sm:px-8 lg:px-12">
       {/* The card is the frame, so it arrives first and on its own — then the
-          copy inside it comes up beat by beat off the same trigger. Previously
-          the whole thing was one 0.55s fade, which meant the section appeared
-          fully formed and there was nothing to read as arriving. */}
+          copy inside it comes up beat by beat off the same trigger. */}
       <RevealGroup
         rise
         delay={0.12}
-        className="relative isolate mx-auto w-full max-w-7xl overflow-hidden rounded-[20px]
-                   border border-[#DFE6F5] p-8 shadow-[0_16px_40px_-12px_rgba(16,32,74,0.14)] lg:p-11 bg-[#ecece9]"
-        style={{
-          backgroundImage: `
-           `,
-
-        }}
+        className="relative isolate mx-auto w-full max-w-7xl overflow-hidden rounded-[26px]
+                   bg-[#0B5CFF] px-6 py-9 text-[#FAFAF7] shadow-[0_24px_60px_-24px_rgba(11,92,255,0.55)]
+                   sm:px-10 lg:px-14 lg:py-12"
       >
-        <span aria-hidden="true" className="pointer-events-none absolute inset-0"  />
+        {/* ── the head band: eyebrow left, stamp right ─────────── */}
+        {/* Straight off the poster — two small voices pinned to opposite
+            corners, with the rule under them holding the sheet together. */}
+        <RevealItem className="flex flex-wrap items-start justify-between gap-4 border-b border-[#FAFAF7]/25 pb-7">
+          <p className={`${META} flex items-center gap-2.5 text-[#E7E0CE]`}>
+            <Asterisk />
+            {hook}
+          </p>
+          <p className={`${META} text-right text-[#E7E0CE]/80`}>{stamp}</p>
+        </RevealItem>
 
-        <div className="relative grid items-center gap-9 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-12 ">
+        <div className="grid items-start gap-10 pt-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-14 lg:pt-12">
           {/* ── left: the pitch ─────────────────────────────────── */}
           <div>
-            {/* the hook */}
-            <RevealItem
-              as="p"
-              className="flex items-center gap-2.5 text-[12px] font-semibold uppercase
-                          tracking-[0.16em] text-[#0B5CFF]"
-            >
-              <Asterisk />
-              {hook}
-            </RevealItem>
+            {/* Masked-line reveal, like the hero's — this is the last display
+                type on the page and it should land the way the first did.
+                The lines are two boxes rather than one wrapping paragraph, so
+                the break is the same on a phone as on a desktop and the mask
+                has a known edge to clip to.
 
-            {/* display face + the blue terminal period, as on the hero.
-             *
-             * Masked-line reveal, like the hero's — this is the last display
-             * type on the page and it should land the same way the first did.
-             *
-             * The break between the two lines was already stated here as a
-             * `<br className="hidden sm:block" />`; the lines are two boxes
-             * now, so it holds below sm as well. That is a change: on a phone
-             * the sentence used to flow and wrap wherever it landed. Two
-             * deliberate lines is the better of the two at 2.1rem, and the
-             * mask needs a known break to read as anything other than the
-             * whole paragraph sliding. */}
+                Alignment: `clamp` sizes the block off the viewport instead of
+                stepping at the breakpoints, so the two lines stay near the
+                same measure and the right-hand rag stays shallow at every
+                width. The negative left margin is optical, not layout — it
+                pulls the cap of the T back onto the same rule the eyebrow and
+                the paragraph sit on, which at this size is a visible couple of
+                pixels out if left alone. */}
             <RevealLines
               nested
               as="h2"
@@ -91,80 +87,78 @@ export default function CtaSection({
                 "Tell us the roles.",
                 <>
                   We&apos;ll send back a plan
-                  <span className="text-[#0B5CFF]">.</span>
+                  <span className="text-[#E7E0CE]">.</span>
                 </>,
               ]}
-              className="mt-5 font-medium uppercase leading-[1.04] tracking-[-0.01em]
-                           text-[#101418] text-[2.1rem] sm:text-[2.4rem] lg:text-[2.7rem]"
-              style={DISPLAY}
+              className="-ml-[0.02em] font-recoleta font-medium uppercase text-[#FAFAF7]"
+              style={{
+                fontSize: "clamp(1.8rem, 4.6vw, 3.4rem)",
+                lineHeight: 1.02,
+                letterSpacing: "-0.025em",
+              }}
             />
 
             <RevealItem
               as="p"
-              className="mt-6 max-w-xl text-[15px] leading-7 text-[#4A5261]"
+              className="mt-7 max-w-md text-[15px] leading-7 text-[#FAFAF7]/80"
             >
-             Share your goals with us. We’ll help you chart the right path forward.
+              Share your goals with us. We’ll help you chart the right path
+              forward.
             </RevealItem>
 
-            <RevealItem
-              as="dl"
-              className="mt-8 grid grid-cols-3 gap-x-4 border-t border-[#101418]/10 pt-6
-                           sm:flex sm:flex-wrap sm:gap-x-12 sm:gap-y-4"
-            >
-              {[
-                ["28", "Subject areas"],
-                ["415", "Tools, hands on"],
-                ["3–5", "Days to a real quote"],
-              ].map(([value, label]) => (
-                <div key={label}>
-                  <dt className="text-[24px] font-semibold text-[#101418] sm:text-[28px]" style={DISPLAY}>
-                    {value}
-                  </dt>
-                  <dd className="mt-1 text-[10px] uppercase leading-tight tracking-[0.14em]
-                                 text-[#101418]/45 sm:text-[11px]">
-                    {label}
-                  </dd>
-                </div>
-              ))}
-            </RevealItem>
-
-            {/* the homepage buttons, unchanged: black pill + blue badge, white outline */}
-            <RevealItem className="mt-8 flex flex-wrap items-center gap-3">
+            {/* Paper-and-ink buttons: the pill is now cream on blue, which is
+                the same contrast the black pill had on cream. */}
+            <RevealItem className="mt-9 flex flex-wrap items-center gap-3">
               <a
                 href={demoHref}
-                className="group inline-flex items-center gap-3 rounded-[10px] bg-[#101418] py-2 pl-5 pr-2
-                           text-sm font-semibold text-white transition-colors hover:bg-[#1C2228]
-                           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5CFF]
-                           focus-visible:ring-offset-2"
+                className="group inline-flex items-center gap-3 rounded-[10px] bg-[#FAFAF7] py-2 pl-5 pr-2
+                           text-sm font-semibold text-[#101418] transition-colors hover:bg-white
+                           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FAFAF7]
+                           focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B5CFF]"
               >
                 Book a demo
-                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-[#0B5CFF]
-                                 text-white transition-transform group-hover:translate-x-0.5">
+                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-[#101418]
+                                 text-[#FAFAF7] transition-transform group-hover:translate-x-0.5">
                   <Chevrons className="h-3.5 w-3.5 stroke-current" />
                 </span>
               </a>
 
               <a
                 href={contactHref}
-                className="group inline-flex items-center gap-2.5 rounded-[10px] border border-[#101418]/12
-                           bg-white px-5 py-2.5 text-sm font-semibold text-[#101418] shadow-sm
-                           transition-colors hover:border-[#101418]/25
-                           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5CFF]
-                           focus-visible:ring-offset-2"
+                className="group inline-flex items-center gap-2.5 rounded-[10px] border border-[#FAFAF7]/35
+                           px-5 py-2.5 text-sm font-semibold text-[#FAFAF7] transition-colors
+                           hover:border-[#FAFAF7] hover:bg-[#FAFAF7]/10
+                           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FAFAF7]
+                           focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B5CFF]"
               >
                 Contact us
-                <Chevrons className="h-3.5 w-3.5 stroke-[#0B5CFF] transition-transform group-hover:translate-x-0.5" />
+                <Chevrons className="h-3.5 w-3.5 stroke-current transition-transform group-hover:translate-x-0.5" />
               </a>
             </RevealItem>
           </div>
 
           {/* ── right: the one dark thing in the section ────────── */}
           {/* Last beat, so the eye has finished the pitch on the left by the
-              time the dark panel lands beside it. */}
+              time the dark panel lands beside it. Ink on blue is the poster's
+              own move — the blue never competes with itself. */}
           <RevealItem>
             <VideoPanel video={video} onPlay={onPlay} />
           </RevealItem>
         </div>
+
+        {/* ── the foot: the sheet's last small voice ───────────── */}
+        <RevealItem className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[#FAFAF7]/25 pt-7 lg:mt-12">
+          <p className={`${META} text-[#E7E0CE]/80`}>Cloud4Green</p>
+          <p
+            className="font-recoleta font-medium uppercase text-[#E7E0CE]"
+            style={{
+              fontSize: "clamp(1.05rem, 2vw, 1.45rem)",
+              letterSpacing: "-0.015em",
+            }}
+          >
+            {signOff}
+          </p>
+        </RevealItem>
       </RevealGroup>
     </section>
   );
@@ -176,10 +170,10 @@ function VideoPanel({ video, onPlay }) {
       type="button"
       onClick={onPlay}
       aria-label={`Play: ${video.caption} (${video.duration})`}
-      className="group relative block aspect-[5/4] w-full overflow-hidden rounded-2xl text-left
-                 shadow-[0_18px_40px_-14px_rgba(16,32,74,0.45)] sm:aspect-[16/10]
-                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5CFF]
-                 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+      className="group relative block aspect-[5/4] w-full overflow-hidden rounded-2xl border border-[#FAFAF7]/15
+                 text-left shadow-[0_18px_40px_-14px_rgba(7,9,12,0.55)] sm:aspect-[16/10]
+                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FAFAF7]
+                 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B5CFF]"
       style={{
         backgroundImage: `
           radial-gradient(circle at 72% 26%, rgba(11,92,255,.34), rgba(0,0,0,0) 48%),
@@ -191,34 +185,34 @@ function VideoPanel({ video, onPlay }) {
 
       <span className="absolute left-5 top-5 flex items-center gap-2">
         <span className="block h-[7px] w-[7px] rounded-full bg-[#0B5CFF]" />
-        <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/75 sm:text-[11px]">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#FAFAF7]/75 sm:text-[11px]">
           {video.label}
         </span>
       </span>
 
       <span className="absolute right-5 top-5 rounded-md bg-black/50 px-2 py-1
-                       text-[11px] font-semibold tabular-nums text-white/80">
+                       text-[11px] font-semibold tabular-nums text-[#FAFAF7]/80">
         {video.duration}
       </span>
 
       <span className="absolute left-1/2 top-1/2 w-[84%] -translate-x-1/2 -translate-y-1/2
-                       rounded-xl border border-white/10 bg-[#07090C]/70 px-4 py-3
-                       text-center text-[13px] leading-relaxed text-white/90
+                       rounded-xl border border-[#FAFAF7]/10 bg-[#07090C]/70 px-4 py-3
+                       text-center text-[13px] leading-relaxed text-[#FAFAF7]/90
                        sm:w-[76%] sm:px-5 sm:py-4 sm:text-[15px]">
         “{video.caption}”
       </span>
 
       <span className="absolute bottom-5 left-5 text-[10px] font-semibold uppercase
-                       tracking-[0.16em] text-white/40 sm:text-[11px]">
+                       tracking-[0.16em] text-[#FAFAF7]/40 sm:text-[11px]">
         {video.footerLeft}
       </span>
       <span className="absolute bottom-5 right-[104px] hidden text-[11px] font-semibold
-                       uppercase tracking-[0.16em] text-white/40 sm:block">
+                       uppercase tracking-[0.16em] text-[#FAFAF7]/40 sm:block">
         {video.footerRight}
       </span>
 
       <span className="absolute bottom-4 right-4 flex h-12 w-12 items-center justify-center
-                       rounded-full bg-white shadow-lg transition-transform
+                       rounded-full bg-[#FAFAF7] shadow-lg transition-transform
                        group-hover:scale-105 sm:bottom-5 sm:right-5 sm:h-[62px] sm:w-[62px]">
         <svg viewBox="0 0 24 24" aria-hidden="true" className="ml-0.5 h-4 w-4 fill-[#101418] sm:h-5 sm:w-5">
           <path d="M8 5v14l11-7z" />
@@ -232,7 +226,7 @@ function VideoPanel({ video, onPlay }) {
 function Asterisk() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" strokeWidth="2.4" strokeLinecap="round"
-         className="h-3.5 w-3.5 shrink-0 stroke-[#0B5CFF]">
+         className="h-3.5 w-3.5 shrink-0 stroke-[#E7E0CE]">
       <path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9L4.9 19.1" />
     </svg>
   );
@@ -248,23 +242,11 @@ function Chevrons({ className }) {
   );
 }
 
-/* Bodoni Moda stands in for the homepage display face — swap for whatever the
-   hero actually loads. It's the one value here matched by eye, not sampled. */
-const DISPLAY = { fontFamily: '"Bodoni Moda", Didot, "Times New Roman", serif' };
-
-const PAGE_GRID = {
-  backgroundImage: `
-    linear-gradient(to right,#EFEFEC 1px,transparent 1px),
-    linear-gradient(to bottom,#EFEFEC 1px,transparent 1px)`,
-  backgroundSize: "120px 120px",
-};
-
-const CARD_GRID = {
-  backgroundImage: `
-    linear-gradient(to right,rgba(11,92,255,.055) 1px,transparent 1px),
-    linear-gradient(to bottom,rgba(11,92,255,.055) 1px,transparent 1px)`,
-  backgroundSize: "60px 60px",
-};
+/* Every micro-label on the card shares one treatment, so it lives in one
+   string rather than being retyped per element. Same setting the certification
+   banner uses, so the two cards read as the same press. */
+const META =
+  "text-[11px] font-semibold uppercase leading-[1.5] tracking-[0.16em] sm:text-[12px]";
 
 const INK_GRID = {
   backgroundImage: `

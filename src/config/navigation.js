@@ -1,4 +1,4 @@
-import customerStories from '@/assets/images/clients.jpg'
+import customerStories from '@/assets/images/handshake.jpg'
 import update from '@/assets/images/big.png'
 
 export const navigation = [
@@ -45,18 +45,18 @@ export const navigation = [
           },
 
           {
-            title: "Corporate Trainings",
+            title: "Enterprise Trainings",
             description:
               "Customized training programs that equip teams with the skills needed for today's technology landscape.",
-            href: "/products/corporate-training",
+            href: "/products/enterprise-training",
           },
 
-          {
-            title: "Individual Trainings",
-            description:
-              "Practical learning programs designed to help individuals develop in-demand cloud and AI skills.",
-            href: "/products/individual-training",
-          },
+          // {
+          //   title: "Individual Trainings",
+          //   description:
+          //     "Practical learning programs designed to help individuals develop in-demand cloud and AI skills.",
+          //   href: "/products/individual-training",
+          // },
         ],
 
         promos: [

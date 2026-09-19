@@ -6,18 +6,21 @@ import { Button } from "@/components/ui/button";
 import LabFlow from "@/components/sections/EnterpriseLab/Labflow";
 import labFlowIllustration from "@/assets/images/lab10.png";
 
+import Silkwaves from "@/components/EnterpriseLabs/SilkWaves"
+
 export default function HowItWorks() {
   return (
     <section
       id="how-it-works"
       className="relative isolate overflow-hidden border-b border-[#101418]/8"
     >
-      <img
+      {/* <img
         src={labFlowIllustration}
         alt=""
         aria-hidden="true"
         className="absolute inset-0 -z-10 h-full w-full object-cover"
-      />
+      /> */}
+      <Silkwaves />
 
       {/* The scrim turned with the layout. It used to run left-to-right
           because the copy sat in the left column; the copy is centred now
@@ -27,7 +30,7 @@ export default function HowItWorks() {
           otherwise come up under 15px text. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-white/55 via-white/72 to-white/88"
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-white/35 via-white/50 to-white/68"
       />
 
       <Container>
