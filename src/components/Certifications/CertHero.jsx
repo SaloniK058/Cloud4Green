@@ -42,7 +42,7 @@ export default function Certifications({ imageSrc = img1, imageAlt = "" }) {
          navbar's scroll sentinel and the navbar row. --c4g-chrome-h is
          defined in index.css next to the heights it adds up, so the fold is
          stated once rather than re-counted per page. */
-      className="relative isolate flex min-h-[calc(100svh_-_var(--c4g-chrome-h))] scroll-mt-24 items-center overflow-hidden border-b border-[#101418]/8 py-6 lg:py-7"
+      className="relative isolate flex min-h-[calc(100svh_-_var(--c4g-chrome-h))] scroll-mt-24 items-center overflow-hidden border-b border-[#101418]/8 py-6 lg:py-7 [@media(max-height:760px)]:py-4"
     >
       {/* Full-bleed image, the same masthead treatment as Learning Solutions. */}
       <img
@@ -62,9 +62,13 @@ export default function Certifications({ imageSrc = img1, imageAlt = "" }) {
       <Container>
         <div className="flex flex-col items-center">
           {/* ---------------------------------------------- the band */}
-          {/* Width is capped so the 960:440 drawing never takes more than
-              60% of the fold in height, leaving the copy room below it. */}
-          <div className="relative isolate mx-auto w-full max-w-[min(1216px,(100svh_-_var(--c4g-chrome-h))*0.6*960/440)]">
+          {/* Width is capped so the 960:440 drawing gets whatever height the
+              fold has left once the copy below it (~340px: eyebrow, two-line
+              headline, lede, buttons and the section padding) is paid for —
+              and never more than 60% of the fold on a tall desktop. On a
+              laptop that keeps the buttons above the fold; the 280px floor
+              stops the drawing vanishing on very short windows. */}
+          <div className="relative isolate mx-auto w-full max-w-[max(280px,min(1216px,(100svh_-_var(--c4g-chrome-h))*0.6*960/440,(100svh_-_var(--c4g-chrome-h)_-_340px)*960/440))] [@media(max-height:760px)]:max-w-[max(280px,min(1216px,(100svh_-_var(--c4g-chrome-h)_-_290px)*960/440))]">
             {/* Same soft bloom as the Enterprise Labs diagram: a light ground
                 for the thin strokes with no card edge to see. */}
             <div
@@ -75,7 +79,10 @@ export default function Certifications({ imageSrc = img1, imageAlt = "" }) {
           </div>
 
           {/* ---------------------------------------------- the words */}
-          <div className="mx-auto mt-4 max-w-[860px] text-center lg:mt-5">
+          {/* Below 760px of viewport height (most laptops once the browser
+              chrome is taken off) the spacing and headline step down so the
+              drawing keeps a readable size. */}
+          <div className="mx-auto mt-4 max-w-[860px] text-center lg:mt-5 [@media(max-height:760px)]:mt-3">
             <p className="flex items-center justify-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
               <Asterisk />
               Certifications
@@ -84,16 +91,16 @@ export default function Certifications({ imageSrc = img1, imageAlt = "" }) {
             {/* Recoleta ships as a single Medium file (see the @font-face in
                 index.css), so the headline is font-medium — asking for
                 bolder gets a synthesised bold. */}
-            <h1 className="mt-2.5 font-recoleta text-[1.85rem] font-medium uppercase leading-[1.06] tracking-[-0.02em] text-[#101418] sm:text-[2.35rem] lg:text-[2.6rem]">
+            <h1 className="mt-2.5 font-recoleta text-[1.85rem] font-medium uppercase leading-[1.06] tracking-[-0.02em] text-[#101418] sm:text-[2.35rem] lg:text-[2.6rem] [@media(max-height:760px)]:mt-2 [@media(max-height:760px)]:lg:text-[2.2rem]">
               Turn Hands-On Skills Into Industry Credentials
               <span className="text-[#0B5CFF]">.</span>
             </h1>
 
-            <p className="mx-auto mt-3.5 max-w-[560px] text-[15px] leading-6 text-[#4A5261] lg:text-[16px] lg:leading-7">
+            <p className="mx-auto mt-3.5 max-w-[560px] text-[15px] leading-6 text-[#4A5261] lg:text-[16px] lg:leading-7 [@media(max-height:760px)]:mt-2.5">
               Get that career in IT. Earn that promotion. Stand out in your field.
             </p>
 
-            <div className="mt-5 flex flex-wrap justify-center gap-3.5 lg:mt-6">
+            <div className="mt-5 flex flex-wrap justify-center gap-3.5 lg:mt-6 [@media(max-height:760px)]:mt-4">
               <Button arrow render={<Link to="/contact" />}>
                 Talk to an advisor
               </Button>

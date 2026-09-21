@@ -6,6 +6,7 @@ import CtaSection from "@/components/sections/EnterpriseCTA/EnterpriseCTA";
 import CertificationHero from "@/components/Certifications/CertHero";
 import CertificationPathway from "@/components/Certifications/Certificationtracks.jsx";
 import Banner from "@/components/Certifications/Trainingbanner";
+import CertBenefits from "@/components/Certifications/Certbenefits";
 
 // import FaqSection from "@/components/faq/Faqsection";
 // import { certificationsFaqs } from "@/data/faqs";
@@ -142,6 +143,7 @@ export default function Certifications() {
       
       <CertificationPathway />
       <Banner />
+      <CertBenefits/>
 
       <main className="bg-[#FAFAF7]">
         {/* ── Masthead ─────────────────────────────────────────────────────

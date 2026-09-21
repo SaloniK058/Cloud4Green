@@ -4,6 +4,7 @@ import Container from "@/components/layout/Container";
 import CtaSection from "@/components/sections/EnterpriseCTA/EnterpriseCTA";
 import CorporateTrainingHero from "@/components/EnterpriseTraining/Corporatetraininghero";
 import SkillsCatalog from "@/components/EnterpriseTraining/Skillscatalog";
+import OrgBanner from "@/components/EnterpriseTraining/Orgbanner";
 
 // import FaqSection from "@/components/faq/Faqsection";
 // import { enterpriseTrainingFaqs } from "@/data/faqs";
@@ -134,6 +135,7 @@ export default function EnterpriseTraining() {
         {/* ── Masthead — drop the hero component in here. ─────────────────── */}
         <CorporateTrainingHero/>
         <SkillsCatalog/>
+        <OrgBanner/>
         <Placeholder
           id="overview"
           eyebrow="Enterprise Training"

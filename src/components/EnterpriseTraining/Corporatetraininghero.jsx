@@ -83,16 +83,17 @@ export default function CorporateTrainingHero() {
               For Enterprises
             </p>
 
-            <h2 className="mt-3 font-recoleta text-[2.4rem] font-medium leading-[1.05] tracking-[-0.02em] sm:text-[3rem] lg:text-[3.6rem]">
-              Cloud4Green
+            <h2 className="mt-3 font-recoleta text-[2.4rem] font-medium leading-[1.05] tracking-[-0.02em] sm:text-[3rem] lg:text-[3.6rem] uppercase">
+             People power enterprises.
               <br />
-              Corporate Training
+            We power people
             </h2>
 
             <p className="mt-6 text-[16px] leading-7 text-[#4A5261] lg:text-[18px] lg:leading-8">
-              Upskill whole teams on the cloud and AI stack they actually run.
+              {/* Upskill whole teams on the cloud and AI stack they actually run.
               Instructor-led cohorts, hands-on labs in live cloud accounts, and
-              progress reports your L&amp;D team can act on — in one programme.
+              progress reports your L&amp;D team can act on — in one programme. */}
+              Bring world-class learning and hands-on practice to your workforce.
             </p>
 
             <div className="mt-9">

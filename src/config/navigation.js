@@ -80,6 +80,54 @@ export const navigation = [
     ],
   },
 },
+  {
+  label: "Services",
+
+  href: "/services",
+
+  mega: {
+    categories: [
+      {
+        id: "services",
+
+        label: "Our Services",
+
+        title: "Our Services",
+
+        subtitle:
+          "Expert services that help organizations modernize, automate and grow with the cloud.",
+
+        browseHref: "/services",
+
+        items: [
+          {
+            title: "Automation",
+            description:
+              "Streamline operations with cloud and AI-driven automation that reduces manual effort and cost.",
+            href: "/services/automation",
+          },
+
+          {
+            title: "Consulting",
+            description:
+              "Strategic guidance from cloud experts to plan, migrate and optimize your technology landscape.",
+            href: "/services/consulting",
+          },
+        ],
+
+        promos: [
+          {
+            title: "Customer stories",
+            description:
+              "See how organizations transform their operations with Cloud4Green.",
+            href: "/customers",
+            image: customerStories,
+          },
+        ],
+      },
+    ],
+  },
+},
   { label: "Resources", href: "/resources" },
   { label: "Case study", href: "/about" },
 ];
