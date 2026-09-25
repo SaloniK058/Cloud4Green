@@ -2,6 +2,7 @@
 
 import Navbar from "@/components/layout/Navbar";
 import Container from "@/components/layout/Container";
+import PageGrid from "@/components/backgrounds/PageGrid";
 import Footer from "@/components/layout/Footer";
 import EnterpriseHubVisual from "@/components/EnterpriseSections/EnterpriseHubVisual";
 // import EnterpriseEcosystem from "@/components/EnterpriseSections/EnterpriseEcosystem";
@@ -36,6 +37,11 @@ export default function Enterprise() {
 
   {/* Soft veil over the image */}
   <div className="absolute inset-0 bg-background/10" />
+
+  {/* The corner grid, in this page's diagonal — PageGrid picks it from the
+      URL. At 0 it sits on the photo and its veil (both unpositioned in the
+      stack) and under the hero content, which is z-10. */}
+  <PageGrid z={0} />
 
   {/* Hero content */}
   <div className="relative z-10 flex min-h-[calc(100vh-80px)] items-center">

@@ -3,6 +3,7 @@
 import { Link } from "react-router-dom";
 
 import Container from "@/components/layout/Container";
+import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
 import img1 from "@/assets/images/CertBanner2.png";
 import backgroundimg from "@/assets/images/certBanner.png";
@@ -58,6 +59,11 @@ export default function Certifications({ imageSrc = img1, imageAlt = "" }) {
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-gradient-to-b from-white/45 via-white/60 to-white/80"
       />
+
+      {/* The corner grid, in this page's diagonal (PageGrid picks it from
+          the URL). At -9 it lands on the scrim rather than under the photo,
+          and still paints below the copy, which is in flow. */}
+      <PageGrid z={-9} />
 
       <Container>
         <div className="flex flex-col items-center">

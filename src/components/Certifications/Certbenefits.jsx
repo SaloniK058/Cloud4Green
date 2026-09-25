@@ -98,7 +98,13 @@ export default function CertBenefits() {
   }, []);
 
   return (
-    <section className="cb-section" ref={sectionRef} aria-labelledby="cb-title">
+    /* id: the product bar's "Benefits" anchor — see src/config/productNav.js */
+    <section
+      id="benefits"
+      className="cb-section"
+      ref={sectionRef}
+      aria-labelledby="cb-title"
+    >
       <div className="cb-wrap">
         {/* ---------- Stacking cards (left) ---------- */}
         <div className="cb-stack">

@@ -9,7 +9,8 @@ import bannerBg from "@/assets/images/enterprise.jpg";
 
 export default function OrgBanner() {
   return (
-    <section className="ob" aria-labelledby="ob-title">
+    /* id: the product bar's "For teams" anchor — see src/config/productNav.js */
+    <section id="organizations" className="ob" aria-labelledby="ob-title">
       {/* The image is passed as a CSS variable so the stylesheet can layer it
           under the blue tint; Vite still fingerprints it via the import. */}
       <div className="ob-blade" style={{ "--ob-img": `url(${bannerBg})` }}>

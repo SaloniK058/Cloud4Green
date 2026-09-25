@@ -113,26 +113,41 @@ function BookingSkeleton() {
   );
 }
 
+/**
+ * `frameClassName` is appended to the frame box, and it exists for exactly one
+ * caller: the contact page, which sits this beside a form card and wants the
+ * two to end level. Matching a neighbour means the frame has to be able to
+ * *shrink* as well as grow, and the height below is a fixed value rather than a
+ * floor — so the override has to reach the box itself. It appends rather than
+ * replaces so the fixed height stays the default at every width the caller
+ * doesn't speak for.
+ */
 export default function BookingEmbed({
   bookingsUrl = BOOKINGS_URL,
   className = "",
+  frameClassName = "",
 }) {
   return (
     <div className={className}>
-      <div className="relative h-[680px] w-full overflow-hidden rounded-[12px] border border-[#101418]/10 sm:h-[760px]">
+      <div
+        className={`relative h-[680px] w-full overflow-hidden rounded-[12px] border border-[#101418]/10 sm:h-[760px] ${frameClassName}`}
+      >
         <BookingSkeleton />
 
+        {/* Pinned to the box rather than sized at 100%: under an override the
+            box's height comes from flex, and an absolute fill resolves against
+            that without needing a definite height to take a percentage of. */}
         <iframe
           src={bookingsUrl}
           title="Book a slot with Cloud4Green"
           loading="lazy"
           referrerPolicy="strict-origin-when-cross-origin"
-          className="relative h-full w-full border-0"
+          className="absolute inset-0 h-full w-full border-0"
         />
       </div>
 
       {/* Fallback link — styled like the site's secondary CTAs */}
-      <div className="mt-6 flex items-center gap-3">
+      <div className="mt-6 flex shrink-0 items-center gap-3">
         <Asterisk className="h-4 w-4 shrink-0 text-[#0B5CFF]/60" />
         <a
           href={bookingsUrl}

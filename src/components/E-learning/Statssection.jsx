@@ -55,7 +55,8 @@ export default function StatsSection({
   }, []);
 
   return (
-    <section ref={ref} className={`figures ${inView ? "is-in" : ""}`}>
+    /* id: the product bar's "Impact" anchor — see src/config/productNav.js */
+    <section id="impact" ref={ref} className={`figures ${inView ? "is-in" : ""}`}>
       <div className="figures__inner">
         {/* ------------------------------------------------ the claim */}
         <div className="figures__head">

@@ -22,15 +22,9 @@ import { eLearningFaqs } from "@/data/faqs";
  *   · every section scroll-mt-24 so the sub-nav anchors don't sit under the navbar
  */
 
-/* The sub-nav doubles as the page's table of contents; each entry is the id of
-   a section below. Rename, reorder or trim as the page takes shape. */
-const sections = [
-  { label: "Overview", href: "#overview" },
-  { label: "How it works", href: "#how-it-works" },
-  { label: "Courses", href: "#courses" },
-  { label: "Who it's for", href: "#who-its-for" },
-  { label: "FAQ", href: "#faq" },
-];
+/* The section sub-nav is no longer a per-page affair: it's tier 2 of the
+   navbar now, and this page's entries live in src/config/productNav.js. The
+   ids it points at are on the section components themselves. */
 
 export default function ELearning() {
   return (

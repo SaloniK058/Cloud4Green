@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Container from "@/components/layout/Container";
+import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
 
 // Swap these for your own photos (real team / client training shots work best).
@@ -74,6 +75,11 @@ export default function CorporateTrainingHero() {
         aria-hidden="true"
         className="pointer-events-none absolute -right-40 top-1/2 -z-10 h-[560px] w-[760px] -translate-y-1/2 rounded-full bg-[#0B5CFF]/[0.07] blur-[110px]"
       />
+
+      {/* The corner grid, in this page's diagonal (PageGrid picks it from
+          the URL). At -9 it lands on the wash rather than under the photo,
+          and still paints below the copy, which is in flow. */}
+      <PageGrid z={-9} />
 
       <Container>
         <div className="grid items-center gap-12 py-16 md:py-20 lg:grid-cols-[1fr_minmax(0,500px)] lg:gap-16 lg:py-24">

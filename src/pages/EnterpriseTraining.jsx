@@ -28,15 +28,10 @@ import OrgBanner from "@/components/EnterpriseTraining/Orgbanner";
  * src/components/E-learning/ and src/components/Certifications/.
  */
 
-/* The sub-nav doubles as the page's table of contents; each entry is the id of
-   a section below. Rename, reorder or trim as the page takes shape. */
-const sections = [
-  { label: "Overview", href: "#overview" },
-  { label: "Programs", href: "#programs" },
-  { label: "How it works", href: "#how-it-works" },
-  { label: "Who it's for", href: "#who-its-for" },
-  { label: "FAQ", href: "#faq" },
-];
+/* The section sub-nav is no longer a per-page affair: it's tier 2 of the
+   navbar now, and this page's entries live in src/config/productNav.js. It
+   points at the three built sections only — a link that lands on a placeholder
+   reads as a broken page, so add each one there as it gets built. */
 
 /** The brand asterisk, as it appears on the hero and in the closing CTA. */
 function Asterisk({ className = "h-3.5 w-3.5" }) {
@@ -60,35 +55,6 @@ function Eyebrow({ children }) {
       <Asterisk />
       {children}
     </p>
-  );
-}
-
-/**
- * The page's section sub-nav. In flow rather than sticky (the navbar above is
- * already sticky), and scrolls horizontally on a phone instead of wrapping.
- * Plain <a href="#id"> since these are in-page anchors.
- */
-function SectionNav() {
-  return (
-    <nav
-      aria-label="On this page"
-      className="border-b border-[#101418]/8 bg-[#FAFAF7]"
-    >
-      <Container>
-        <ul className="-mx-1 flex gap-1 overflow-x-auto py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {sections.map((s) => (
-            <li key={s.href} className="shrink-0">
-              <a
-                href={s.href}
-                className="block rounded-full px-3.5 py-1.5 text-[13.5px] font-medium tracking-[-0.01em] text-[#4A5261] transition-colors hover:bg-[#101418]/5 hover:text-[#101418]"
-              >
-                {s.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </Container>
-    </nav>
   );
 }
 
@@ -129,7 +95,6 @@ export default function EnterpriseTraining() {
   return (
     <>
       <Navbar />
-      <SectionNav />
 
       <main className="bg-[#FAFAF7]">
         {/* ── Masthead — drop the hero component in here. ─────────────────── */}

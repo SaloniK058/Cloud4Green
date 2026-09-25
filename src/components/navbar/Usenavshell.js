@@ -16,6 +16,43 @@ import { useEffect, useRef, useState } from "react";
  *   <div ref={sentinelRef} aria-hidden className="h-px" />
  *   <header className="sticky top-0">…</header>
  */
+/**
+ * Tells you when the element with this id has left the top of the viewport —
+ * the hero, in practice, which is what the product bar waits for.
+ *
+ * Returns null until it has an answer, and keeps returning null if there is no
+ * such element on the page, so a caller can fall back rather than sit on a
+ * bar that never arrives. A plain `false` couldn't say the difference between
+ * "still in the hero" and "there is no hero".
+ *
+ * The observer needs no rootMargin: an element is out of the viewport exactly
+ * when it stops intersecting it, and reading `bottom` at that moment is what
+ * separates leaving over the top from arriving from below.
+ */
+export function useElementPast(elementId) {
+  const [past, setPast] = useState(null);
+
+  useEffect(() => {
+    if (!elementId || typeof IntersectionObserver === "undefined") return;
+
+    /* By the time effects run, the page below this navbar is in the DOM —
+       both are children of the same route component and land in one commit. */
+    const el = document.getElementById(elementId);
+    if (!el) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) =>
+        setPast(!entry.isIntersecting && entry.boundingClientRect.bottom <= 0),
+      { threshold: 0 }
+    );
+
+    io.observe(el);
+    return () => io.disconnect();
+  }, [elementId]);
+
+  return past;
+}
+
 export function useNavShell() {
   const sentinelRef = useRef(null);
   const [isPast, setIsPast] = useState(false);

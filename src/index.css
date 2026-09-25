@@ -2026,7 +2026,12 @@ html[data-preloading="true"] .c4g-map-spark {
 .c4g-pre {
   /* one place to change how far the marks stand off the block, and how
      big they are — the JS never needs to know either number */
-  --c4g-mark: clamp(14px, 2.1vw, 26px);
+  /* Doubled when the marks became flares. The flare's box is mostly its
+     hairline rays — the bright core is about 40% of it — where the old
+     glint filled its box edge to edge, so at the previous 14–26px the
+     mark read as a speck. The box is still what the centring offsets
+     below work from, so only the drawing grew, not the geometry. */
+  --c4g-mark: clamp(28px, 4.2vw, 52px);
   --c4g-gap: clamp(0.85rem, 3vw, 2.5rem);
   --c4g-edge: clamp(1rem, 4vw, 3rem);
 

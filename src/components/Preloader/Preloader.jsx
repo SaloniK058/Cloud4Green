@@ -987,7 +987,11 @@ export default function Preloader({
                   initial="hidden"
                   animate={phase}
                 >
-                  <Sparkle size={28} />
+                  {/* The flare, not the fat four-point glint: a small hot
+                      core with long hairline rays, the same star the grid
+                      sparkles use. The CSS sizes the svg (--c4g-mark), so
+                      the size prop here is only the fallback. */}
+                  <Sparkle variant="flare" size={28} />
                 </motion.span>
               ))}
 

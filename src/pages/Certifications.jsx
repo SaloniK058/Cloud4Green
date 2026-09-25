@@ -31,15 +31,10 @@ import CertBenefits from "@/components/Certifications/Certbenefits";
  * src/components/E-learning/ and src/components/EnterpriseLabs/.
  */
 
-/* The sub-nav doubles as the page's table of contents; each entry is the id of
-   a section below. Rename, reorder or trim as the page takes shape. */
-const sections = [
-  { label: "Overview", href: "#overview" },
-  { label: "Tracks", href: "#tracks" },
-  { label: "How it works", href: "#how-it-works" },
-  { label: "Who it's for", href: "#who-its-for" },
-  { label: "FAQ", href: "#faq" },
-];
+/* The section sub-nav is no longer a per-page affair: it's tier 2 of the
+   navbar now, and this page's entries live in src/config/productNav.js. It
+   points at the four built sections only — a link that lands on a placeholder
+   reads as a broken page, so add each one there as it gets built. */
 
 /** The brand asterisk, as it appears on the hero and in the closing CTA. */
 function Asterisk({ className = "h-3.5 w-3.5" }) {
@@ -63,42 +58,6 @@ function Eyebrow({ children }) {
       <Asterisk />
       {children}
     </p>
-  );
-}
-
-/**
- * The page's section sub-nav.
- *
- * Sits under the site navbar, in flow rather than sticky: the navbar above it
- * is already sticky, and two stacked sticky bars eat a third of a laptop
- * viewport. Scrolls horizontally on a phone instead of wrapping, so the row
- * stays one line at every width.
- *
- * Plain <a href="#id"> rather than react-router <Link> — these are in-page
- * anchors, and the browser's own hash scrolling is what the scroll-mt-24 on
- * each section is there to offset.
- */
-function SectionNav() {
-  return (
-    <nav
-      aria-label="On this page"
-      className="border-b border-[#101418]/8 bg-[#FAFAF7]"
-    >
-      <Container>
-        <ul className="-mx-1 flex gap-1 overflow-x-auto py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {sections.map((s) => (
-            <li key={s.href} className="shrink-0">
-              <a
-                href={s.href}
-                className="block rounded-full px-3.5 py-1.5 text-[13.5px] font-medium tracking-[-0.01em] text-[#4A5261] transition-colors hover:bg-[#101418]/5 hover:text-[#101418]"
-              >
-                {s.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </Container>
-    </nav>
   );
 }
 
@@ -150,8 +109,12 @@ export default function Certifications() {
             The editorial pattern from /products/enterprise-labs: full-bleed
             photograph with a dark translucent card on the left third. Drop the
             hero component in here. */}
+        {/* id was "overview", which <CertificationHero> above already carries —
+            two elements with one id, and every #overview link resolving to
+            whichever the browser found first. The hero is the real overview;
+            this scaffold block keeps a distinct id until it's replaced. */}
         <Placeholder
-          id="overview"
+          id="overview-draft"
           eyebrow="Certifications"
           title={
             <>

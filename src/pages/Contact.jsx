@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
+import PageGrid from "@/components/backgrounds/PageGrid";
 import BookingEmbed from "@/components/contact/BookingEmbed";
 
 import {
@@ -139,7 +140,13 @@ export default function Contact() {
 
       <main className="bg-[#FAFAF7]">
         {/* ── Masthead ─────────────────────────────────────────────── */}
-        <section className="border-b border-[#101418]/8 py-16 lg:py-24">
+        {/* relative/isolate for the corner grid below, which pins itself to
+            this section's corners. */}
+        <section className="relative isolate overflow-hidden border-b border-[#101418]/8 py-16 lg:py-24">
+          {/* The corner grid, in this page's diagonal — PageGrid picks it
+              from the URL. */}
+          <PageGrid />
+
           <Container>
             <RevealGroup
               delay={0.08}
@@ -211,7 +218,16 @@ export default function Contact() {
             on the line the heading and the intro copy already set above. */}
         <section className="py-16 lg:py-24">
           <Container>
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-start lg:gap-16">
+            {/* items-stretch rather than items-start, so the two cards end
+                level. The form is the one that sets the height and it is left
+                exactly as it was: it is the shorter of the two, so the row is
+                its height, and everything below is the booking card giving up
+                its fixed frame height to come down and meet it.
+
+                All of it is gated on lg because that is the only width where
+                the cards are side by side. Stacked, there is no height to
+                match and the calendar wants every one of its 760 pixels. */}
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-stretch lg:gap-16">
               {/* ── Left: the form, on the site's white card ────────── */}
               <Reveal>
                 <div className="rounded-[18px] border border-[#DFE6F5] bg-white p-6 shadow-[0_24px_60px_-28px_rgba(16,32,74,0.28)] sm:p-9 lg:p-10">
@@ -343,10 +359,10 @@ export default function Contact() {
                   inner padding, so the card here is padded thinner than the
                   form's — matching p-10 on both would sit the calendar a full
                   inch inside its border. */}
-              <Reveal delay={0.08}>
+              <Reveal delay={0.08} className="lg:h-full">
                 <div
                   id="book"
-                  className="scroll-mt-28 rounded-[18px] border border-[#DFE6F5] bg-white p-6 shadow-[0_24px_60px_-28px_rgba(16,32,74,0.28)] sm:p-7"
+                  className="scroll-mt-28 rounded-[18px] border border-[#DFE6F5] bg-white p-6 shadow-[0_24px_60px_-28px_rgba(16,32,74,0.28)] sm:p-7 lg:flex lg:h-full lg:flex-col"
                 >
                   <h2 className="font-recoleta text-[1.7rem] font-medium uppercase leading-[1.06] tracking-[-0.015em] text-[#101418] sm:text-[2rem]">
                     Book a slot
@@ -359,8 +375,16 @@ export default function Contact() {
                     away.
                   </p>
 
-                  <div className="mt-7 border-t border-[#101418]/8 pt-5">
-                    <BookingEmbed />
+                  {/* min-h-0 at every step down: a flex item's floor is its
+                      content by default, and without it the chain refuses to
+                      shrink past the frame's own 760 and the card overshoots
+                      the form again. The frame keeps a floor of its own so a
+                      short form can never squeeze the calendar to nothing. */}
+                  <div className="mt-7 border-t border-[#101418]/8 pt-5 lg:flex lg:min-h-0 lg:flex-1 lg:flex-col">
+                    <BookingEmbed
+                      className="lg:flex lg:min-h-0 lg:flex-1 lg:flex-col"
+                      frameClassName="lg:h-auto lg:min-h-[420px] lg:flex-1"
+                    />
                   </div>
                 </div>
               </Reveal>

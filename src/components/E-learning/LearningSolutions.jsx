@@ -3,6 +3,7 @@
 import { Link } from "react-router-dom";
 
 import Container from "@/components/layout/Container";
+import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
 import img1 from "@/assets/images/elearningBanner.webp";
 import backgroundimg from "@/assets/images/lab4.png"
@@ -82,6 +83,11 @@ export default function LearningSolutions({ imageSrc, imageAlt = "" }) {
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-gradient-to-r from-white/85 via-white/55 to-white/50"
       />
+
+      {/* The corner grid, in this page's diagonal (PageGrid picks it from
+          the URL). At -9 it lands on the scrim rather than under the photo,
+          and still paints below the copy, which is in flow. */}
+      <PageGrid z={-9} />
 
       <Container>
         <div className="grid items-center gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">

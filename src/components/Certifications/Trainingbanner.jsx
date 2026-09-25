@@ -110,7 +110,8 @@ export default function TrainingBanner({
   const rule = { borderColor: t.rule };
 
   return (
-    <section className="scroll-mt-24 bg-[#FAFAF7] py-14 lg:py-20">
+    /* id: the product bar's "Training" anchor — see src/config/productNav.js */
+    <section id="training" className="scroll-mt-24 bg-[#FAFAF7] py-14 lg:py-20">
       <Container>
         <div
           className="rounded-[26px] border px-6 py-9 sm:px-10 lg:px-14 lg:py-12"

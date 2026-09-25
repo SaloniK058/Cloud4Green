@@ -133,7 +133,8 @@ export default function ScrubSection({
   );
 
   return (
-    <section className="c4g-scrub" data-tone={tone} ref={ref}>
+    /* id: the product bar's "Why us" anchor — see src/config/productNav.js */
+    <section id="why" className="c4g-scrub" data-tone={tone} ref={ref}>
       <div className="c4g-scrub__panel">
         {/* the same faint grid the hero uses, so the blue block reads as
             part of the page rather than a slab dropped into it */}
