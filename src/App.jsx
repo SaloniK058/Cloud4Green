@@ -10,6 +10,7 @@ import ELearning from "@/pages/ELearning";
 import Certifications from "@/pages/Certifications";
 import EnterpriseTraining from "@/pages/EnterpriseTraining";
 import Automation from "@/pages/services/Automation";
+import Consulting from "@/pages/services/Consulting";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/products/enterprise-training" element={<EnterpriseTraining />} />
         {/* Services — linked from the Services tab of the navbar mega menu. */}
         <Route path="/services/automation" element={<Automation />} />
+        <Route path="/services/consulting" element={<Consulting />} />
         <Route path="*" element={<Notfound/>}/>
       </Routes>
     </BrowserRouter>

@@ -13,7 +13,6 @@
 
   position: relative;
   height: var(--run);
-  cursor: crosshair;
 }
 
 .c4g-scrub[data-tone="blue"] {
@@ -195,11 +194,10 @@
   }
 }
 
-/* Coarse pointers get no crosshair and a shorter run — a 220svh section
-   is a lot of thumb on a phone. */
+/* Coarse pointers get a shorter run — a 220svh section is a lot of
+   thumb on a phone. */
 @media (max-width: 640px) {
   .c4g-scrub {
     --run: 180svh;
-    cursor: auto;
   }
 }

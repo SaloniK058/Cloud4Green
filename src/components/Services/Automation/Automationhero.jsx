@@ -41,15 +41,13 @@ export default function AutomationHero() {
                 steps up and the line breaks are allowed — three short
                 stacked lines is the Retool rhythm. */}
             <h1 className="mt-3 font-recoleta text-[2.1rem] font-medium uppercase leading-[1.04] tracking-[-0.02em] text-[#101418] sm:text-[2.6rem] lg:text-[3.1rem]">
-              Automate the work.
-              <br />
-              Keep the control
+              Make Work Flow Smarter
+             
               <span className="text-[#0B5CFF]">.</span>
             </h1>
 
             <p className="mx-auto mt-4 max-w-[480px] text-[15px] leading-6 text-[#4A5261] lg:mx-0 lg:text-[16px] lg:leading-7">
-              We design, build and run automations across your cloud, apps and
-              AI tools — with approvals, logs and alerts built in from day one.
+             Automate repetitive processes, connect enterprise systems and deploy intelligent AI agents that help your business operate more efficiently.
             </p>
 
             <div className="mt-6 flex flex-wrap justify-center gap-3.5 lg:justify-start">

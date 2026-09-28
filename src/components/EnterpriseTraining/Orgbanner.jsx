@@ -17,7 +17,7 @@ export default function OrgBanner() {
         <div className="ob-content">
           <p className="ob-eyebrow">For Organizations</p>
 
-          <h3 id="ob-title">
+          {/* <h3 id="ob-title">
             Transform Your <span className="ob-highlight">Organization</span>
           </h3>
 
@@ -31,7 +31,23 @@ export default function OrgBanner() {
             Our team of experts will help guide you and your organization to the
             cutting edge IT and Technology training solutions you need to elevate
             your team.
-          </p>
+          </p> */}
+
+          <h3 id="ob-title">
+  Build a <span className="ob-highlight">Future-Ready Workforce</span>
+</h3>
+
+<p className="ob-lead">
+  Technology evolves fast. Your team's skills should too.
+  Equip your workforce with the knowledge and practical
+  expertise to stay ahead in a rapidly changing world.
+</p>
+
+<p className="ob-lead">
+  From cloud and AI to emerging technologies, we deliver
+  tailored training solutions that help your teams build
+  skills, drive innovation, and achieve business goals.
+</p>
 
           <div className="ob-cta">
             <Button variant="ink" arrow render={<Link to="/contact" />}>

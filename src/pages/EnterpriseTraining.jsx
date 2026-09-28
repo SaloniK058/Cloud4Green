@@ -5,6 +5,7 @@ import CtaSection from "@/components/sections/EnterpriseCTA/EnterpriseCTA";
 import CorporateTrainingHero from "@/components/EnterpriseTraining/Corporatetraininghero";
 import SkillsCatalog from "@/components/EnterpriseTraining/Skillscatalog";
 import OrgBanner from "@/components/EnterpriseTraining/Orgbanner";
+import EnterpriseWhyUs from "@/components/EnterpriseTraining/Enterprisewhyus";
 
 // import FaqSection from "@/components/faq/Faqsection";
 // import { enterpriseTrainingFaqs } from "@/data/faqs";
@@ -101,6 +102,7 @@ export default function EnterpriseTraining() {
         <CorporateTrainingHero/>
         <SkillsCatalog/>
         <OrgBanner/>
+        <EnterpriseWhyUs/>
         <Placeholder
           id="overview"
           eyebrow="Enterprise Training"
@@ -113,13 +115,7 @@ export default function EnterpriseTraining() {
         />
 
         {/* ── Programs ─────────────────────────────────────────────────────── */}
-        <Placeholder id="programs" eyebrow="Programs" title="Training programs" band />
-
-        {/* ── How it works ─────────────────────────────────────────────────── */}
-        <Placeholder id="how-it-works" eyebrow="How it works" title="How it works" />
-
-        {/* ── Who it's for ─────────────────────────────────────────────────── */}
-        <Placeholder id="who-its-for" eyebrow="Who it's for" title="Who it's for" band />
+       
 
         {/* ── FAQ ──────────────────────────────────────────────────────────
             Add an `enterpriseTrainingFaqs` array to src/data/faqs.js, then

@@ -21,27 +21,11 @@
   --paper: #fafaf7;
   --hair: rgba(16, 20, 24, 0.08);
 
-  /* on-card, always dark ground under white type */
-  --card-ink: #ffffff;
-  --card-dim: rgba(255, 255, 255, 0.72);
-  --card-hair: rgba(255, 255, 255, 0.24);
-  --card-base: #0a1524;
-
-  --radius: 16px;
-  --pad: clamp(1.4rem, 2.2vw, 1.9rem);
-
-  /* One stagger step, shared by the card's entrance and the blur ramp
-     behind its copy so the two stay locked to each other. */
-  --step: 90ms;
-
   position: relative;
   scroll-margin-top: 6rem;
   border-top: 1px solid var(--hair);
   background: var(--paper);
   color: var(--ink);
-  /* the source section's one flourish, and it suits a grid you are
-     meant to move a pointer across */
-  cursor: crosshair;
 }
 
 .pillars__inner {
@@ -123,7 +107,23 @@
 }
 
 /* ------------------------------------------------------------- card */
+/* The card is self-contained (see components/common/PillarCard) and is
+   used outside .pillars too, so its tokens live on it, and its entrance
+   keys off whichever ancestor useInView marks `is-in`. */
 .pillar {
+  /* on-card, always dark ground under white type */
+  --card-ink: #ffffff;
+  --card-dim: rgba(255, 255, 255, 0.72);
+  --card-hair: rgba(255, 255, 255, 0.24);
+  --card-base: #0a1524;
+
+  --radius: 16px;
+  --pad: clamp(1.4rem, 2.2vw, 1.9rem);
+
+  /* One stagger step, shared by the card's entrance and the blur ramp
+     behind its copy so the two stay locked to each other. */
+  --step: 90ms;
+
   position: relative;
   isolation: isolate;
   display: flex;
@@ -142,7 +142,7 @@
     transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.pillars.is-in .pillar {
+.is-in .pillar {
   opacity: 1;
   transform: none;
   transition-delay: calc(var(--i, 0) * var(--step));
@@ -231,44 +231,54 @@
   transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
-/* The ramp. Kept in an animation rather than in the transition above so
-   the hover tint can own background-color without the two fighting over
-   it — this only ever touches backdrop-filter. */
-@keyframes pillar-glass-in {
-  from {
-    -webkit-backdrop-filter: blur(0px) saturate(100%);
-    backdrop-filter: blur(0px) saturate(100%);
-  }
-  to {
-    -webkit-backdrop-filter: blur(16px) saturate(135%);
-    backdrop-filter: blur(16px) saturate(135%);
-  }
+/* The glass lives on its own layer at a fixed blur radius, and the ramp
+   is an opacity fade of that layer. Animating the blur radius itself
+   forces the browser to re-run the whole blur every frame on all six
+   cards at once — that was the hitch on scroll-in. Opacity is a
+   compositor-only change, so the fade costs next to nothing.
+
+   z-index -1 drops it into the card's stacking context (the card is
+   isolated), above the photo and scrim but under the panel's own tint
+   and copy. */
+.pillar__panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  -webkit-backdrop-filter: blur(16px) saturate(135%);
+  backdrop-filter: blur(16px) saturate(135%);
+  opacity: 0;
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
 }
 
 /* Nothing is blurred until the section is scrolled to; then each card's
    glass resolves out of its own photograph, in the same order the cards
    arrive in. */
-.pillars.is-in .pillar__panel {
+.is-in .pillar__panel {
   background-color: rgba(6, 14, 28, 0.34);
   border-top-color: var(--card-hair);
-  animation: pillar-glass-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-delay: calc(var(--i, 0) * var(--step) + 140ms);
 }
 
-.pillars.is-in .pillar:hover .pillar__panel,
-.pillars.is-in .pillar:focus-within .pillar__panel {
+.is-in .pillar__panel::before {
+  opacity: 1;
+  transition-delay: calc(var(--i, 0) * var(--step) + 140ms);
+}
+
+.is-in .pillar:hover .pillar__panel,
+.is-in .pillar:focus-within .pillar__panel {
   background-color: rgba(6, 14, 28, 0.55);
 }
 
 /* Where backdrop-filter is missing the tint is carrying the contrast on
    its own, so it is taken up to a weight that holds on any photograph. */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .pillars.is-in .pillar__panel {
+  .is-in .pillar__panel {
     background-color: rgba(6, 14, 28, 0.68);
   }
 
-  .pillars.is-in .pillar:hover .pillar__panel,
-  .pillars.is-in .pillar:focus-within .pillar__panel {
+  .is-in .pillar:hover .pillar__panel,
+  .is-in .pillar:focus-within .pillar__panel {
     background-color: rgba(6, 14, 28, 0.8);
   }
 }
@@ -283,6 +293,9 @@
   letter-spacing: -0.01em;
   text-transform: uppercase;
   text-wrap: balance;
+  /* Always two lines tall, so a one-line title gets the same panel as a
+     two-line one and every card's glass starts at the same height. */
+  min-height: 2.5em;
 }
 
 /* The divider draws itself out of the left edge when the card opens —
@@ -398,9 +411,6 @@
  * usual way this pattern fails.
  * ------------------------------------------------------------------ */
 @media (hover: none) {
-  .pillars {
-    cursor: auto;
-  }
   .pillar {
     min-height: 0;
   }
@@ -427,16 +437,13 @@
   .pillar__rule,
   .pillar__reveal,
   .pillar__panel,
+  .pillar__panel::before,
   .pillar__body,
   .pillar__cta {
     transition-duration: 0.01ms;
   }
 
-  /* The ramp is what applied the blur, so with it off the panel has to
-     state the finished value itself. */
-  .pillars.is-in .pillar__panel {
-    animation: none;
-    -webkit-backdrop-filter: blur(16px) saturate(135%);
-    backdrop-filter: blur(16px) saturate(135%);
+  .is-in .pillar__panel::before {
+    transition-delay: 0s;
   }
 }

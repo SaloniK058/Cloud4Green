@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import "@/styles/pillars.css"
+import PillarCard from "@/components/common/PillarCard";
+import useInView from "@/hooks/useInView";
+import "@/styles/pillars.css";
 
 /* ------------------------------------------------------------------ *
  * The Six Pillars.
@@ -172,29 +173,7 @@ const PILLARS = [
 ];
 
 export default function PillarsSection({ pillars = PILLARS }) {
-  const ref = useRef(null);
-  const [inView, setInView] = useState(false);
-
-  /* One observer, unhooked the moment it fires. The stagger below is
-     CSS transition-delay off --i, so nothing here runs per card. */
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || typeof IntersectionObserver === "undefined") {
-      setInView(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setInView(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.15 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  const [ref, inView] = useInView();
 
   return (
     <section
@@ -226,51 +205,7 @@ export default function PillarsSection({ pillars = PILLARS }) {
 
         <div className="pillars__grid">
           {pillars.map((p, i) => (
-            <article
-              key={p.key}
-              className="pillar"
-              style={{ "--i": i }}
-            >
-              {p.image && (
-                <img className="pillar__bg" src={p.image} alt="" loading="lazy" />
-              )}
-              <span className="pillar__scrim" aria-hidden="true" />
-
-              <div className="pillar__top">
-                <span className="pillar__icon" aria-hidden="true">
-                  {p.icon}
-                </span>
-                <span className="pillar__no">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-              </div>
-
-              {/* Everything the card says sits on one panel, so the
-                  photograph is blurred once behind the whole block
-                  rather than haloed line by line. The blur ramps in as
-                  the card is scrolled to — see pillar-glass-in. */}
-              <div className="pillar__panel">
-                <h3 className="pillar__title">{p.title}</h3>
-
-                {/* The rule stays outside the collapsing row: it is the
-                    one thing that should draw *before* the box opens, so
-                    the card reads as unlocking rather than just growing. */}
-                <span className="pillar__rule" aria-hidden="true" />
-
-                <div className="pillar__reveal">
-                  <div>
-                    <p className="pillar__body">{p.body}</p>
-                    <span className="pillar__cta" aria-hidden="true">
-                      Learn more
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <a className="pillar__link" href={p.href}>
-                <span className="pillar__sr">Learn more about {p.title}</span>
-              </a>
-            </article>
+            <PillarCard key={p.key} index={i} {...p} />
           ))}
         </div>
       </div>

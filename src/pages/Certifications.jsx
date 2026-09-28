@@ -103,7 +103,7 @@ export default function Certifications() {
       <CertificationPathway />
       <Banner />
       <CertBenefits/>
-
+      <CtaSection />
       <main className="bg-[#FAFAF7]">
         {/* ── Masthead ─────────────────────────────────────────────────────
             The editorial pattern from /products/enterprise-labs: full-bleed
@@ -113,22 +113,7 @@ export default function Certifications() {
             two elements with one id, and every #overview link resolving to
             whichever the browser found first. The hero is the real overview;
             this scaffold block keeps a distinct id until it's replaced. */}
-        <Placeholder
-          id="overview-draft"
-          eyebrow="Certifications"
-          title={
-            <>
-              Certifications
-              <br className="hidden sm:block" /> page masthead
-            </>
-          }
-        />
-
-        {/* ── Tracks ─────────────────────────────────────────────────────── */}
-        <Placeholder id="tracks" eyebrow="Tracks" title="Certification tracks" band />
-
-        {/* ── How it works ─────────────────────────────────────────────────── */}
-        <Placeholder id="how-it-works" eyebrow="How it works" title="How it works" />
+        
 
         {/* ── Who it's for ─────────────────────────────────────────────────── */}
         <Placeholder id="who-its-for" eyebrow="Who it's for" title="Who it's for" band />
@@ -140,7 +125,7 @@ export default function Certifications() {
         {/* <FaqSection faqs={certificationsFaqs} /> */}
 
         {/* ── Closing CTA — the homepage's, unchanged ─────────────────────── */}
-        <CtaSection />
+        
       </main>
 
       <Footer />
