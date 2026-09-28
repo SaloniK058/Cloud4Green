@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
-import automationFlow from '@/components/Services/Automation/Automationflow.svg' 
+import automationFlow from '@/components/Services/Automation/Automationflow.svg'
+import backgroundimg from "@/assets/images/lab6.png";
 
 /* Automation service hero — the "hybrid" of the two references:
    Retool's split (copy left, workflow canvas right) set in the Enterprise
@@ -17,10 +18,26 @@ export default function AutomationHero() {
       id="automation-hero"
       className="relative isolate overflow-hidden border-b border-[#101418]/8 bg-[#FAFAF7]"
     >
+      {/* Full-bleed ground image, the same masthead treatment as the
+          E-Learning and Consulting heroes. */}
+      <img
+        src={backgroundimg}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 h-full w-full object-cover"
+      />
+
+      {/* White scrim, heaviest over the copy column, so the body copy keeps
+          its contrast and the workflow cards stay crisp. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-white/85 via-white/55 to-white/50"
+      />
+
       {/* The corner grid and its sparkles. PageGrid picks which two corners
           from the page's URL, so each sub-page carries the same detail in a
-          different diagonal. */}
-      <PageGrid />
+          different diagonal. At -9 it lands on the scrim, not under the photo. */}
+      <PageGrid z={-9} />
 
       <Container>
         {/* Same fold rule as HowItWorks: the hero fills the viewport under

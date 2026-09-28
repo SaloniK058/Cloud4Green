@@ -24,6 +24,7 @@ import {
 
 import Container from "@/components/layout/Container";
 import GoogleCloudMark from "@/components/brand/GoogleCloudMark";
+import catalogImg from "@/assets/images/gallerydigital.jpg";
 
 /*
   Skills catalog: tabs on desktop, accordion on mobile.
@@ -38,9 +39,8 @@ import GoogleCloudMark from "@/components/brand/GoogleCloudMark";
   ⚠ DRAFT CONTENT — the categories, skills and tools below are my guess at
   a Cloud4Green catalogue. Confirm them with the team before launch.
 
-  Visuals: give a category `image` (an import) to show your own artwork.
-  Without one it draws a built-in "lab" illustration, so the section looks
-  finished while the real images are being made.
+  Visuals: give a category `image` (an import) to show its own photo.
+  Without one it falls back to the shared catalogImg.
   Tools: a category lists tool NAMES; the logo for each comes from
   TOOL_MARKS below.
 */
@@ -494,51 +494,53 @@ function ToolMark({ name, size }) {
 /* ================================================================ visual */
 
 function CategoryVisual({ cat, compact }) {
-  const box = `relative overflow-hidden rounded-2xl ${compact ? "aspect-[4/3]" : "h-full min-h-[520px]"}`;
-
-  if (cat.image) {
-    return (
-      <div className={box}>
-        <img src={cat.image} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
-      </div>
-    );
-  }
-
-  // Built-in placeholder art: a "lab environment" card — the same motif as
-  // the lab card in How it works — on a quiet surface one step darker than
-  // the page, with a faint dot grid. Neutral on purpose: it's a stand-in,
-  // and the white skills card next to it should stay the focus.
+  // A navy panel with a photo in it, tinted navy so every category reads
+  // as one family, and a frosted-glass caption floating over the bottom.
+  // The glass needs the photo behind it — backdrop-blur over a flat
+  // colour looks like nothing at all.
   return (
-    <div aria-hidden="true" className={`${box} border border-[#101418]/8 bg-[#EDEBE5]`}>
-      <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(16,20,24,0.13)_1.2px,transparent_1.7px)] bg-[length:22px_22px] [mask-image:radial-gradient(ellipse_at_center,black_35%,transparent_80%)]" />
+    <div
+      className={`relative overflow-hidden rounded-2xl bg-[#0A1A3A] ring-1 ring-white/10 ${
+        compact ? "aspect-[4/3] px-6 py-5" : "h-full min-h-[520px] px-10 py-8 xl:px-14 xl:py-10"
+      }`}
+    >
+      {/* Soft blue glows behind the photo frame, so the navy has depth. */}
+      <div aria-hidden="true" className="absolute -left-20 -top-20 size-72 rounded-full bg-[#0B5CFF]/40 blur-3xl" />
+      <div aria-hidden="true" className="absolute -bottom-24 -right-16 size-80 rounded-full bg-[#38BDF8]/25 blur-3xl" />
 
-      <div className={`absolute left-1/2 top-1/2 w-[78%] max-w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-[#101418]/10 bg-white shadow-[0_20px_40px_-24px_rgba(16,20,24,0.35)] ${compact ? "p-3.5" : "p-5"}`}>
-        <div className="flex items-center justify-between border-b border-[#101418]/10 pb-3">
-          <div className="flex items-center gap-2">
-            <span className="flex gap-1">
-              {[0, 1, 2].map((d) => (
-                <span key={d} className="size-2 rounded-full border border-[#101418]/25" />
-              ))}
+      <div className="relative h-full overflow-hidden rounded-xl">
+        <img
+          src={cat.image ?? catalogImg}
+          alt=""
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#0A1A3A]/90 via-[#0A1A3A]/35 to-[#0A1A3A]/10" />
+
+        <div
+          className={`absolute rounded-xl border border-white/20 bg-white/10 text-white shadow-[0_20px_40px_-20px_rgba(0,0,0,0.6)] backdrop-blur-md ${
+            compact ? "inset-x-3 bottom-3 p-3" : "inset-x-5 bottom-5 p-5"
+          }`}
+        >
+          <div className="flex items-center justify-between gap-3">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-white/75">Lab · {cat.label}</span>
+            <span className="rounded-full bg-[#1F8A4C]/30 px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.1em] text-[#86EFAC] ring-1 ring-[#86EFAC]/30">
+              Ready
             </span>
-            <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#4A5261]">Lab · {cat.label}</span>
           </div>
-          <span className="rounded-full bg-[#E7F7EE] px-2 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.1em] text-[#1F8A4C]">Ready</span>
-        </div>
-        <div className={`grid grid-cols-2 ${compact ? "mt-3 gap-2" : "mt-4 gap-2.5"}`}>
-          {cat.tools.map((tool, i) => (
-            <div
-              key={tool}
-              className={`flex items-center justify-center gap-1.5 rounded-lg border px-2.5 py-2 text-center text-[11px] font-semibold uppercase tracking-[0.06em] ${
-                i === 0 ? "border-[#0B5CFF] bg-[#0B5CFF]/[0.06] text-[#0B5CFF]" : "border-[#101418]/12 text-[#4A5261]"
-              }`}
-            >
-              <ToolMark name={tool} size={14} />
-              {tool}
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 h-1 overflow-hidden rounded-full bg-[#101418]/8">
-          <div className="h-full w-2/3 rounded-full bg-[#0B5CFF]" />
+          {/* White chips, not glass: several marks are painted in the page
+              ink (see TOOL_MARKS) and would vanish on the navy glass. */}
+          <div className={`flex flex-wrap ${compact ? "mt-2.5 gap-1.5" : "mt-3.5 gap-2"}`}>
+            {cat.tools.map((tool) => (
+              <span
+                key={tool}
+                className="flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.06em] text-[#101418]"
+              >
+                <ToolMark name={tool} size={13} />
+                {tool}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
