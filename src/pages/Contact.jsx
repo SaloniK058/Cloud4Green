@@ -142,13 +142,14 @@ export default function Contact() {
         {/* ── Masthead ─────────────────────────────────────────────── */}
         {/* relative/isolate for the corner grid below, which pins itself to
             this section's corners. */}
-        <section className="relative isolate overflow-hidden border-b border-[#101418]/8 py-16 lg:py-24">
+        <section className="relative isolate overflow-hidden border-b border-[#101418]/8 py-16 lg:py-24 bg-[#a9dcff]">
           {/* The corner grid, in this page's diagonal — PageGrid picks it
               from the URL. */}
           <PageGrid />
 
           <Container>
             <RevealGroup
+              mount
               delay={0.08}
               className="grid gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-end lg:gap-16"
             >
@@ -188,6 +189,7 @@ export default function Contact() {
             {/* The three things a first-time visitor actually wants to know
                 before filling anything in, in the CTA's own dl treatment. */}
             <RevealGroup
+              mount
               as="dl"
               delay={0.24}
               className="mt-12 grid grid-cols-3 gap-x-4 border-t border-[#101418]/10 pt-6 sm:flex sm:flex-wrap sm:gap-x-12 sm:gap-y-4"
@@ -429,7 +431,7 @@ export default function Contact() {
                 </p>
 
                 <a
-                  href="mailto:sales@cloud4green.com"
+                  href="mailto:reach@cloud4green.com"
                   className="group mt-6 inline-flex items-center gap-2.5 rounded-[10px] border border-[#101418]/12 bg-white px-5 py-2.5 text-sm font-semibold text-[#101418] shadow-sm transition-colors hover:border-[#101418]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5CFF] focus-visible:ring-offset-2"
                 >
                   Contact Sales
@@ -475,17 +477,17 @@ export default function Contact() {
 
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   <DirectLine
-                    href="mailto:sales@cloud4green.com"
+                    href="mailto:reach@cloud4green.com"
                     icon={<MailMark />}
                     label="Email"
-                    value="sales@cloud4green.com"
+                    value="reach@cloud4green.com"
                   />
 
                   <DirectLine
-                    href="tel:+910000000000"
+                    href="tel:+917022424545"
                     icon={<PhoneMark />}
                     label="Phone"
-                    value="+91 XX XXXX XXXX"
+                    value="+91 7022424545"
                   />
                 </div>
               </RevealItem>

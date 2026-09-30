@@ -1,6 +1,7 @@
 
 "use client";
 
+import { Link } from "react-router-dom";
 import {
   RevealGroup,
   RevealItem,
@@ -27,13 +28,17 @@ import {
  * uppercase, tracked in. Tighter leading than elsewhere on the site because
  * at this size the two lines are a block, not a sentence.
  */
+/* onPlay, video and VideoPanel are kept for the parked video panel — see the
+   note where it used to render. */
 export default function CtaSection({
+  // eslint-disable-next-line no-unused-vars
   onPlay,
-  demoHref = "/book-a-demo",
+  demoHref = "/contact#book",
   contactHref = "/contact",
   hook = "No slides. Real consoles.",
   stamp = "Enterprise enablement",
   signOff = "Skills that ship.",
+  // eslint-disable-next-line no-unused-vars
   video = {
     label: "Inside a real lab",
     caption: "Forty people, real cloud accounts, one afternoon.",
@@ -64,43 +69,52 @@ export default function CtaSection({
           <p className={`${META} text-right text-[#E7E0CE]/80`}>{stamp}</p>
         </RevealItem>
 
-        <div className="grid items-start gap-10 pt-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-14 lg:pt-12">
-          {/* ── left: the pitch ─────────────────────────────────── */}
-          <div>
-            {/* Masked-line reveal, like the hero's — this is the last display
-                type on the page and it should land the way the first did.
-                The lines are two boxes rather than one wrapping paragraph, so
-                the break is the same on a phone as on a desktop and the mask
-                has a known edge to clip to.
+        {/* The same faint grid the video panel carried, now on the whole
+            sheet — so the blue has a surface, not just a colour. Faded out
+            toward the left, where the headline sits. */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10
+                     [mask-image:linear-gradient(to_left,black,transparent_70%)]"
+          style={INK_GRID}
+        />
 
-                Alignment: `clamp` sizes the block off the viewport instead of
-                stepping at the breakpoints, so the two lines stay near the
-                same measure and the right-hand rag stays shallow at every
-                width. The negative left margin is optical, not layout — it
-                pulls the cap of the T back onto the same rule the eyebrow and
-                the paragraph sit on, which at this size is a visible couple of
-                pixels out if left alone. */}
-            <RevealLines
-              nested
-              as="h2"
-              lines={[
-                "Tell us the roles.",
-                <>
-                  We&apos;ll send back a plan
-                  <span className="text-[#E7E0CE]">.</span>
-                </>,
-              ]}
-              className="-ml-[0.02em] font-recoleta font-medium uppercase text-[#FAFAF7]"
-              style={{
-                fontSize: "clamp(1.8rem, 4.6vw, 3.4rem)",
-                lineHeight: 1.02,
-                letterSpacing: "-0.025em",
-              }}
-            />
+        <div className="pt-10 lg:pt-14">
+          {/* Masked-line reveal, like the hero's — this is the last display
+              type on the page and it should land the way the first did. The
+              lines are two boxes rather than one wrapping paragraph, so the
+              break is the same on a phone as on a desktop and the mask has a
+              known edge to clip to.
 
+              With the video gone the headline has the card's whole width, so
+              it is set a size up — it is the poster now, not half of one. The
+              negative left margin is optical, not layout — it pulls the cap of
+              the T back onto the rule the eyebrow sits on. */}
+          <RevealLines
+            nested
+            as="h2"
+            lines={[
+              "Tell us the roles.",
+              <>
+                We&apos;ll send back a plan
+                <span className="text-[#E7E0CE]">.</span>
+              </>,
+            ]}
+            className="-ml-[0.02em] max-w-5xl font-recoleta font-medium uppercase text-[#FAFAF7]"
+            style={{
+              fontSize: "clamp(1.9rem, 5.6vw, 4.6rem)",
+              lineHeight: 1.0,
+              letterSpacing: "-0.025em",
+            }}
+          />
+
+          {/* The pitch and the ask on one line under the headline: the
+              sentence on the left, the buttons answering it on the right. On
+              a phone they stack. */}
+          <div className="mt-10 grid gap-8 lg:mt-14 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-14">
             <RevealItem
               as="p"
-              className="mt-7 max-w-md text-[15px] leading-7 text-[#FAFAF7]/80"
+              className="max-w-md border-l-2 border-[#E7E0CE]/60 pl-5 text-[15px] leading-7 text-[#FAFAF7]/85 sm:text-base"
             >
               Share your goals with us. We’ll help you chart the right path
               forward.
@@ -108,9 +122,9 @@ export default function CtaSection({
 
             {/* Paper-and-ink buttons: the pill is now cream on blue, which is
                 the same contrast the black pill had on cream. */}
-            <RevealItem className="mt-9 flex flex-wrap items-center gap-3">
-              <a
-                href={demoHref}
+            <RevealItem className="flex flex-wrap items-center gap-3">
+              <Link
+                to={demoHref}
                 className="group inline-flex items-center gap-3 rounded-[10px] bg-[#FAFAF7] py-2 pl-5 pr-2
                            text-sm font-semibold text-[#101418] transition-colors hover:bg-white
                            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FAFAF7]
@@ -121,10 +135,10 @@ export default function CtaSection({
                                  text-[#FAFAF7] transition-transform group-hover:translate-x-0.5">
                   <Chevrons className="h-3.5 w-3.5 stroke-current" />
                 </span>
-              </a>
+              </Link>
 
-              <a
-                href={contactHref}
+              <Link
+                to={contactHref}
                 className="group inline-flex items-center gap-2.5 rounded-[10px] border border-[#FAFAF7]/35
                            px-5 py-2.5 text-sm font-semibold text-[#FAFAF7] transition-colors
                            hover:border-[#FAFAF7] hover:bg-[#FAFAF7]/10
@@ -133,17 +147,21 @@ export default function CtaSection({
               >
                 Contact us
                 <Chevrons className="h-3.5 w-3.5 stroke-current transition-transform group-hover:translate-x-0.5" />
-              </a>
+              </Link>
             </RevealItem>
           </div>
 
-          {/* ── right: the one dark thing in the section ────────── */}
-          {/* Last beat, so the eye has finished the pitch on the left by the
-              time the dark panel lands beside it. Ink on blue is the poster's
-              own move — the blue never competes with itself. */}
+          {/* ── the video panel — off for now ──────────────────────
+              Parked until the lab film exists. To bring it back, restore the
+              two-column grid (lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)])
+              around the pitch, drop the headline back to
+              clamp(1.8rem, 4.6vw, 3.4rem), remove the grid above, and
+              uncomment this:
+
           <RevealItem>
             <VideoPanel video={video} onPlay={onPlay} />
           </RevealItem>
+          */}
         </div>
 
         {/* ── the foot: the sheet's last small voice ───────────── */}
@@ -164,6 +182,7 @@ export default function CtaSection({
   );
 }
 
+// eslint-disable-next-line no-unused-vars
 function VideoPanel({ video, onPlay }) {
   return (
     <button

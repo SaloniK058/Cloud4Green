@@ -125,10 +125,7 @@ export default function Certifications() {
                 Talk to an advisor
               </Button>
 
-              {/* No href yet — the certification catalogue PDF isn't in the
-                  repo. Same treatment as "Download brochure" on Enterprise
-                  Labs. */}
-              <Button variant="paper" arrow>
+              <Button variant="paper" arrow render={<a href="#certification-tracks" />}>
                 View certification paths
               </Button>
             </div>

@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import "@/styles/Orgbanner.css";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { LINE_STAGGER } from "@/components/motion/reveal-tokens";
 
 // Lit office tower at night — reads as "organization" without competing with
 // the copy. It's tinted brand-blue in CSS, so any dark, busy photo works here.
@@ -13,9 +15,16 @@ export default function OrgBanner() {
     <section id="organizations" className="ob" aria-labelledby="ob-title">
       {/* The image is passed as a CSS variable so the stylesheet can layer it
           under the blue tint; Vite still fingerprints it via the import. */}
-      <div className="ob-blade" style={{ "--ob-img": `url(${bannerBg})` }}>
+      {/* Timed like the homepage CTA card: the blade rises, its copy follows
+          one line-beat later. */}
+      <RevealGroup
+        rise
+        delay={LINE_STAGGER}
+        className="ob-blade"
+        style={{ "--ob-img": `url(${bannerBg})` }}
+      >
         <div className="ob-content">
-          <p className="ob-eyebrow">For Organizations</p>
+          <RevealItem as="p" className="ob-eyebrow">For Organizations</RevealItem>
 
           {/* <h3 id="ob-title">
             Transform Your <span className="ob-highlight">Organization</span>
@@ -33,29 +42,29 @@ export default function OrgBanner() {
             your team.
           </p> */}
 
-          <h3 id="ob-title">
+          <RevealItem as="h3" id="ob-title">
   Build a <span className="ob-highlight">Future-Ready Workforce</span>
-</h3>
+</RevealItem>
 
-<p className="ob-lead">
+<RevealItem as="p" className="ob-lead">
   Technology evolves fast. Your team's skills should too.
   Equip your workforce with the knowledge and practical
   expertise to stay ahead in a rapidly changing world.
-</p>
+</RevealItem>
 
-<p className="ob-lead">
+<RevealItem as="p" className="ob-lead">
   From cloud and AI to emerging technologies, we deliver
   tailored training solutions that help your teams build
   skills, drive innovation, and achieve business goals.
-</p>
+</RevealItem>
 
-          <div className="ob-cta">
+          <RevealItem className="ob-cta">
             <Button variant="ink" arrow render={<Link to="/contact" />}>
               Talk to our experts
             </Button>
-          </div>
+          </RevealItem>
         </div>
-      </div>
+      </RevealGroup>
     </section>
   );
 }

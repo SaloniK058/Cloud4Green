@@ -4,6 +4,15 @@ import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 
 import Container from "@/components/layout/Container";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import {
+  CUE,
+  DURATION,
+  EASE as REVEAL_EASE,
+  RISE,
+  STAGGER,
+  VIEWPORT,
+} from "@/components/motion/reveal-tokens";
 
 /* Automation catalogue — the n8n-style workflow browser. The capabilities
    section above says what we do; this one lets a visitor picture it:
@@ -118,7 +127,6 @@ export const WORKFLOWS = [
   },
 ];
 
-const EASE = [0.22, 1, 0.36, 1];
 
 /* The accent follows the workflow's type: green for a template that's
    ready to go, brand blue for a custom build. Only the lit nodes, the
@@ -243,10 +251,14 @@ function WorkflowCard({ workflow, index }) {
   const type = TYPE_LABEL[workflow.type];
 
   return (
+    /* The house reveal on the scroll trigger: each row arrives as it comes
+       into view, its three columns one STAGGER apart. A card that mounts
+       already in view (a filter change) plays straight away. */
     <motion.li
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: EASE, delay: index * 0.035 }}
+      initial={{ opacity: 0, y: RISE }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={VIEWPORT}
+      transition={{ duration: DURATION, ease: REVEAL_EASE, delay: (index % 3) * STAGGER }}
     >
       <Link
         to={workflowHref(workflow.slug)}
@@ -307,19 +319,8 @@ function Asterisk({ className = "h-3.5 w-3.5" }) {
   );
 }
 
-function Reveal({ children, delay = 0, className }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.55, ease: EASE, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+/* The reveal is the house one (components/motion/Reveal.jsx), imported
+   above, rather than a local fade on its own numbers. */
 
 export default function AutomationCatalogue() {
   const [query, setQuery] = useState("");
@@ -356,30 +357,31 @@ export default function AutomationCatalogue() {
         {/* Wide/narrow split, as on the certification tracks: title and deck
             on the left, the type key dropped onto the deck's last line on
             the right. Stacks on a phone. */}
-        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
-          <Reveal className="max-w-[760px]">
-            <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
+        <RevealGroup delay={CUE.lead} className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+          <div className="max-w-[760px]">
+            <RevealItem as="p" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
               <Asterisk />
               Automation catalogue
-            </p>
+            </RevealItem>
 
             {/* Recoleta ships as a single Medium file, so font-medium. */}
-            <h2
+            <RevealItem
+              as="h2"
               id="catalogue-title"
               className="mt-5 font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.3rem] lg:text-[2.6rem]"
             >
               Explore automation solutions
               <span className="text-[#0B5CFF]">.</span>
-            </h2>
+            </RevealItem>
 
-            <p className="mt-5 text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
+            <RevealItem as="p" className="mt-5 text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
               Search by tool, team or problem. Each workflow shows what triggers it, what it connects and whether it's a
               ready-to-deploy template or a custom build.
-            </p>
-          </Reveal>
+            </RevealItem>
+          </div>
 
           {/* The key for the dot on every card's footer. */}
-          <Reveal delay={0.1}>
+          <RevealItem>
             <ul className="flex flex-col gap-2.5 text-[13px] text-[#4A5261]">
               {Object.entries(TYPE_LABEL).map(([key, t]) => (
                 <li key={key} className="flex items-center gap-2.5">
@@ -388,14 +390,14 @@ export default function AutomationCatalogue() {
                 </li>
               ))}
             </ul>
-          </Reveal>
-        </div>
+          </RevealItem>
+        </RevealGroup>
 
         {/* ---------------------------------------------- the filter bar */}
         {/* The Enterprise Labs catalogue's bar: ruled top and bottom, a
             tracked "Filter" label, the chips, and an underline search
             pushed to the right edge. */}
-        <div className="mt-12 flex flex-wrap items-center gap-x-4 gap-y-3 border-y border-[#101418]/8 py-4">
+        <Reveal delay={CUE.follow} className="mt-12 flex flex-wrap items-center gap-x-4 gap-y-3 border-y border-[#101418]/8 py-4">
           <span className="hidden items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#8A93A3] sm:flex">
             <Asterisk className="h-3 w-3" />
             Filter
@@ -448,7 +450,7 @@ export default function AutomationCatalogue() {
               </button>
             )}
           </div>
-        </div>
+        </Reveal>
 
         {/* Result count, announced politely as the list changes, with a way
             back once anything is narrowed. */}

@@ -269,10 +269,11 @@
 //   );
 // }
 
-import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Container from "@/components/layout/Container";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { CUE, STAGGER } from "@/components/motion/reveal-tokens";
 
 /* Business challenges — six problems in an open two-column list hanging
    off a thin vertical thread. Same build as before (IntersectionObserver
@@ -337,55 +338,17 @@ const PROBLEMS = [
    (e.g. `/services/automation/${slug}`). */
 const solutionHref = (slug) => `#${slug}`;
 
-/* Fades each item up the first time it scrolls into view — the
-   reference's `.reveal.in`. It runs once and then stops observing, and
-   anyone with reduced motion just sees the finished state. */
-function useReveal() {
-  const ref = useRef(null);
-  const [shown, setShown] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShown(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "0px 0px -10% 0px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  return [ref, shown];
-}
-
-function Reveal({ as: Tag = "div", delay = 0, className = "", children, ...rest }) {
-  const [ref, shown] = useReveal();
-  return (
-    <Tag
-      ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={`motion-safe:transition motion-safe:duration-700 motion-safe:ease-out ${
-        shown ? "translate-y-0 opacity-100" : "motion-safe:translate-y-3 motion-safe:opacity-0"
-      } ${className}`}
-      {...rest}
-    >
-      {children}
-    </Tag>
-  );
-}
+/* The reveal is the house one (components/motion/Reveal.jsx). This file
+   used to run its own IntersectionObserver fade at 0.7s / 12px on a plain
+   ease-out, a beat out of step with every other section on the site. */
 
 function ProblemItem({ problem, index }) {
   const number = String(index + 1).padStart(2, "0");
 
   return (
-    /* Right-hand column items get the reference's 70ms stagger, so a
-       row arrives left then right instead of both at once. */
-    <Reveal delay={index % 2 ? 70 : 0} className="h-full">
+    /* Right-hand column items trail by one STAGGER, so a row arrives left
+       then right instead of both at once. */
+    <Reveal delay={index % 2 ? STAGGER : 0} className="h-full">
       <Link
         to={solutionHref(problem.slug)}
         className="group relative flex h-full flex-col p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B5CFF] lg:p-7"
@@ -435,14 +398,15 @@ export default function ProblemsWeSolve() {
           </div>
 
           {/* ---------------------------------------------- the intro */}
-          <Reveal>
-            <p className="text-[12.5px] font-medium uppercase tracking-[0.14em] text-[#4A5261]">
+          {/* One trigger for the three, so they arrive on the stagger rather
+              than on however far apart they happen to sit. */}
+          <RevealGroup delay={CUE.lead}>
+            <RevealItem as="p" className="text-[12.5px] font-medium uppercase tracking-[0.14em] text-[#4A5261]">
               Business challenges
-            </p>
-          </Reveal>
+            </RevealItem>
 
-          <Reveal>
-            <h2
+            <RevealItem
+              as="h2"
               id="problems-title"
               className="mt-3 max-w-[22ch] font-recoleta text-[2rem] font-medium uppercase leading-[1.06] tracking-[-0.02em] text-[#101418] sm:text-[2.4rem] lg:text-[2.75rem]"
             >
@@ -451,15 +415,13 @@ export default function ProblemsWeSolve() {
                   softer voice, so the heading reads as a statement and a
                   turn. */}
               <em className="not-italic text-[#0B5CFF]">than repetitive work.</em>
-            </h2>
-          </Reveal>
+            </RevealItem>
 
-          <Reveal>
-            <p className="mt-4 max-w-[560px] text-[15px] leading-6 text-[#4A5261] lg:text-[16px] lg:leading-7">
+            <RevealItem as="p" className="mt-4 max-w-[560px] text-[15px] leading-6 text-[#4A5261] lg:text-[16px] lg:leading-7">
               Before we talk about automation, here's what's usually getting in the way. Start with the one that
               sounds like your week — each opens the fix we build for it and the workflows we've already shipped.
-            </p>
-          </Reveal>
+            </RevealItem>
+          </RevealGroup>
 
           {/* ---------------------------------------------- the list */}
           {/* Two open columns from md up. The -mx-6 gives each item's

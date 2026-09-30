@@ -331,6 +331,15 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 import Container from "@/components/layout/Container";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import {
+  CUE,
+  DURATION,
+  EASE as REVEAL_EASE,
+  RISE,
+  STAGGER,
+  VIEWPORT,
+} from "@/components/motion/reveal-tokens";
 import wif1 from "@/assets/images/visualImage.png";
 
 const EASE = [0.22, 1, 0.36, 1];
@@ -339,19 +348,9 @@ const EASE = [0.22, 1, 0.36, 1];
 /* Reveal                                                                     */
 /* -------------------------------------------------------------------------- */
 
-function Reveal({ children, delay = 0, className = "" }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, ease: EASE, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+/* The house reveal (components/motion/Reveal.jsx), imported above. This file
+   used to carry its own at 0.6s / 20px on the UI curve, which put the section
+   a beat out of step with the catalogue above it and the homepage. */
 
 /* -------------------------------------------------------------------------- */
 /* Brand Asterisk                                                             */
@@ -720,18 +719,18 @@ export default function WhoItsFor() {
 
             max-w-2xl and not 5xl: the measure is what makes a flush-left heading
             read as a column rather than as a line of text with a ragged end. */}
-        <Reveal className="max-w-2xl">
-          <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
+        <RevealGroup delay={CUE.lead} className="max-w-2xl">
+          <RevealItem as="p" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
             <Asterisk />
             Built for impact
-          </p>
+          </RevealItem>
 
-          <h2 className="mt-5 font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.015em] text-[#101418] sm:text-[2.3rem]">
+          <RevealItem as="h2" className="mt-5 font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.015em] text-[#101418] sm:text-[2.3rem]">
             Turn learning investments
             <br className="hidden sm:block" /> into team capabilities
             <span className="text-[#0B5CFF]">.</span>
-          </h2>
-        </Reveal>
+          </RevealItem>
+        </RevealGroup>
 
         {/* ---------------------------------------------------------------- */}
         {/* Tabs                                                             */}
@@ -745,7 +744,7 @@ export default function WhoItsFor() {
 
             w-max min-w-full is what lets the row scroll on a phone: it fills the
             container when the tabs fit and grows past it when they don't. */}
-        <Reveal className="mt-12">
+        <Reveal delay={CUE.follow} className="mt-12">
           <div
             ref={listRef}
             className="scrollbar-hide -mb-px overflow-x-auto border-b border-[#101418]/10"
@@ -885,22 +884,28 @@ export default function WhoItsFor() {
                       {tab.cards.map((card, index) => (
                         <motion.div
                           key={card.title}
+                          /* On the scroll trigger, not on mount: the panel
+                             mounts with the page, far below the fold, so an
+                             on-mount entrance played to nobody. A tab switch
+                             mounts the cards already in view, so they still
+                             play straight away there. */
                           initial={
                             reduce
                               ? false
                               : {
                                   opacity: 0,
-                                  y: 14,
+                                  y: RISE,
                                 }
                           }
-                          animate={{
+                          whileInView={{
                             opacity: 1,
                             y: 0,
                           }}
+                          viewport={VIEWPORT}
                           transition={{
-                            duration: 0.45,
-                            ease: EASE,
-                            delay: reduce ? 0 : index * 0.055,
+                            duration: DURATION,
+                            ease: REVEAL_EASE,
+                            delay: reduce ? 0 : index * STAGGER,
                           }}
                           className="group relative overflow-hidden rounded-2xl border border-[#101418]/[0.08] bg-[#FCFBF8] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#0B5CFF]/20 hover:shadow-[0_18px_45px_rgba(16,20,24,0.08)]"
                         >
@@ -933,7 +938,7 @@ export default function WhoItsFor() {
                     {/* ---------------------------------------------------- */}
 
                     <Reveal
-                      delay={0.1}
+                      delay={STAGGER}
                       className="order-first lg:order-none"
                     >
                       <div className="group relative h-full min-h-[390px] overflow-hidden rounded-[24px] bg-[#101418]">

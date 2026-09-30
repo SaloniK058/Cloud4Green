@@ -7,6 +7,8 @@ import CertificationHero from "@/components/Certifications/CertHero";
 import CertificationPathway from "@/components/Certifications/Certificationtracks.jsx";
 import Banner from "@/components/Certifications/Trainingbanner";
 import CertBenefits from "@/components/Certifications/Certbenefits";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 // import FaqSection from "@/components/faq/Faqsection";
 // import { certificationsFaqs } from "@/data/faqs";
@@ -75,18 +77,24 @@ function Placeholder({ id, eyebrow, title, band = false, children }) {
       }`}
     >
       <Container>
-        <Eyebrow>{eyebrow}</Eyebrow>
+        <RevealGroup delay={CUE.lead}>
+          <RevealItem>
+            <Eyebrow>{eyebrow}</Eyebrow>
+          </RevealItem>
 
-        <h2 className="mt-5 max-w-2xl font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.015em] text-[#101418] sm:text-[2.3rem]">
-          {title}
-          <span className="text-[#0B5CFF]">.</span>
-        </h2>
+          <RevealItem as="h2" className="mt-5 max-w-2xl font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.015em] text-[#101418] sm:text-[2.3rem]">
+            {title}
+            <span className="text-[#0B5CFF]">.</span>
+          </RevealItem>
 
-        {children ?? (
-          <p className="mt-5 max-w-xl text-[14.5px] leading-7 text-[#4A5261]">
-            Section to come.
-          </p>
-        )}
+          <RevealItem>
+            {children ?? (
+              <p className="mt-5 max-w-xl text-[14.5px] leading-7 text-[#4A5261]">
+                Section to come.
+              </p>
+            )}
+          </RevealItem>
+        </RevealGroup>
       </Container>
     </section>
   );

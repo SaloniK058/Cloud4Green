@@ -122,7 +122,7 @@
 
   /* One stagger step, shared by the card's entrance and the blur ramp
      behind its copy so the two stay locked to each other. */
-  --step: 90ms;
+  --step: var(--reveal-step, 100ms);
 
   position: relative;
   isolation: isolate;
@@ -137,15 +137,17 @@
 
   /* scroll reveal — --i staggers it, and nothing else reads --i */
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(var(--reveal-rise, 28px));
+  transition: opacity var(--reveal-dur, 1s) var(--reveal-ease),
+    transform var(--reveal-dur, 1s) var(--reveal-ease);
 }
 
+/* The cards follow the section header (a RevealGroup) by CUE.follow, so the
+   grid arrives in the tail of the headline, as it does on the homepage. */
 .is-in .pillar {
   opacity: 1;
   transform: none;
-  transition-delay: calc(var(--i, 0) * var(--step));
+  transition-delay: calc(var(--reveal-follow, 240ms) + var(--i, 0) * var(--step));
 }
 
 .pillar__bg {
@@ -262,7 +264,7 @@
 
 .is-in .pillar__panel::before {
   opacity: 1;
-  transition-delay: calc(var(--i, 0) * var(--step) + 140ms);
+  transition-delay: calc(var(--reveal-follow, 240ms) + var(--i, 0) * var(--step) + 140ms);
 }
 
 .is-in .pillar:hover .pillar__panel,

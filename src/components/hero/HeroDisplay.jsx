@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
+import { CATALOGUE } from "@/config/downloads";
 
 /**
  * The hero's display composition: a two-line headline and the CTAs under it.
@@ -79,7 +80,7 @@ const HeroDisplay = () => {
           Book a demo
         </Button>
 
-        <Button variant="paper" arrow>
+        <Button variant="paper" arrow render={<a href={CATALOGUE.href} download={CATALOGUE.filename} />}>
           Download brochure
         </Button>
       </div>

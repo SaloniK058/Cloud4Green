@@ -174,10 +174,10 @@ export default function AnnouncementBar() {
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
-      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6">
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between gap-1 px-2 sm:gap-2 sm:px-6">
         <button
           onClick={() => go(-1)}
-          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition hover:bg-white/10"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition hover:bg-white/10"
           aria-label="Previous announcement"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -185,8 +185,15 @@ export default function AnnouncementBar() {
 
         {/* aria-live so the rotation is announced once, rather than a screen
             reader either missing it or reading all four on load. */}
+        {/* The message is absolute (so the exit and enter can overlap in one
+            slot) and pinned to both edges of the slot, so it can never be wider
+            than the space between the arrows. On a phone the longer lines don't
+            fit that space; they stay on one line and end in an ellipsis rather
+            than wrapping, because the bar's 40px is part of the hero's fold
+            maths (see the 120px in Hero.jsx). `title` keeps the full text
+            reachable on hover, and the live region reads all of it. */}
         <div
-          className="relative flex h-full flex-1 items-center justify-center overflow-hidden"
+          className="relative flex h-full min-w-0 flex-1 items-center justify-center overflow-hidden"
           aria-live="polite"
           aria-atomic="true"
         >
@@ -197,12 +204,13 @@ export default function AnnouncementBar() {
               animate={{ opacity: 1, y: 0 }}
               exit={reduce ? { opacity: 0 } : { opacity: 0, y: -12 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="absolute flex items-center gap-2 text-sm font-medium"
+              className="absolute inset-x-0 flex items-center justify-center gap-1.5 text-xs font-medium sm:gap-2 sm:text-sm"
+              title={`${announcement.label} ${announcement.text}`}
             >
-              <span className="font-bold text-[#8BE28B]">
+              <span className="shrink-0 font-bold text-[#8BE28B]">
                 {announcement.label}
               </span>
-              <span className="font-bold text-white/90">
+              <span className="min-w-0 truncate font-bold text-white/90">
                 {announcement.text}
               </span>
             </motion.div>
@@ -211,7 +219,7 @@ export default function AnnouncementBar() {
 
         <button
           onClick={() => go(1)}
-          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition hover:bg-white/10"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition hover:bg-white/10"
           aria-label="Next announcement"
         >
           <ArrowRight className="h-4 w-4" />

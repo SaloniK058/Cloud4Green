@@ -5,6 +5,14 @@ import { Link } from "react-router-dom";
 import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
+import { CATALOGUE } from "@/config/downloads";
+import {
+  Reveal,
+  RevealGroup,
+  RevealGround,
+  RevealItem,
+} from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 import img1 from "@/assets/images/elearningBanner.webp";
 import backgroundimg from "@/assets/images/lab4.png"
 
@@ -68,7 +76,9 @@ export default function LearningSolutions({ imageSrc, imageAlt = "" }) {
     >
       {/* Full-bleed image, the same masthead treatment as the Enterprise
           Labs "How it works" band. */}
-      <img
+      <RevealGround
+        mount
+        as="img"
         src={backgroundimg}
         alt=""
         aria-hidden="true"
@@ -92,49 +102,47 @@ export default function LearningSolutions({ imageSrc, imageAlt = "" }) {
       <Container>
         <div className="grid items-center gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           {/* ------------------------------------------- LEFT: the copy */}
-          <div className="max-w-[560px]">
+          <RevealGroup mount delay={CUE.lead} className="max-w-[560px]">
             {/* On the light ground the eyebrow and the full stop are the
                 brand blue, as they are in every cream section. */}
-            <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
+            <RevealItem as="p" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
               <Asterisk />
               Learning solutions
-            </p>
+            </RevealItem>
 
             {/* <h1 className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
               Build a cloud-ready workforce on
               hands-on&nbsp;labs<span className="text-[#0B5CFF]">.</span>
             </h1> */}
-            <h1 className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
+            <RevealItem as="h1" className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
   Learn the technologies that shape the future<span className="text-[#0B5CFF]">.</span>
-</h1>
+</RevealItem>
 
-            <p className="mt-5 max-w-[500px] text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
+            <RevealItem as="p" className="mt-5 max-w-[500px] text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
                Explore hands-on learning across cloud, AI, data, cybersecurity, DevOps and
   emerging technologies. Gain practical experience with the tools and
   platforms used to build, deploy and secure modern technology.
-            </p>
+            </RevealItem>
 
-            <div className="mt-8 flex flex-wrap gap-3.5">
+            <RevealItem className="mt-8 flex flex-wrap gap-3.5">
               <Button arrow render={<Link to="/contact" />}>
                 Book a demo
               </Button>
 
-              {/* No href yet — the catalogue PDF isn't in the repo. Same
-                  treatment as "Download brochure" on Enterprise Labs. */}
-              <Button variant="paper" arrow>
+              <Button variant="paper" arrow render={<a href={CATALOGUE.href} download={CATALOGUE.filename} />}>
                 Download catalogue
               </Button>
-            </div>
+            </RevealItem>
 
-           
-          </div>
+
+          </RevealGroup>
 
           {/* ------------------------------------ RIGHT: the image slot */}
           {/* No fixed height and no aspect ratio: the frame takes the
               image's own proportions and spans the full width of the
               column, so the artwork is shown whole rather than cropped
               to a box. */}
-          <div className="relative overflow-hidden rounded-[14px] border border-[#101418]/8 bg-white/85 shadow-[0_24px_60px_-32px_rgba(16,32,74,0.35)] backdrop-blur-xl">
+          <Reveal mount delay={CUE.follow} className="relative overflow-hidden rounded-[14px] border border-[#101418]/8 bg-white/85 shadow-[0_24px_60px_-32px_rgba(16,32,74,0.35)] backdrop-blur-xl">
             <img
               src={img1}
               alt={imageAlt}
@@ -143,8 +151,8 @@ export default function LearningSolutions({ imageSrc, imageAlt = "" }) {
 
             {/* Caption chip, inside the frame so it can't collide with the
                 section's bottom edge the way an overhanging card does. */}
-            
-          </div>
+
+          </Reveal>
         </div>
       </Container>
     </section>

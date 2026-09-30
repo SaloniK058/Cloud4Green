@@ -132,13 +132,15 @@
   color: var(--display);
   font-variant-numeric: lining-nums;
 
+  /* A masked line rise, so it is timed as one: the RevealLines duration and
+     the line stagger, following the headline by CUE.follow. */
   transform: translateY(105%);
-  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 1.1s var(--reveal-ease);
 }
 
 .figures.is-in .figure__num {
   transform: none;
-  transition-delay: calc(var(--i, 0) * 130ms);
+  transition-delay: calc(var(--reveal-follow, 240ms) + var(--i, 0) * var(--reveal-line-step, 120ms));
 }
 
 .figure__label {
@@ -148,14 +150,16 @@
   color: var(--muted);
 
   opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(var(--reveal-rise, 28px));
+  transition: opacity var(--reveal-dur, 1s) var(--reveal-ease),
+    transform var(--reveal-dur, 1s) var(--reveal-ease);
 }
 
+/* Each label lands one line-beat behind its own numeral. */
 .figures.is-in .figure__label {
   opacity: 1;
   transform: none;
-  transition-delay: calc(var(--i, 0) * 130ms + 280ms);
+  transition-delay: calc(var(--reveal-follow, 240ms) + var(--i, 0) * var(--reveal-line-step, 120ms) + var(--reveal-line-step, 120ms));
 }
 
 /* ------------------------------------------------------------ narrow */

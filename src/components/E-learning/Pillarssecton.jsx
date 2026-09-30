@@ -1,6 +1,8 @@
 import PillarCard from "@/components/common/PillarCard";
 import useInView from "@/hooks/useInView";
 import "@/styles/pillars.css";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 /* ------------------------------------------------------------------ *
  * The Six Pillars.
@@ -38,7 +40,7 @@ import imgContent from "@/assets/images/solution4.webp";
 import imgPlatform from "@/assets/images/gallerydigital.jpg";
 import imgVendors from "@/assets/images/enterprise.jpg";
 import imgDelivery from "@/assets/images/ourproducts.jpg";
-import imgRoi from "@/assets/images/labsImg1.jpg";
+import imgRoi from "@/assets/images/skill1.webp";
 
 /* Icons match the reference's drawing language: one 30×30 box, no fill,
    1.25 stroke on currentColor, round caps and joins. Swap in your own
@@ -126,7 +128,6 @@ const PILLARS = [
     key: "needs",
     title: "Learning Needs Analysis",
     body: "We identify skill gaps across roles, functions, and business units using data-driven training needs analysis frameworks tailored to your business goals.",
-    href: "/services/learning-needs-analysis",
     icon: Icons.needs,
     image: imgNeeds,
   },
@@ -134,7 +135,6 @@ const PILLARS = [
     key: "content",
     title: "Content Design & Development",
     body: "Custom eLearning, VILT programmes, microlearning, game-based learning, and immersive learning content designed to improve workforce capability and engagement.",
-    href: "/services/content-design-development",
     icon: Icons.content,
     image: imgContent,
   },
@@ -142,7 +142,6 @@ const PILLARS = [
     key: "platform",
     title: "Learning Technology Management",
     body: "We deploy and manage your enterprise LMS or LXP, including learner administration, reporting, integrations, and real-time capability tracking through our Skill Intelligence platform.",
-    href: "/services/learning-technology-management",
     icon: Icons.platform,
     image: imgPlatform,
   },
@@ -150,7 +149,6 @@ const PILLARS = [
     key: "vendors",
     title: "Training Vendor Management",
     body: "We streamline your training ecosystem by managing content providers, facilitators, platforms, and assessments under one structured outsourcing and vendor management framework.",
-    href: "/services/training-vendor-management",
     icon: Icons.vendors,
     image: imgVendors,
   },
@@ -158,7 +156,6 @@ const PILLARS = [
     key: "delivery",
     title: "Learning Delivery Coordination",
     body: "From scheduling and logistics to facilitator management and learner support, every training intervention is coordinated efficiently for teams ranging from 50 to 50,000 learners.",
-    href: "/services/learning-delivery-coordination",
     icon: Icons.delivery,
     image: imgDelivery,
   },
@@ -166,7 +163,6 @@ const PILLARS = [
     key: "roi",
     title: "Measurement & ROI Reporting",
     body: "Monthly executive dashboards connect learning performance with business KPIs, helping organisations measure capability improvement, productivity impact, and training ROI.",
-    href: "/services/measurement-roi-reporting",
     icon: Icons.roi,
     image: imgRoi,
   },
@@ -186,22 +182,22 @@ export default function PillarsSection({ pillars = PILLARS }) {
             eyebrow, Recoleta uppercase on the display line, closed with
             the blue full stop — the same three parts as every other
             section on the site. */}
-        <div className="pillars__head">
-          <p className="pillars__eyebrow">
+        <RevealGroup delay={CUE.lead} className="pillars__head">
+          <RevealItem as="p" className="pillars__eyebrow">
             <Asterisk />
             Enterprise Learning Outsourcing
-          </p>
+          </RevealItem>
 
-          <h2 className="pillars__title">
+          <RevealItem as="h2" className="pillars__title">
             The 6 Pillars of Enterprise Learning at Cloud4Green
             <span className="pillars__stop">.</span>
-          </h2>
-          <p className="pillars__lede">
+          </RevealItem>
+          <RevealItem as="p" className="pillars__lede">
             Each area is delivered as a fully managed solution that helps reduce
             your L&amp;D operational workload while improving training
             effectiveness and business outcomes.
-          </p>
-        </div>
+          </RevealItem>
+        </RevealGroup>
 
         <div className="pillars__grid">
           {pillars.map((p, i) => (

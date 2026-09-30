@@ -1,10 +1,13 @@
+import { useState } from "react";
+import { SiLangchain, SiLanggraph, SiMake, SiN8n, SiZapier } from "@icons-pack/react-simple-icons";
+
 import Container from "@/components/layout/Container";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 /* Our technology ecosystem — a logo-wall section, kept deliberately
-   plain next to the heavier sections around it: six tools, a lettermark
-   each (no real logo assets yet — swap TOOLS[i].logo for an <img> once
-   you have them, see the note below), a category line, nothing to
-   click. The point is recognition, not persuasion.
+   plain next to the heavier sections around it: six tools, each with its
+   real logo and a category line, nothing to click. The point is recognition, not persuasion.
 
    Set on white. Each tile carries three faint slanted bars tucked into
    its right edge — this section's answer to the corner circle on the
@@ -15,13 +18,20 @@ import Container from "@/components/layout/Container";
    the grid says so, so the section doesn't read as "these are the only
    six tools we support." */
 
+/* Logos come from Simple Icons (CC0), same as the skills catalogue and
+   the partner banner. LangChain/LangGraph ship a pale brand blue that
+   vanishes on white, so they're drawn in page ink instead.
+
+   Simple Icons has no Grok mark. Drop an official SVG at
+   /public/logos/grok.svg and it's picked up via `img`; until then the
+   tile falls back to a plain initial. */
 const TOOLS = [
-  { name: "n8n", category: "Workflow automation", mark: "n8n" },
-  { name: "Zapier", category: "App integrations", mark: "Zap" },
-  { name: "Make", category: "Visual automation", mark: "Mk" },
-  { name: "Grok", category: "Conversational AI", mark: "Gr" },
-  { name: "LangGraph", category: "Agent orchestration", mark: "LG" },
-  { name: "LangChain", category: "AI application framework", mark: "LC" },
+  { name: "n8n", category: "Workflow automation", Mark: SiN8n },
+  { name: "Zapier", category: "App integrations", Mark: SiZapier },
+  { name: "Make", category: "Visual automation", Mark: SiMake },
+  { name: "Grok", category: "Conversational AI", img: "/logos/grok.svg" },
+  { name: "LangGraph", category: "Agent orchestration", Mark: SiLanggraph, color: "#101418" },
+  { name: "LangChain", category: "AI application framework", Mark: SiLangchain, color: "#101418" },
 ];
 
 /** The brand asterisk, as it appears on every section eyebrow. */
@@ -56,16 +66,27 @@ function Slants() {
   );
 }
 
-/* Swap this for a real <img src={tool.logo} alt="" /> once you have
-   logo assets — the wordmark tile is only a placeholder so the section
-   works today. None of it is meant to imitate the brand's own mark. */
-function Lettermark({ mark }) {
+/* The logo sits on a neutral well so each brand keeps its own colour;
+   hover only firms up the well's edge. */
+function ToolLogo({ tool }) {
+  const [imgFailed, setImgFailed] = useState(false);
+  const { Mark, img, color, name } = tool;
+
+  let logo;
+  if (Mark) {
+    logo = <Mark size={24} color={color ?? "default"} />;
+  } else if (img && !imgFailed) {
+    logo = <img src={img} alt="" className="h-6 w-6 object-contain" onError={() => setImgFailed(true)} />;
+  } else {
+    logo = <span className="text-[17px] font-semibold text-[#101418]">{name[0]}</span>;
+  }
+
   return (
     <span
       aria-hidden="true"
-      className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-[#0B5CFF]/15 bg-[#EEF3FF] font-mono text-[13px] font-semibold tracking-[-0.01em] text-[#0B5CFF] transition-colors duration-300 group-hover:border-[#0B5CFF] group-hover:bg-[#0B5CFF] group-hover:text-white"
+      className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-[#101418]/8 bg-[#F6F7F9] transition-colors duration-300 group-hover:border-[#101418]/15 group-hover:bg-white"
     >
-      {mark}
+      {logo}
     </span>
   );
 }
@@ -74,7 +95,7 @@ function ToolTile({ tool }) {
   return (
     <div className="group relative isolate flex items-center gap-4 overflow-hidden rounded-2xl border border-[#101418]/10 bg-white px-5 py-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition-[border-color,box-shadow] duration-300 hover:border-[#0B5CFF]/35 hover:shadow-[0_16px_40px_-24px_rgba(11,92,255,0.45)]">
       <Slants />
-      <Lettermark mark={tool.mark} />
+      <ToolLogo tool={tool} />
       <div className="min-w-0 pr-10">
         <p className="truncate text-[16px] font-semibold tracking-[-0.01em] text-[#101418]">{tool.name}</p>
         <p className="mt-0.5 truncate text-[13px] text-[#4A5261]">{tool.category}</p>
@@ -92,31 +113,34 @@ export default function TechnologyEcosystem() {
     >
       <Container>
         {/* ---------------------------------------------- the head */}
-        <div className="max-w-[680px]">
-          <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
+        <RevealGroup delay={CUE.lead} className="max-w-[680px]">
+          <RevealItem as="p" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
             <Asterisk />
             Our technology ecosystem
-          </p>
+          </RevealItem>
 
-          <h2
+          <RevealItem
+            as="h2"
             id="ecosystem-title"
             className="mt-5 font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.3rem] lg:text-[2.6rem]"
           >
             We build around the tools you already use<span className="text-[#0B5CFF]">.</span>
-          </h2>
+          </RevealItem>
 
-          <p className="mt-5 max-w-[560px] text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
+          <RevealItem as="p" className="mt-5 max-w-[560px] text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
             No rip-and-replace. We work inside the platforms your team has already adopted and wire them together,
             rather than asking you to move onto ours.
-          </p>
-        </div>
+          </RevealItem>
+        </RevealGroup>
 
         {/* ---------------------------------------------- the grid */}
-        <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-4">
+        <RevealGroup delay={CUE.follow} className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-4">
           {TOOLS.map((tool) => (
-            <ToolTile key={tool.name} tool={tool} />
+            <RevealItem key={tool.name}>
+              <ToolTile tool={tool} />
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
 
         {/* <p className="mt-8 text-[13.5px] leading-6 text-[#4A5261]">
           A representative sample, not the full list — if it's already part of your stack, chances are we can build

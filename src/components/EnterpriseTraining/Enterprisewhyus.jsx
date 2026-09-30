@@ -4,6 +4,8 @@ import PillarCard from "@/components/common/PillarCard";
 import Container from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
 import useInView from "@/hooks/useInView";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 /* Card artwork — same treatment as the E-learning pillars: cropped to
    fill, darkened by the scrims, copy on a blurred glass panel. Swap the
@@ -117,24 +119,27 @@ export default function EnterpriseWhyUs() {
       className="scroll-mt-24 border-t border-[#101418]/8 bg-white py-20 lg:py-28"
     >
       <Container>
-        <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
-          <Asterisk />
-          Why Cloud4Green
-        </p>
+        <RevealGroup delay={CUE.lead}>
+          <RevealItem as="p" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
+            <Asterisk />
+            Why Cloud4Green
+          </RevealItem>
 
-        <h2
-          id="c4g-why-title"
-          className="mt-5 max-w-2xl font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.015em] text-[#101418] sm:text-[2.3rem]"
-        >
-          Built to Deliver Real Results
-          <span className="text-[#0B5CFF]">.</span>
-        </h2>
+          <RevealItem
+            as="h2"
+            id="c4g-why-title"
+            className="mt-5 max-w-2xl font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.015em] text-[#101418] sm:text-[2.3rem]"
+          >
+            Built to Deliver Real Results
+            <span className="text-[#0B5CFF]">.</span>
+          </RevealItem>
 
-        <p className="mt-5 max-w-xl text-[14.5px] leading-7 text-[#4A5261]">
-          Excellence is our standard — your success is our mission. We pair
-          expert-led training with the tools and support your teams need before,
-          during, and long after every session.
-        </p>
+          <RevealItem as="p" className="mt-5 max-w-xl text-[14.5px] leading-7 text-[#4A5261]">
+            Excellence is our standard — your success is our mission. We pair
+            expert-led training with the tools and support your teams need before,
+            during, and long after every session.
+          </RevealItem>
+        </RevealGroup>
 
         <div
           ref={gridRef}
@@ -147,11 +152,11 @@ export default function EnterpriseWhyUs() {
           ))}
         </div>
 
-        <div className="mt-12">
-          <Button variant="ink" arrow render={<Link to="/search/keyword/all_courses" />}>
+        <Reveal className="mt-12">
+          <Button variant="ink" arrow render={<Link to="/products/enterprise-training#skills-catalog" />}>
             Explore Our Programs
           </Button>
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

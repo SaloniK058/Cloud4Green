@@ -3,6 +3,20 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import Container from "@/components/layout/Container";
+import {
+  Reveal,
+  RevealGroup,
+  RevealGround,
+  RevealItem,
+} from "@/components/motion/Reveal";
+import {
+  CUE,
+  DURATION,
+  EASE as REVEAL_EASE,
+  RISE,
+  STAGGER,
+  VIEWPORT,
+} from "@/components/motion/reveal-tokens";
 
 /* Our implementation approach — three steps on one track, drawn the way
    n8n / Zapier / Make draw a workflow: a node per step, a signal
@@ -122,7 +136,6 @@ const TICK_DELAY = [
   "group-hover:[transition-delay:410ms]",
 ];
 
-const EASE = [0.22, 1, 0.36, 1];
 
 /** The brand asterisk, as it appears on every section eyebrow. */
 function Asterisk({ className = "h-3.5 w-3.5", stroke = "stroke-[#0B5CFF]" }) {
@@ -158,29 +171,20 @@ function Arrow() {
   );
 }
 
-function Reveal({ children, delay = 0, className }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.55, ease: EASE, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+/* The reveal is the house one (components/motion/Reveal.jsx), imported
+   above, rather than a local fade on its own numbers. */
 
 function Step({ step, index, isLast }) {
   const number = String(index + 1).padStart(2, "0");
 
   return (
+    /* The house reveal. Side by side on desktop the three cross the trigger
+       together, so the STAGGER is what walks them left to right. */
     <motion.li
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: RISE }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.55, ease: EASE, delay: index * 0.08 }}
+      viewport={VIEWPORT}
+      transition={{ duration: DURATION, ease: REVEAL_EASE, delay: index * STAGGER }}
       className="group relative flex flex-col pl-[72px] lg:pl-0"
     >
       {/* Mobile track: a segment from this node down to the next one, so
@@ -319,14 +323,15 @@ export default function DeliveryProcess() {
 
       <Container>
         {/* ---------------------------------------------- the head */}
-        <Reveal className="max-w-[760px]">
-          <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
+        <RevealGroup delay={CUE.lead} className="max-w-[760px]">
+          <RevealItem as="p" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
             <Asterisk />
             Our implementation approach
-          </p>
+          </RevealItem>
 
           {/* Recoleta ships as a single Medium file, so font-medium. */}
-          <h2
+          <RevealItem
+            as="h2"
             id="approach-title"
             className="mt-5 font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.3rem] lg:text-[2.6rem]"
           >
@@ -335,12 +340,12 @@ export default function DeliveryProcess() {
             <em className="not-italic text-[#0B5CFF]">
               to <span className="whitespace-nowrap">enterprise-ready</span> automation.
             </em>
-          </h2>
+          </RevealItem>
 
-          <p className="mt-5 max-w-[560px] text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
+          <RevealItem as="p" className="mt-5 max-w-[560px] text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
             Three steps. You bring the problem; we take it from there.
-          </p>
-        </Reveal>
+          </RevealItem>
+        </RevealGroup>
 
         {/* ---------------------------------------------- the track */}
         <div className="relative mt-14 lg:mt-16">
@@ -349,13 +354,16 @@ export default function DeliveryProcess() {
               with a comet running along it. The comet's head sits on the
               animated `left`; its tail trails behind and tucks under the
               first node at the start of each run. */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-7 hidden lg:block">
+          {/* The wire is ground: it fades in under the nodes, no travel. */}
+          {/* h-px so the observer has a box to see — everything in it is
+              absolutely placed, and a zero-height target is unreliable. */}
+          <RevealGround delay={CUE.follow} aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-7 hidden h-px lg:block">
             <div className="absolute left-[16.5%] right-[16.5%] h-px bg-gradient-to-r from-[#0B5CFF]/10 via-[#0B5CFF]/35 to-[#0B5CFF]/10" />
             <span className="c4g-pulse-x absolute top-0 flex translate-x-[calc(-100%_+_4px)] -translate-y-1/2 items-center">
               <span className="h-px w-24 bg-gradient-to-r from-transparent to-[#0B5CFF]" />
               <span className="h-2 w-2 rounded-full bg-[#0B5CFF] shadow-[0_0_14px_4px_rgba(11,92,255,0.35)]" />
             </span>
-          </div>
+          </RevealGround>
 
           {/* Mobile: drawn per step instead, node to node — see <Step>. */}
 
@@ -369,7 +377,7 @@ export default function DeliveryProcess() {
         {/* ---------------------------------------------- the close */}
         {/* A ruled closing row: one line and the site's ink button, which
             is step 01 itself. */}
-        <div className="mt-14 flex flex-col gap-5 border-y border-[#101418]/8 py-6 sm:flex-row sm:items-center sm:justify-between">
+        <Reveal className="mt-14 flex flex-col gap-5 border-y border-[#101418]/8 py-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="flex items-center gap-3 text-[15px] leading-6 text-[#4A5261]">
             <Asterisk className="h-3.5 w-3.5 max-sm:hidden" />
             Start with a single process. Once it's running, adding the next one is easier.
@@ -382,7 +390,7 @@ export default function DeliveryProcess() {
             Reach out to us
             <Arrow />
           </Link>
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

@@ -8,6 +8,12 @@ import { Button } from "@/components/ui/button";
 import img1 from "@/assets/images/CertBanner2.png";
 import backgroundimg from "@/assets/images/certBanner.png";
 import CertificationFlow from "../illustrations/CertificationFlow";
+import {
+  RevealGroup,
+  RevealGround,
+  RevealItem,
+} from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 /* ------------------------------------------------------------------
    Cloud4Green — the /products/certifications masthead.
@@ -46,7 +52,9 @@ export default function Certifications({ imageSrc = img1, imageAlt = "" }) {
       className="relative isolate flex min-h-[calc(100svh_-_var(--c4g-chrome-h))] scroll-mt-24 items-center overflow-hidden border-b border-[#101418]/8 py-6 lg:py-7 [@media(max-height:760px)]:py-4"
     >
       {/* Full-bleed image, the same masthead treatment as Learning Solutions. */}
-      <img
+      <RevealGround
+        mount
+        as="img"
         src={backgroundimg}
         alt=""
         aria-hidden="true"
@@ -74,51 +82,49 @@ export default function Certifications({ imageSrc = img1, imageAlt = "" }) {
               and never more than 60% of the fold on a tall desktop. On a
               laptop that keeps the buttons above the fold; the 280px floor
               stops the drawing vanishing on very short windows. */}
-          <div className="relative isolate mx-auto w-full max-w-[max(280px,min(1216px,(100svh_-_var(--c4g-chrome-h))*0.6*960/440,(100svh_-_var(--c4g-chrome-h)_-_340px)*960/440))] [@media(max-height:760px)]:max-w-[max(280px,min(1216px,(100svh_-_var(--c4g-chrome-h)_-_290px)*960/440))]">
-            {/* Same soft bloom as the Enterprise Labs diagram: a light ground
-                for the thin strokes with no card edge to see. */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[125%] w-[112%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-white/75 blur-3xl"
-            />
+          {/* The drawing is the masthead's ground, so it fades with the photo
+              rather than rising — the copy under it is what arrives. */}
+          <RevealGround mount className="relative isolate mx-auto w-full max-w-[max(280px,min(1216px,(100svh_-_var(--c4g-chrome-h))*0.6*960/440,(100svh_-_var(--c4g-chrome-h)_-_340px)*960/440))] [@media(max-height:760px)]:max-w-[max(280px,min(1216px,(100svh_-_var(--c4g-chrome-h)_-_290px)*960/440))]">
+            {/* No bloom behind the drawing here, unlike the Enterprise Labs
+                diagram. It was 125% of the band's height and blurred, so it
+                spilled past the drawing and sat behind the headline as a white
+                glow. The scrim above already lightens the photo enough for the
+                strokes. */}
             <CertificationFlow />
-          </div>
+          </RevealGround>
 
           {/* ---------------------------------------------- the words */}
           {/* Below 760px of viewport height (most laptops once the browser
               chrome is taken off) the spacing and headline step down so the
               drawing keeps a readable size. */}
-          <div className="mx-auto mt-4 max-w-[860px] text-center lg:mt-5 [@media(max-height:760px)]:mt-3">
-            <p className="flex items-center justify-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
+          <RevealGroup mount delay={CUE.follow} className="mx-auto mt-4 max-w-[860px] text-center lg:mt-5 [@media(max-height:760px)]:mt-3">
+            <RevealItem as="p" className="flex items-center justify-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
               <Asterisk />
               Certifications
-            </p>
+            </RevealItem>
 
             {/* Recoleta ships as a single Medium file (see the @font-face in
                 index.css), so the headline is font-medium — asking for
                 bolder gets a synthesised bold. */}
-            <h1 className="mt-2.5 font-recoleta text-[1.85rem] font-medium uppercase leading-[1.06] tracking-[-0.02em] text-[#101418] sm:text-[2.35rem] lg:text-[2.6rem] [@media(max-height:760px)]:mt-2 [@media(max-height:760px)]:lg:text-[2.2rem]">
+            <RevealItem as="h1" className="mt-2.5 font-recoleta text-[1.85rem] font-medium uppercase leading-[1.06] tracking-[-0.02em] text-[#101418] sm:text-[2.35rem] lg:text-[2.6rem] [@media(max-height:760px)]:mt-2 [@media(max-height:760px)]:lg:text-[2.2rem]">
               Turn Hands-On Skills Into Industry Credentials
               <span className="text-[#0B5CFF]">.</span>
-            </h1>
+            </RevealItem>
 
-            <p className="mx-auto mt-3.5 max-w-[560px] text-[15px] leading-6 text-[#4A5261] lg:text-[16px] lg:leading-7 [@media(max-height:760px)]:mt-2.5">
+            <RevealItem as="p" className="mx-auto mt-3.5 max-w-[560px] text-[15px] leading-6 text-[#4A5261] lg:text-[16px] lg:leading-7 [@media(max-height:760px)]:mt-2.5">
               Get that career in IT. Earn that promotion. Stand out in your field.
-            </p>
+            </RevealItem>
 
-            <div className="mt-5 flex flex-wrap justify-center gap-3.5 lg:mt-6 [@media(max-height:760px)]:mt-4">
+            <RevealItem className="mt-5 flex flex-wrap justify-center gap-3.5 lg:mt-6 [@media(max-height:760px)]:mt-4">
               <Button arrow render={<Link to="/contact" />}>
                 Talk to an advisor
               </Button>
 
-              {/* No href yet — the certification catalogue PDF isn't in the
-                  repo. Same treatment as "Download brochure" on Enterprise
-                  Labs. */}
-              <Button variant="paper" arrow>
+              <Button variant="paper" arrow render={<a href="#certification-tracks" />}>
                 View certification paths
               </Button>
-            </div>
-          </div>
+            </RevealItem>
+          </RevealGroup>
         </div>
       </Container>
     </section>

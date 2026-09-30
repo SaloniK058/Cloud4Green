@@ -1,7 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 // ^ on framer-motion instead of the `motion` package, change to:
 //   import { AnimatePresence, motion } from "framer-motion";
+import {
+  Reveal,
+  RevealGroup,
+  RevealItem,
+} from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 /**
  * EnterpriseEcosystem
@@ -788,12 +795,12 @@ function ToolPanel({ tool, uid, track, onClose, spring, reduced }) {
         <span className="c4g-eco-paneltrack">{track.title}</span>
         <h3 className="c4g-eco-paneltitle">{tool.name}</h3>
         <p className="c4g-eco-paneltext">{tool.description}</p>
-        <a className="c4g-eco-panellink" href="#contact">
+        <Link className="c4g-eco-panellink" to="/products/enterprise-training#skills-catalog">
           Explore {track.title}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14M13 6l6 6-6 6" />
           </svg>
-        </a>
+        </Link>
       </motion.div>
 
       <motion.button
@@ -1097,22 +1104,22 @@ export default function EnterpriseEcosystem() {
       `}</style>
 
       {/* section header */}
-      <div className="c4g-eco-head">
-        <span className="text-sm font-bold uppercase tracking-[0.18em] text-blue-600">Learning Tracks</span>
-        <h2 className="c4g-eco-h2">Real tools. Real environments.</h2>
-        <p className="c4g-eco-sub">
+      <RevealGroup delay={CUE.lead} className="c4g-eco-head">
+        <RevealItem as="span" className="block text-sm font-bold uppercase tracking-[0.18em] text-blue-600">Learning Tracks</RevealItem>
+        <RevealItem as="h2" className="c4g-eco-h2">Real tools. Real environments.</RevealItem>
+        <RevealItem as="p" className="c4g-eco-sub">
           Every track is built around the platforms your teams work with every
           day — practiced hands-on, not just explained.
-        </p>
-      </div>
+        </RevealItem>
+      </RevealGroup>
 
       <div className="c4g-eco-grid2">
         {/* left — accordion */}
-        <div>
+        <RevealGroup delay={CUE.follow}>
           {TRACKS.map((t, i) => {
             const open = i === active;
             return (
-              <div key={t.id} className={open ? "c4g-eco-item open" : "c4g-eco-item"}>
+              <RevealItem key={t.id} className={open ? "c4g-eco-item open" : "c4g-eco-item"}>
                 <button
                   type="button"
                   className="c4g-eco-btn"
@@ -1140,21 +1147,21 @@ export default function EnterpriseEcosystem() {
                 <div id={`c4g-eco-panel-${t.id}`} className="c4g-eco-body" role="region" aria-label={t.title}>
                   <div className="c4g-eco-bodyin">
                     <p className="c4g-eco-blurb">{t.blurb}</p>
-                    <a className="c4g-eco-link" href="#contact">
+                    <Link className="c4g-eco-link" to="/products/enterprise-training#skills-catalog">
                       Explore {t.title}
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h14M13 6l6 6-6 6" />
                       </svg>
-                    </a>
+                    </Link>
                   </div>
                 </div>
-              </div>
+              </RevealItem>
             );
           })}
-        </div>
+        </RevealGroup>
 
         {/* right — swapping visual card */}
-        <div className="c4g-eco-visual">
+        <Reveal delay={CUE.trail} className="c4g-eco-visual">
           <div key={track.id} className="c4g-eco-card" style={{ background: track.tint }}>
             <div className="c4g-eco-badge" style={{ color: track.accent }}>
               {track.icon}
@@ -1203,7 +1210,7 @@ export default function EnterpriseEcosystem() {
               )}
             </AnimatePresence>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

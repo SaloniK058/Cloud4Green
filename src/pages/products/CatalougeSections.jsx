@@ -6,8 +6,16 @@ import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react"
 import Container from "@/components/layout/Container";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import {
+  CUE,
+  DURATION,
+  EASE as REVEAL_EASE,
+  RISE,
+  STAGGER,
+  VIEWPORT,
+} from "@/components/motion/reveal-tokens";
 
-const EASE = [0.22, 1, 0.36, 1];
 
 /** Cards shown per page, and per "Load more results" click. */
 const PAGE = 9;
@@ -106,19 +114,9 @@ function seededShuffle(arr, seed = 0x5f3a) {
 
 /* ================================================================== */
 
-function Reveal({ children, delay = 0, className }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.55, ease: EASE, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+/* The local fade-up that used to live here ran on its own numbers (0.55s,
+   20px, the UI curve); the section now uses the house reveal, imported
+   above, so it arrives on the same pulse as the rest of the site. */
 
 /** The brand asterisk, as it appears on the hero and in the closing CTA. */
 function Asterisk({ className = "h-3.5 w-3.5" }) {
@@ -326,13 +324,17 @@ function ProductsDropdown({ options, selected, onToggle, onClear }) {
 
 function ResultCard({ card, index, onPickDomain }) {
   return (
+    /* The house reveal, on the scroll trigger: each row arrives as it comes
+       into view, its three columns one STAGGER apart. A card that mounts
+       already in view (a filter change) plays straight away. */
     <motion.article
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: RISE }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={VIEWPORT}
       transition={{
-        duration: 0.4,
-        ease: EASE,
-        delay: (index % PAGE) * 0.035,
+        duration: DURATION,
+        ease: REVEAL_EASE,
+        delay: (index % 3) * STAGGER,
       }}
       className="
   group
@@ -701,7 +703,7 @@ export default function CatalogueSection() {
   return (
     <section
       id="catalogue"
-      className="relative z-10 scroll-mt-24 overflow-visible catalouge py-20 lg:py-28"
+      className="relative z-10 scroll-mt-24 overflow-x-clip overflow-y-visible catalouge py-20 lg:py-28"
     >
 
     {/* Continuation glow into WhoItsFor */}
@@ -725,24 +727,26 @@ export default function CatalogueSection() {
 />
 
       <Container>
-        <Reveal className="max-w-2xl">
-          <Eyebrow>Catalogue</Eyebrow>
+        <RevealGroup delay={CUE.lead} className="max-w-2xl">
+          <RevealItem>
+            <Eyebrow>Catalogue</Eyebrow>
+          </RevealItem>
 
-          <h2 className="mt-5 font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.015em] text-[#101418] sm:text-[2.3rem]">
+          <RevealItem as="h2" className="mt-5 font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.015em] text-[#101418] sm:text-[2.3rem]">
             Twenty-eight domains,
             <br className="hidden sm:block" /> 415 technologies
             <span className="text-[#0B5CFF]">.</span>
-          </h2>
+          </RevealItem>
 
-          <p className="mt-6 text-[15px] leading-7 text-[#4A5261]">
+          <RevealItem as="p" className="mt-6 text-[15px] leading-7 text-[#4A5261]">
             A sample of where teams start. If your stack runs something that
             isn't here, it's a build, not a no.
-          </p>
-        </Reveal>
+          </RevealItem>
+        </RevealGroup>
 
         {/* ------------------------- filter bar ------------------------- */}
 
-        <div className="mt-12 flex flex-wrap items-center gap-4 border-y border-[#101418]/8 py-4">
+        <Reveal delay={CUE.follow} className="mt-12 flex flex-wrap items-center gap-4 border-y border-[#101418]/8 py-4">
           {/* Filter label */}
           <span className="hidden items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#8A93A3] sm:flex">
             <Asterisk className="h-3 w-3" />
@@ -782,7 +786,7 @@ export default function CatalogueSection() {
             value={searchQuery}
             onChange={setSearchQuery}
           />
-        </div>
+        </Reveal>
 
         {/* ----------------------- selected filters ---------------------- */}
 

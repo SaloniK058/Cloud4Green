@@ -75,6 +75,32 @@ export const productNav = [
       { id: "corporate-training", label: "Overview" },
       { id: "skills-catalog", label: "Skills" },
       { id: "organizations", label: "For teams" },
+      { id: "why-us", label: "Why us" },
+    ],
+  },
+
+  /* Services pages run the same tier-2 bar as the product pages. */
+  {
+    path: "/services/automation",
+    name: "Automation",
+    heroId: "automation-hero",
+    sections: [
+      { id: "automation-hero", label: "Overview" },
+      { id: "problems", label: "Problems" },
+      { id: "solutions", label: "Solutions" },
+      { id: "catalogue", label: "Catalogue" },
+      { id: "ecosystem", label: "Ecosystem" },
+      { id: "approach", label: "Approach" },
+    ],
+  },
+
+  {
+    path: "/services/consulting",
+    name: "Consulting",
+    heroId: "overview",
+    sections: [
+      { id: "overview", label: "Overview" },
+      { id: "offerings", label: "Offerings" },
     ],
   },
 ];

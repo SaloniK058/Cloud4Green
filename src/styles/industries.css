@@ -25,7 +25,7 @@
 
   /* One stagger step, the same one the pillars grid above uses, so the
      two sections arrive at the same rhythm. */
-  --step: 90ms;
+  --step: var(--reveal-step, 100ms);
 
   position: relative;
   scroll-margin-top: 6rem;
@@ -134,18 +134,20 @@
   }
 }
 
+/* The house reveal — see --reveal-* in index.css. Cards follow the header
+   (a RevealGroup) by CUE.follow. */
 .ind {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(var(--reveal-rise, 28px));
+  transition: opacity var(--reveal-dur, 1s) var(--reveal-ease),
+    transform var(--reveal-dur, 1s) var(--reveal-ease);
 }
 
 .inds.is-in .ind,
 .inds.is-in .also {
   opacity: 1;
   transform: none;
-  transition-delay: calc(var(--i, 0) * var(--step));
+  transition-delay: calc(var(--reveal-follow, 240ms) + var(--i, 0) * var(--step));
 }
 
 .ind__link {
@@ -368,9 +370,9 @@
 
 .also {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(var(--reveal-rise, 28px));
+  transition: opacity var(--reveal-dur, 1s) var(--reveal-ease),
+    transform var(--reveal-dur, 1s) var(--reveal-ease);
 }
 
 .also__link {

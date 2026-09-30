@@ -4,6 +4,8 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Container from "@/components/layout/Container";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 /* ------------------------------------------------------------------
    Cloud4Green — "Certification tracks" for /products/certifications.
@@ -445,52 +447,55 @@ export default function CertificationTracks({ browseAllHref = "/contact" }) {
         {/* Wide/narrow split, the reference block's large-9 / large-3.
             `items-end` drops the link onto the deck's last baseline on a
             wide screen; on a phone it simply stacks underneath. */}
-        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+        <RevealGroup delay={CUE.lead} className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
           <div className="max-w-[760px]">
-            <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
+            <RevealItem as="p" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
               <Asterisk />
               Certification tracks
-            </p>
+            </RevealItem>
 
             {/* Recoleta ships as a single Medium file (see the @font-face in
                 index.css), so this is font-medium — asking for bolder gets a
                 synthesised bold. */}
-            <h2 className="mt-5 font-recoleta text-[1.75rem] font-medium uppercase leading-[1.1] tracking-[-0.02em] text-[#101418] sm:text-[2.15rem] lg:text-[2.6rem]">
+            <RevealItem as="h2" className="mt-5 font-recoleta text-[1.75rem] font-medium uppercase leading-[1.1] tracking-[-0.02em] text-[#101418] sm:text-[2.15rem] lg:text-[2.6rem]">
               Certification tracks we prepare candidates for
               <span className="text-[#0B5CFF]">.</span>
-            </h2>
+            </RevealItem>
 
-            <p className="mt-5 text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
+            <RevealItem as="p" className="mt-5 text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
               Each track pairs exam-blueprint-mapped content with the practice
               labs the exam assumes you have already run, plus mock exams and
               voucher procurement. Three track families are new in edition{" "}
               {NEW_EDITION}.
-            </p>
+            </RevealItem>
           </div>
 
-          <Link
-            to={browseAllHref}
-            className="group inline-flex shrink-0 items-start gap-2 text-[14px] font-semibold text-[#0B5CFF]"
-          >
-            Browse all tracks
-            <Arrow className="translate-y-[4px]" />
-          </Link>
-        </div>
+          <RevealItem>
+            <Link
+              to={browseAllHref}
+              className="group inline-flex shrink-0 items-start gap-2 text-[14px] font-semibold text-[#0B5CFF]"
+            >
+              Browse all tracks
+              <Arrow className="translate-y-[4px]" />
+            </Link>
+          </RevealItem>
+        </RevealGroup>
 
         {/* -------------------------------------------- the card grid */}
         {/* Eight families: four-up on a wide screen, two-up on a tablet,
             one-up on a phone. `items-start` keeps every card at the height
             it was handed rather than letting the row stretch it. */}
-        <div className="mt-14 grid items-start gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        <RevealGroup delay={CUE.follow} className="mt-14 grid items-start gap-6 sm:grid-cols-2 xl:grid-cols-4">
           {TRACK_FAMILIES.map((family, index) => (
-            <TrackCard
-              key={family.name}
-              family={family}
-              cardRef={index === 0 ? referenceRef : undefined}
-              height={index === 0 ? undefined : cardHeight}
-            />
+            <RevealItem key={family.name}>
+              <TrackCard
+                family={family}
+                cardRef={index === 0 ? referenceRef : undefined}
+                height={index === 0 ? undefined : cardHeight}
+              />
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </Container>
     </section>
   );

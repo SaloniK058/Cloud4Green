@@ -5,6 +5,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   DURATION,
   EASE,
+  GROUND_DURATION,
+  LINE_STAGGER,
   RISE,
   STAGGER,
   VIEWPORT,
@@ -47,6 +49,22 @@ const staticVariants = {
 };
 
 /**
+ * What starts a reveal. By default it is the element's top edge crossing the
+ * VIEWPORT line — right for everything below the fold.
+ *
+ * `mount` starts it on first paint instead, and is for mastheads. A page's
+ * hero is the homepage hero's counterpart, which plays on the preloader's cue
+ * rather than on scroll; left on the scroll trigger, any hero copy that sits
+ * in the bottom 18% of a short laptop fold would wait, invisible, for a scroll
+ * that has no reason to happen.
+ */
+function trigger(mount, target) {
+  return mount
+    ? { animate: target }
+    : { whileInView: target, viewport: VIEWPORT };
+}
+
+/**
  * A single block that fades and rises as it comes into view.
  *
  * `as` takes any intrinsic tag, so this can be the heading/paragraph/section
@@ -59,6 +77,7 @@ export function Reveal({
   delay = 0,
   y = RISE,
   duration = DURATION,
+  mount = false,
   className,
   children,
   ...rest
@@ -69,9 +88,48 @@ export function Reveal({
   return (
     <Tag
       initial={still ? false : { opacity: 0, y }}
-      whileInView={still ? undefined : { opacity: 1, y: 0 }}
-      viewport={VIEWPORT}
+      {...(still ? {} : trigger(mount, { opacity: 1, y: 0 }))}
       transition={{ duration, ease: EASE, delay }}
+      className={className}
+      {...rest}
+    >
+      {children}
+    </Tag>
+  );
+}
+
+/**
+ * Ground: a backdrop photograph, a tinted panel, a map. Fades with no travel,
+ * on the same curve as the homepage's `.hero-map`, because ground that slides
+ * reads as a layer sitting on the page rather than as the page itself.
+ *
+ * Use it on the element that *is* the ground, not a wrapper around the copy
+ * that sits on it — fading a parent would put an opacity ramp over any masked
+ * RevealLines inside and cancel them out.
+ *
+ * `opacity` is the resting value, for ground that is meant to sit half-lit —
+ * pass it here rather than as a class, or the class loses to the animation.
+ */
+export function RevealGround({
+  as = "div",
+  delay = 0,
+  duration = GROUND_DURATION,
+  opacity = 1,
+  mount = false,
+  className,
+  style,
+  children,
+  ...rest
+}) {
+  const still = useReducedMotion();
+  const Tag = motion[as] ?? motion.div;
+
+  return (
+    <Tag
+      initial={still ? false : { opacity: 0 }}
+      {...(still ? {} : trigger(mount, { opacity }))}
+      style={still ? { ...style, opacity } : style}
+      transition={{ duration, ease: "easeOut", delay }}
       className={className}
       {...rest}
     >
@@ -96,6 +154,7 @@ export function RevealGroup({
   delay = 0,
   stagger = STAGGER,
   rise = false,
+  mount = false,
   className,
   children,
   ...rest
@@ -113,8 +172,7 @@ export function RevealGroup({
   return (
     <Tag
       initial="hidden"
-      whileInView="visible"
-      viewport={VIEWPORT}
+      {...trigger(mount, "visible")}
       variants={{
         hidden: self ? { opacity: 0, y: RISE } : {},
         visible: {
@@ -195,11 +253,12 @@ export function RevealLines({
   as = "h2",
   lines,
   delay = 0,
-  stagger = 0.12,
+  stagger = LINE_STAGGER,
   duration = 1.1,
   headroom = "0.2em",
   underhang = "0.14em",
   nested = false,
+  mount = false,
   className,
   lineClassName = "",
   ...rest
@@ -215,13 +274,13 @@ export function RevealLines({
      own, so when nested it declares neither and passes the state down to its
      lines through `variants` alone. `delay` is then measured from the group's
      beat for this child, not from the trigger. */
-  const trigger = nested
+  const own = nested
     ? {}
-    : { initial: "hidden", whileInView: "visible", viewport: VIEWPORT };
+    : { initial: "hidden", ...trigger(mount, "visible") };
 
   return (
     <Tag
-      {...trigger}
+      {...own}
       variants={{
         hidden: {},
         visible: {

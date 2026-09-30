@@ -103,16 +103,7 @@ export default function EnterpriseTraining() {
         <SkillsCatalog/>
         <OrgBanner/>
         <EnterpriseWhyUs/>
-        <Placeholder
-          id="overview"
-          eyebrow="Enterprise Training"
-          title={
-            <>
-              Enterprise Training
-              <br className="hidden sm:block" /> page masthead
-            </>
-          }
-        />
+       
 
         {/* ── Programs ─────────────────────────────────────────────────────── */}
        

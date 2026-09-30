@@ -187,6 +187,19 @@ body {
   --c4g-chrome-h: calc(var(--c4g-announcement-h) + 1px + var(--c4g-navbar-h));
 
   /* ======================================================
+     SCROLL REVEAL — the CSS mirror of
+     components/motion/reveal-tokens.js. Sections whose entrance is
+     a stylesheet keyed off `.is-in` (pillars, industries, stats)
+     read these, so they arrive on the same pulse as the framer ones.
+  ====================================================== */
+  --reveal-ease: cubic-bezier(0.16, 1, 0.3, 1); /* EASE, expo.out */
+  --reveal-dur: 1s;                               /* DURATION */
+  --reveal-rise: 28px;                            /* RISE */
+  --reveal-step: 100ms;                           /* STAGGER */
+  --reveal-line-step: 120ms;                      /* LINE_STAGGER */
+  --reveal-follow: 240ms;                         /* CUE.follow */
+
+  /* ======================================================
      SHADCN SEMANTIC TOKENS
   ====================================================== */
 
@@ -1257,10 +1270,52 @@ a.hero-meta:hover {
   }
 }
 
-/* The map has no width rule of its own at any breakpoint — see .hero-map
-   above. It is sized against the fold from the narrowest phone to the widest
-   desktop, which is the only description of "full bleed" that doesn't need
-   re-tuning. */
+/* --- Below lg: stacked, not layered -------------------------------------
+ *
+ * The backdrop composition only works on a landscape screen. On a portrait one
+ * the height floor in --hero-map-height takes over and sizes the map to 55% of
+ * the fold, which on a 390px phone is a ~1000px-wide map: a zoomed-in slice of
+ * the Atlantic sitting behind the buttons, not a world. And the partner strip,
+ * pinned to a latitude on that map, landed on the CTAs.
+ *
+ * So below lg the three stop overlapping and stack in reading order —
+ * headline and buttons, then the whole map edge to edge, then the logos —
+ * inside the same .hero-field, so the reveal and the gate rules are untouched.
+ * 100vw rather than 100%: the stage carries side padding and the map should
+ * run to the glass. A flex item wider than its centred column overflows both
+ * sides equally, so it stays on the viewport's axis. */
+@media (max-width: 1023.98px) {
+  .hero-field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-map {
+    position: relative;
+    order: 1;
+    inset: auto;
+    transform: none;
+    width: 100vw;
+    max-width: none;
+    margin-top: clamp(1.5rem, 6vw, 2.5rem);
+  }
+
+  .hero-partners {
+    position: relative;
+    order: 2;
+    inset: auto;
+    translate: none;
+    width: 100%;
+  }
+
+  /* It was holding the strip's height in the flow for the layered layout; the
+     strip is in the flow itself now, and the meta line it also carries is
+     desktop-only — so below lg the box is empty and would only add a gap. */
+  .hero-ground {
+    display: none;
+  }
+}
 
 /* There was a @container query here that floated the CTA pair off into the air
    a short indented third line left free on the right, once the block was wide
@@ -2047,8 +2102,8 @@ html[data-preloading="true"] .c4g-map-spark {
      the smaller size — the ceiling is reached around 1170px, and above
      that the column holds still and the wrap holds with it. Raise the cap
      for a longer sentence, or drop it to 100% for a literal 60%. */
-  --c4g-sub: 60vw;
-  --c4g-sub-cap: 44rem;
+  --c4g-sub: 64vw;
+  --c4g-sub-cap: 56rem;
 
   position: fixed;
   inset: 0;
@@ -2126,47 +2181,24 @@ html[data-preloading="true"] .c4g-map-spark {
   bottom: calc(var(--c4g-mark) / -2);
 }
 
-/* One line, always.
- *
- * `nowrap` is the half of that CSS can do on its own; the other half is
- * `--c4g-lead-fit`, which the component measures — the ratio by which the
- * natural line overruns the room between the marks, or 1 when it already
- * fits. Sizing it off `vw` alone can't be trusted to hold the line,
- * because how wide 35 characters of the display face actually are is a
- * property of the face, and the fallback is not the same width as the
- * webfont that replaces it.
- *
- * The max-width is what the fit is measured against, so the gutter the
- * marks need stays a CSS number the JS just reads back. */
-.c4g-pre__lead {
-  max-width: calc(100% - 2 * var(--c4g-gap));
-  margin: 0 auto;
-  color: #101418;
-  font-size: calc(clamp(1.35rem, 4.4vw, 3rem) * var(--c4g-lead-fit, 1));
-  line-height: 1.14;
-  letter-spacing: -0.02em;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-/* In flow from the first frame at zero opacity — reserving its space is
-   what keeps the lead line from being shunted upward when it is revealed. */
+/* The panel's only line, so it takes the display face at headline size. */
 .c4g-pre__sub {
-  margin: clamp(0.85rem, 1.8vw, 1.3rem) auto 0;
+  margin: 0 auto;
   /* The share of the screen it wants, floored so a 375px phone still gets
      a readable measure, and then held to the same clearance from the marks
-     that the lead line keeps — at that floor, 60% of a narrow screen would
+     the copy keeps — at that floor, 60% of a narrow screen would
      otherwise put the last line's edge within a few pixels of the two
      bottom marks. */
   max-width: min(
     clamp(15rem, var(--c4g-sub), var(--c4g-sub-cap)),
     calc(100% - 2 * var(--c4g-gap))
   );
-  color: #4a5261;
-  font-size: clamp(0.72rem, 0.92vw, 0.9rem);
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-  text-wrap: pretty;
+  color: #101418;
+  font-size: clamp(1.15rem, 2.5vw, 2.1rem);
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+  font-weight: 500;
+  text-wrap: balance;
 }
 
 /* One word of a line. inline-block so it can carry its own opacity without
@@ -2176,7 +2208,6 @@ html[data-preloading="true"] .c4g-map-spark {
   will-change: opacity;
 }
 
-.c4g-pre__lead .accent,
 .c4g-pre__sub .accent {
   color: #0b5cff;
 }

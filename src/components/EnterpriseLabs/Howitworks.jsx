@@ -147,9 +147,16 @@ import { Link } from "react-router-dom";
 
 import Container from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
+import { CATALOGUE } from "@/config/downloads";
 import LabFlow from "@/components/sections/EnterpriseLab/Labflow";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import SilkGradient from "@/components/backgrounds/SilkGradient";
+import {
+  RevealGroup,
+  RevealGround,
+  RevealItem,
+} from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 export default function HowItWorks() {
   return (
@@ -234,13 +241,15 @@ export default function HowItWorks() {
               instead of handing it a share of the fold. Out of flow it
               contributes nothing to measure, so the height flows strictly
               one way: fold, less the type block, is what the band gets. */}
-          <div className="relative flex max-h-[min(507px,(100vw_-_40px)/2.4,(100svh_-_var(--c4g-chrome-h))*0.5)] min-h-[min(200px,(100vw_-_40px)/2.4)] flex-1 items-center justify-center">
+          {/* The diagram is the masthead's ground: it fades up with no
+              travel, and the words below arrive over it. */}
+          <RevealGround mount className="relative flex max-h-[min(507px,(100vw_-_40px)/2.4,(100svh_-_var(--c4g-chrome-h))*0.5)] min-h-[min(200px,(100vw_-_40px)/2.4)] flex-1 items-center justify-center">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-full w-[88%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-white/70 blur-3xl"
             />
             <LabFlow className="c4g-lab--fit absolute inset-0" />
-          </div>
+          </RevealGround>
 
           {/* ---------------------------------------------- the words */}
           {/* Every line this block saves is a line the band gets, so the
@@ -249,32 +258,32 @@ export default function HowItWorks() {
               straight out of the diagram. The column is widened past the
               usual measure only for the headline; the paragraph keeps its
               own 560px so the reading line stays short. */}
-          <div className="mx-auto mt-4 max-w-[860px] shrink-0 text-center lg:mt-5">
-            <p className="text-[12.5px] font-medium uppercase tracking-[0.14em] text-[#4A5261]">
+          <RevealGroup mount delay={CUE.follow} className="mx-auto mt-4 max-w-[860px] shrink-0 text-center lg:mt-5">
+            <RevealItem as="p" className="text-[12.5px] font-medium uppercase tracking-[0.14em] text-[#4A5261]">
               How it works
-            </p>
+            </RevealItem>
 
-            <h2 className="mt-2.5 font-recoleta text-[1.85rem] font-medium uppercase leading-[1.06] tracking-[-0.02em] text-[#101418] sm:text-[2.35rem] lg:text-[2.6rem]">
+            <RevealItem as="h2" className="mt-2.5 font-recoleta text-[1.85rem] font-medium uppercase leading-[1.06] tracking-[-0.02em] text-[#101418] sm:text-[2.35rem] lg:text-[2.6rem]">
               One request, a live environment
               <span className="text-[#0B5CFF]">.</span>
-            </h2>
+            </RevealItem>
 
-            <p className="mx-auto mt-3.5 max-w-[560px] text-[15px] leading-6 text-[#4A5261] lg:text-[16px] lg:leading-7">
+            <RevealItem as="p" className="mx-auto mt-3.5 max-w-[560px] text-[15px] leading-6 text-[#4A5261] lg:text-[16px] lg:leading-7">
               Your team picks a lab. We provision the real cloud account behind
               it, validate the work as they go, and hand back a record of what
               they did.
-            </p>
+            </RevealItem>
 
-            <div className="mt-5 flex flex-wrap justify-center gap-3.5 lg:mt-6">
+            <RevealItem className="mt-5 flex flex-wrap justify-center gap-3.5 lg:mt-6">
               <Button arrow render={<Link to="/contact" />}>
                 Book a demo
               </Button>
 
-              <Button variant="paper" arrow>
+              <Button variant="paper" arrow render={<a href={CATALOGUE.href} download={CATALOGUE.filename} />}>
                 Download brochure
               </Button>
-            </div>
-          </div>
+            </RevealItem>
+          </RevealGroup>
         </div>
       </Container>
     </section>

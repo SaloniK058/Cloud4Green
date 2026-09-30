@@ -5,6 +5,13 @@ import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
 import automationFlow from '@/components/Services/Automation/Automationflow.svg'
 import backgroundimg from "@/assets/images/lab6.png";
+import {
+  Reveal,
+  RevealGroup,
+  RevealGround,
+  RevealItem,
+} from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 /* Automation service hero — the "hybrid" of the two references:
    Retool's split (copy left, workflow canvas right) set in the Enterprise
@@ -20,7 +27,9 @@ export default function AutomationHero() {
     >
       {/* Full-bleed ground image, the same masthead treatment as the
           E-Learning and Consulting heroes. */}
-      <img
+      <RevealGround
+        mount
+        as="img"
         src={backgroundimg}
         alt=""
         aria-hidden="true"
@@ -48,35 +57,35 @@ export default function AutomationHero() {
           {/* ---------------------------------------------- the words */}
           {/* Left-aligned from lg (it's a column now, not a centred block),
               centred on small screens where it spans the full width. */}
-          <div className="mx-auto max-w-[560px] text-center lg:mx-0 lg:text-left">
-            <p className="text-[12.5px] font-medium uppercase tracking-[0.14em] text-[#4A5261]">
+          <RevealGroup mount delay={CUE.lead} className="mx-auto max-w-[560px] text-center lg:mx-0 lg:text-left">
+            <RevealItem as="p" className="text-[12.5px] font-medium uppercase tracking-[0.14em] text-[#4A5261]">
               Automation services
-            </p>
+            </RevealItem>
 
             {/* h1: this is the page's hero, not a section inside one. The
                 split column is narrower than the centred one, so the size
                 steps up and the line breaks are allowed — three short
                 stacked lines is the Retool rhythm. */}
-            <h1 className="mt-3 font-recoleta text-[2.1rem] font-medium uppercase leading-[1.04] tracking-[-0.02em] text-[#101418] sm:text-[2.6rem] lg:text-[3.1rem]">
+            <RevealItem as="h1" className="mt-3 font-recoleta text-[2.1rem] font-medium uppercase leading-[1.04] tracking-[-0.02em] text-[#101418] sm:text-[2.6rem] lg:text-[3.1rem]">
               Make Work Flow Smarter
-             
+
               <span className="text-[#0B5CFF]">.</span>
-            </h1>
+            </RevealItem>
 
-            <p className="mx-auto mt-4 max-w-[480px] text-[15px] leading-6 text-[#4A5261] lg:mx-0 lg:text-[16px] lg:leading-7">
+            <RevealItem as="p" className="mx-auto mt-4 max-w-[480px] text-[15px] leading-6 text-[#4A5261] lg:mx-0 lg:text-[16px] lg:leading-7">
              Automate repetitive processes, connect enterprise systems and deploy intelligent AI agents that help your business operate more efficiently.
-            </p>
+            </RevealItem>
 
-            <div className="mt-6 flex flex-wrap justify-center gap-3.5 lg:justify-start">
-              <Button arrow render={<Link to="/contact" />}>
+            <RevealItem className="mt-6 flex flex-wrap justify-center gap-3.5 lg:justify-start">
+              <Button arrow render={<a href="#solutions" />}>
                 Explore Automation
               </Button>
 
-              <Button variant="paper" arrow>
+              <Button variant="paper" arrow render={<Link to="/contact" />}>
                Talk to an Expert
               </Button>
-            </div>
-          </div>
+            </RevealItem>
+          </RevealGroup>
 
           
           
@@ -84,7 +93,7 @@ export default function AutomationHero() {
                 {/* From lg the canvas bleeds past the container's right edge
                     (the section's overflow-hidden clips any excess) so the
                     diagram reads larger without squeezing the copy column. */}
-                <div className="relative mx-auto aspect-[6/5] w-full max-w-[760px] lg:-mr-6 lg:w-[calc(100%+1.5rem)] lg:max-w-none min-[1440px]:-mr-16 min-[1440px]:w-[calc(100%+4rem)]">
+                <Reveal mount delay={CUE.follow} className="relative mx-auto aspect-[6/5] w-full max-w-[760px] lg:-mr-6 lg:w-[calc(100%+1.5rem)] lg:max-w-none min-[1440px]:-mr-16 min-[1440px]:w-[calc(100%+4rem)]">
                 {/* soft white bloom behind the cards, same idea as HowItWorks */}
                 <div
                     aria-hidden="true"
@@ -96,7 +105,7 @@ export default function AutomationHero() {
                     className="absolute inset-0 h-full w-full object-contain"
                     decoding="async"
                 />
-                </div>
+                </Reveal>
         </div>
       </Container>
     </section>

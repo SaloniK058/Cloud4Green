@@ -4,6 +4,14 @@ import { Link } from "react-router-dom";
 import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
+import {
+  Reveal,
+  RevealGroup,
+  RevealGround,
+  RevealItem,
+  RevealLines,
+} from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 // Swap these for your own photos (real team / client training shots work best).
 import slideImg1 from "@/assets/images/clients.jpg";
@@ -65,7 +73,9 @@ export default function CorporateTrainingHero() {
       {/* Background photo, washed with the site's warm off-white so the dark
           headline stays readable. The wash is strongest on the left, behind
           the copy, and lighter on the right where the carousel sits. */}
-      <img
+      <RevealGround
+        mount
+        as="img"
         src={heroBg}
         alt=""
         aria-hidden="true"
@@ -92,39 +102,41 @@ export default function CorporateTrainingHero() {
             and the photo flexes into the rest. Desktop: two columns. */}
         <div className="flex min-h-0 flex-1 flex-col gap-6 py-6 sm:gap-8 sm:py-8 lg:grid lg:grid-cols-[1fr_minmax(0,620px)] lg:items-center lg:gap-16 lg:py-8">
           {/* ------------------------------------------------ the words */}
-          <div className="max-w-[560px] shrink-0">
-            <p className="text-[12.5px] font-semibold uppercase tracking-[0.18em] text-[#0B5CFF]">
+          <RevealGroup mount delay={CUE.lead} className="max-w-[560px] shrink-0">
+            <RevealItem as="p" className="text-[12.5px] font-semibold uppercase tracking-[0.18em] text-[#0B5CFF]">
               For Enterprises
-            </p>
+            </RevealItem>
 
             {/* Sized off the viewport height as well as the breakpoint, so a
                 short laptop screen gets a smaller headline rather than an
-                overflowing one. */}
-            <h2 className="mt-3 font-recoleta text-[clamp(1.75rem,4.6svh,2.4rem)] font-medium leading-[1.05] tracking-[-0.02em] sm:text-[clamp(2rem,5svh,3rem)] lg:text-[clamp(2.4rem,6.5svh,3.6rem)] uppercase">
-             People power enterprises.
-              <br />
-            We power people
-            </h2>
+                overflowing one. Broken by hand, so the two lines rise out of
+                their own masks like the homepage headline. */}
+            <RevealLines
+              nested
+              as="h2"
+              lines={["People power enterprises.", "We power people"]}
+              className="mt-3 font-recoleta text-[clamp(1.75rem,4.6svh,2.4rem)] font-medium leading-[1.05] tracking-[-0.02em] sm:text-[clamp(2rem,5svh,3rem)] lg:text-[clamp(2.4rem,6.5svh,3.6rem)] uppercase"
+            />
 
-            <p className="mt-4 text-[15px] leading-6 text-[#4A5261] sm:text-[16px] sm:leading-7 lg:mt-6 lg:text-[18px] lg:leading-8">
+            <RevealItem as="p" className="mt-4 text-[15px] leading-6 text-[#4A5261] sm:text-[16px] sm:leading-7 lg:mt-6 lg:text-[18px] lg:leading-8">
               {/* Upskill whole teams on the cloud and AI stack they actually run.
               Instructor-led cohorts, hands-on labs in live cloud accounts, and
               progress reports your L&amp;D team can act on — in one programme. */}
               Bring world-class learning and hands-on practice to your workforce.
-            </p>
+            </RevealItem>
 
-            <div className="mt-6 lg:mt-9">
+            <RevealItem className="mt-6 lg:mt-9">
               <Button variant="ink" arrow render={<Link to="/contact" />}>
                 Explore training plans
               </Button>
-            </div>
-          </div>
+            </RevealItem>
+          </RevealGroup>
 
           {/* ------------------------------------------------ the visual */}
           {/* Mobile/tablet: flex-1 fills whatever height the copy leaves.
               Desktop: keeps its 20:19 shape, with the width capped so the
               height fits inside the hero (hero height minus lg:py-8). */}
-          <div className="relative mx-auto min-h-[160px] w-full max-w-[620px] flex-1 lg:mx-0 lg:ml-auto lg:min-h-0 lg:max-w-[min(620px,(100svh_-_var(--c4g-chrome-h)_-_4rem)*20/19)] lg:flex-none">
+          <Reveal mount delay={CUE.follow} className="relative mx-auto min-h-[160px] w-full max-w-[620px] flex-1 lg:mx-0 lg:ml-auto lg:min-h-0 lg:max-w-[min(620px,(100svh_-_var(--c4g-chrome-h)_-_4rem)*20/19)] lg:flex-none">
 
             {/* The white stage: a soft card the whole visual sits on, with a
                 brand-blue panel inside it. The photo frame overlaps the panel
@@ -162,7 +174,7 @@ export default function CorporateTrainingHero() {
                 aria-hidden="true"
                 viewBox="0 0 120 40"
                 fill="none"
-                className="absolute bottom-[10%] left-[2%] w-[24%] text-[#101418]"
+                className="absolute bottom-[3%] left-[5%] w-[24%] text-[#101418]"
               >
                 <path
                   d="M2 34c16 0 12-24 26-24s10 24 22 24 8-20 20-20 10 20 22 20h26"
@@ -239,7 +251,7 @@ export default function CorporateTrainingHero() {
                 ))}
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </Container>
     </section>

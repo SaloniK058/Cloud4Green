@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
 import Container from "@/components/layout/Container";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 /* Consulting offerings — the full service catalogue, laid out the way the
    reference mega-menu groups it: four practice areas in columns, each
@@ -141,36 +143,41 @@ export default function ConsultingOfferings() {
 
       <Container>
         {/* ---------------------------------------------- the head */}
-        <div className="relative max-w-[760px]">
-          <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
+        <RevealGroup delay={CUE.lead} className="relative max-w-[760px]">
+          <RevealItem as="p" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
             <Asterisk />
             What we offer
-          </p>
+          </RevealItem>
 
-          <h2
+          <RevealItem
+            as="h2"
             id="offerings-title"
             className="mt-5 font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.3rem] lg:text-[2.6rem]"
           >
             Consulting across the whole business<span className="text-[#0B5CFF]">.</span>
-          </h2>
+          </RevealItem>
 
-          <p className="mt-5 max-w-[560px] text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
+          <RevealItem as="p" className="mt-5 max-w-[560px] text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
             Four practices, twenty services. Pick the one closest to what you need and we'll set up a conversation
             with the right team.
-          </p>
-        </div>
+          </RevealItem>
+        </RevealGroup>
 
         {/* ---------------------------------------------- the practices */}
-        <div className="relative mt-12 grid gap-5 md:grid-cols-2 lg:mt-14 xl:grid-cols-4">
+        {/* `grid` on each beat so the card still stretches to the row's
+            height, as it did when it was the grid item itself. */}
+        <RevealGroup delay={CUE.follow} className="relative mt-12 grid gap-5 md:grid-cols-2 lg:mt-14 xl:grid-cols-4">
           {PRACTICES.map((practice, index) => (
-            <PracticeCard key={practice.title} practice={practice} index={index} />
+            <RevealItem key={practice.title} className="grid">
+              <PracticeCard practice={practice} index={index} />
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
 
         {/* ---------------------------------------------- transformation band */}
         {/* The three programmes that cut across every practice, set as one
             ink band so they read as a level above the columns. */}
-        <div className="relative mt-5 flex flex-col gap-6 rounded-[18px] bg-gradient-to-br from-[#101418] to-[#1a1f29] p-6 text-white lg:flex-row lg:items-center lg:justify-between lg:p-7 shadow-[0_12px_40px_rgba(11,92,255,0.12)] border border-white/5 backdrop-blur-sm overflow-hidden">
+        <Reveal className="relative mt-5 flex flex-col gap-6 rounded-[18px] bg-gradient-to-br from-[#101418] to-[#1a1f29] p-6 text-white lg:flex-row lg:items-center lg:justify-between lg:p-7 shadow-[0_12px_40px_rgba(11,92,255,0.12)] border border-white/5 backdrop-blur-sm overflow-hidden">
           {/* Subtle accent glow */}
           <div className="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-[#0B5CFF]/10 blur-2xl pointer-events-none" />
 
@@ -196,10 +203,10 @@ export default function ConsultingOfferings() {
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
 
         {/* ---------------------------------------------- the close */}
-        <p className="relative mt-8 text-[14.5px] leading-6 text-[#4A5261]">
+        <Reveal as="p" className="relative mt-8 text-[14.5px] leading-6 text-[#4A5261]">
           Not sure which one fits?{" "}
           <Link
             to="/contact"
@@ -207,7 +214,7 @@ export default function ConsultingOfferings() {
           >
             Tell us the problem and we'll point you to the right team →
           </Link>
-        </p>
+        </Reveal>
       </Container>
     </section>
   );

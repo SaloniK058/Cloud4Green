@@ -1,5 +1,4 @@
-
-
+import { Link } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
@@ -7,6 +6,14 @@ import Footer from "@/components/layout/Footer";
 import EnterpriseHubVisual from "@/components/EnterpriseSections/EnterpriseHubVisual";
 // import EnterpriseEcosystem from "@/components/EnterpriseSections/EnterpriseEcosystem";
 import EnterpriseEcosystemFinal from "@/components/EnterpriseSections/EnterpriseEcosystemFinal";
+import {
+  Reveal,
+  RevealGroup,
+  RevealGround,
+  RevealItem,
+  RevealLines,
+} from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 import Image from '@/assets/images/lms2.png'
 
@@ -18,7 +25,11 @@ export default function Enterprise() {
       <main>
         <section className="relative min-h-[calc(100vh-80px)] overflow-hidden">
   {/* Background image */}
-  <div
+  {/* Ground — fades up with no travel, like the homepage map. The 50% is
+      the resting opacity, so it is the animate target rather than a class. */}
+  <RevealGround
+    mount
+    opacity={0.5}
     className="
       absolute
       inset-0
@@ -26,9 +37,6 @@ export default function Enterprise() {
       bg-cover
       bg-center
       bg-no-repeat
-      opacity-50
-
-      
     "
     style={{
       backgroundImage: `url(${Image})`,
@@ -49,32 +57,36 @@ export default function Enterprise() {
       <div className="flex justify-center items-center gap-16 py-20  lg:gap-24">
 
         {/* Left — Content */}
-        <div className="max-w-2xl backdrop-blur-sm">
+        <RevealGroup mount delay={CUE.lead} className="max-w-2xl backdrop-blur-sm">
 
           {/* Eyebrow */}
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#08243F]/10 bg-white/70 px-4 py-2 text-sm text-muted-foreground backdrop-blur-sm">
+          <RevealItem className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#08243F]/10 bg-white/70 px-4 py-2 text-sm text-muted-foreground backdrop-blur-sm">
             <span className="h-2 w-2 rounded-full bg-blue-900 " />
             Enterprise Learning
-          </div>
+          </RevealItem>
 
           {/* Heading */}
-          <h1 className="font-heading text-5xl font-semibold tracking-[-0.04em] text-[#08243F] sm:text-6xl lg:text-7xl">
-            Learning built for
-            <span className="block text-[blue-900]">
-              modern enterprises.
-            </span>
-          </h1>
+          <RevealLines
+            nested
+            as="h1"
+            lines={[
+              "Learning built for",
+              <span className="text-[blue-900]">modern enterprises.</span>,
+            ]}
+            className="font-heading text-5xl font-semibold tracking-[-0.04em] text-[#08243F] sm:text-6xl lg:text-7xl"
+          />
 
           {/* Description */}
-          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+          <RevealItem as="p" className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
             A powerful enterprise learning platform that brings
             training, cloud labs, certifications, and hands-on
             learning into one place.
-          </p>
+          </RevealItem>
 
           {/* CTA */}
-          <div className="mt-8 flex flex-wrap gap-4">
-            <button
+          <RevealItem className="mt-8 flex flex-wrap gap-4">
+            <a
+              href="#platform"
               className="
                 rounded-full
                 bg-[#08243F]
@@ -90,9 +102,10 @@ export default function Enterprise() {
               "
             >
               Explore Enterprise
-            </button>
+            </a>
 
-            <button
+            <Link
+              to="/contact"
               className="
                 rounded-full
                 border
@@ -110,9 +123,9 @@ export default function Enterprise() {
               "
             >
               Talk to us
-            </button>
-          </div>
-        </div>
+            </Link>
+          </RevealItem>
+        </RevealGroup>
 
         {/* Right — Platform hub animation */}
         {/* <div className="flex items-center justify-center">
@@ -130,7 +143,7 @@ export default function Enterprise() {
 {/* ENTERPRISE PLATFORM */}
 {/* ===================================================== */}
 
-<section className="relative overflow-hidden bg-blue-300 text-white">
+<section id="platform" className="relative scroll-mt-20 overflow-hidden bg-blue-300 text-white">
 
   <div className="grid min-h-[720px] grid-cols-1 lg:grid-cols-2">
 
@@ -157,7 +170,7 @@ export default function Enterprise() {
       />
 
       <Container className="flex justify-center">
-        <div className="relative z-10 max-w-xl py-24 lg:py-32">
+        <RevealGroup delay={CUE.lead} className="relative z-10 max-w-xl py-24 lg:py-32">
 
           {/* Eyebrow */}
           {/* <div
@@ -180,13 +193,19 @@ export default function Enterprise() {
 
             One connected platform
           </div> */}
-          <span className="text-sm font-bold uppercase tracking-[0.18em] text-blue-600">
+          <RevealItem as="span" className="block text-sm font-bold uppercase tracking-[0.18em] text-blue-600">
             One connected platform
-          </span>
+          </RevealItem>
 
 
           {/* Heading */}
-          <h2
+          <RevealLines
+            nested
+            as="h2"
+            lines={[
+              "Everything your",
+              <span className="text-blue-900">enterprise needs.</span>,
+            ]}
             className="
               font-heading
               text-4xl
@@ -197,16 +216,12 @@ export default function Enterprise() {
               sm:text-5xl
               lg:text-6xl
             "
-          >
-            Everything your
-            <span className="block text-blue-900">
-              enterprise needs.
-            </span>
-          </h2>
+          />
 
 
           {/* Description */}
-          <p
+          <RevealItem
+            as="p"
             className="
               mt-7
               max-w-lg
@@ -218,11 +233,11 @@ export default function Enterprise() {
             Connect enterprise learning, cloud labs, AI labs,
             certifications, and analytics through one unified
             learning ecosystem.
-          </p>
+          </RevealItem>
 
 
           {/* Small supporting statement */}
-          <div className="mt-10 flex items-center gap-4">
+          <RevealItem className="mt-10 flex items-center gap-4">
 
             <div className="h-px w-12 bg-[#159447]" />
 
@@ -230,9 +245,9 @@ export default function Enterprise() {
               Built for modern enterprise learning
             </p>
 
-          </div>
+          </RevealItem>
 
-        </div>
+        </RevealGroup>
       </Container>
     </div>
 
@@ -294,9 +309,9 @@ export default function Enterprise() {
 
 
       {/* Hub */}
-      <div className="relative z-10 w-full max-w-[560px]">
+      <Reveal delay={CUE.follow} className="relative z-10 w-full max-w-[560px]">
         <EnterpriseHubVisual />
-      </div>
+      </Reveal>
 
     </div>
 

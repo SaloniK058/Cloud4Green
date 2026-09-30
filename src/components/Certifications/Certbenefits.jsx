@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import "@/styles/Certbenefits.css";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 /* ------------------------------------------------------------
    Content — edit freely. `art` is the illustration component.
@@ -107,7 +110,9 @@ export default function CertBenefits() {
     >
       <div className="cb-wrap">
         {/* ---------- Stacking cards (left) ---------- */}
-        <div className="cb-stack">
+        {/* The cards own their transform (the stacking tilt reads --p), so
+            the entrance goes on the stack around them, not on each card. */}
+        <Reveal delay={CUE.follow} className="cb-stack">
           {BENEFITS.map(({ title, text, art: Art, tone }, i) => (
             <article
               key={title}
@@ -125,44 +130,46 @@ export default function CertBenefits() {
               </div>
             </article>
           ))}
-        </div>
+        </Reveal>
 
         {/* ---------- Sticky copy (right) ---------- */}
-        <div className="cb-copy" ref={copyRef}>
-          <span className="cb-eyebrow">
+        {/* The group itself doesn't move (no `rise`), so the sticky box is
+            never transformed — only its children are. */}
+        <RevealGroup delay={CUE.lead} className="cb-copy" ref={copyRef}>
+          <RevealItem as="span" className="cb-eyebrow">
             {/* the brand asterisk, same mark as CertHero's eyebrow */}
             <svg viewBox="0 0 24 24" aria-hidden="true" strokeWidth="2.4" strokeLinecap="round">
               <path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9L4.9 19.1" />
             </svg>
             Why get certified
-          </span>
-          <h2 id="cb-title">
+          </RevealItem>
+          <RevealItem as="h2" id="cb-title">
             Prove your abilities and accelerate your career<span className="cb-dot">.</span>
-          </h2>
-          <p>
+          </RevealItem>
+          <RevealItem as="p">
             Advance your career by getting your skills tested and verified by the
             Cloud4Green team. If you've peeked at our <a href="#">job board</a> lately,
             you'll know that demand for experienced cloud engineers is on the rise.
-          </p>
-          <p className="cb-copy__lead">With a Cloud4Green certification, you can:</p>
+          </RevealItem>
+          <RevealItem as="p" className="cb-copy__lead">With a Cloud4Green certification, you can:</RevealItem>
 
-          <div className="cb-progress" aria-hidden="true">
+          <RevealItem className="cb-progress" aria-hidden="true">
             <strong ref={countRef}>01</strong>
             <span>/ {String(BENEFITS.length).padStart(2, "0")}</span>
             <span className="cb-bar">
               <i ref={barRef} />
             </span>
-          </div>
+          </RevealItem>
 
-          <div className="cb-actions">
-            <Button arrow render={<a href="#" />}>
+          <RevealItem className="cb-actions">
+            <Button arrow render={<Link to="/contact" />}>
               Register now
             </Button>
-            <Button variant="paper" arrow render={<a href="#" />}>
+            <Button variant="paper" arrow render={<a href="#certification-tracks" />}>
               View certification paths
             </Button>
-          </div>
-        </div>
+          </RevealItem>
+        </RevealGroup>
       </div>
     </section>
   );

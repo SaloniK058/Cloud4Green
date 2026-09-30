@@ -291,10 +291,11 @@
 //   );
 // }
 
-import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Container from "@/components/layout/Container";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 /* Our solutions — the three-tier offering, laid out as a progression
    rather than three equal boxes: rule-based work on the left, judgment
@@ -389,47 +390,8 @@ function Asterisk({ className = "h-3.5 w-3.5", stroke = "stroke-[#0B5CFF]" }) {
   );
 }
 
-/* Fades each block up the first time it scrolls into view — the same
-   IntersectionObserver reveal Problems uses. Runs once, and anyone with
-   reduced motion just sees the finished state. */
-function useReveal() {
-  const ref = useRef(null);
-  const [shown, setShown] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShown(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "0px 0px -10% 0px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  return [ref, shown];
-}
-
-function Reveal({ as: Tag = "div", delay = 0, className = "", children, ...rest }) {
-  const [ref, shown] = useReveal();
-  return (
-    <Tag
-      ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={`motion-safe:transition motion-safe:duration-700 motion-safe:ease-out ${
-        shown ? "translate-y-0 opacity-100" : "motion-safe:translate-y-3 motion-safe:opacity-0"
-      } ${className}`}
-      {...rest}
-    >
-      {children}
-    </Tag>
-  );
-}
+/* The reveal is the house one (components/motion/Reveal.jsx) — this file
+   used to carry its own IntersectionObserver fade on different numbers. */
 
 function Icon({ name }) {
   return (
@@ -530,42 +492,49 @@ export default function OurSolutions() {
 
       <Container>
         {/* ---------------------------------------------- the head */}
-        <Reveal className="max-w-[760px]">
-          <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#8FB2FF]">
+        <RevealGroup delay={CUE.lead} className="max-w-[760px]">
+          <RevealItem as="p" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#8FB2FF]">
             <Asterisk stroke="stroke-[#8FB2FF]" />
             Our solutions
-          </p>
+          </RevealItem>
 
-          <h2
+          <RevealItem
+            as="h2"
             id="solutions-title"
             className="mt-5 font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-white sm:text-[2.3rem] lg:text-[2.6rem]"
           >
             From simple automation{" "}
             <em className="not-italic text-[#8FB2FF]">to intelligent execution.</em>
-          </h2>
+          </RevealItem>
 
-          <p className="mt-5 max-w-[600px] text-[15px] leading-7 text-white/65 lg:text-[16px]">
+          <RevealItem as="p" className="mt-5 max-w-[600px] text-[15px] leading-7 text-white/65 lg:text-[16px]">
             Three ways to take work off your team's plate, in order of how much judgment it needs. Start with rules
             — add reasoning only where the process calls for it.
-          </p>
-        </Reveal>
+          </RevealItem>
+        </RevealGroup>
 
         {/* ---------------------------------------------- the tiers */}
         {/* Each tier arrives a beat after the one before, so the row reads
-            left to right the way the headline does. */}
-        <div className="mt-12 grid grid-cols-1 items-stretch gap-0 lg:mt-14 lg:grid-cols-[1fr_auto_1fr_auto_1fr] lg:gap-x-5">
-          <Reveal className="h-full">
+            left to right the way the headline does — and the connectors are
+            beats of their own, so each arrow lands between the two tiers it
+            joins. */}
+        <RevealGroup delay={CUE.follow} className="mt-12 grid grid-cols-1 items-stretch gap-0 lg:mt-14 lg:grid-cols-[1fr_auto_1fr_auto_1fr] lg:gap-x-5">
+          <RevealItem className="h-full">
             <SolutionCard solution={SOLUTIONS[0]} index={0} />
-          </Reveal>
-          <Connector />
-          <Reveal delay={90} className="h-full">
+          </RevealItem>
+          <RevealItem className="grid">
+            <Connector />
+          </RevealItem>
+          <RevealItem className="h-full">
             <SolutionCard solution={SOLUTIONS[1]} index={1} />
-          </Reveal>
-          <Connector />
-          <Reveal delay={180} className="h-full">
+          </RevealItem>
+          <RevealItem className="grid">
+            <Connector />
+          </RevealItem>
+          <RevealItem className="h-full">
             <SolutionCard solution={SOLUTIONS[2]} index={2} />
-          </Reveal>
-        </div>
+          </RevealItem>
+        </RevealGroup>
       </Container>
     </section>
   );

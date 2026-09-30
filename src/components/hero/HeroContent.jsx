@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { CATALOGUE } from "@/config/downloads";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import PartnerBanner from "../sections/Partners/PartnerBanner";
@@ -103,7 +104,7 @@ const HeroContent = () => {
           Book a demo
         </Button>
 
-        <Button variant="paper" arrow>
+        <Button variant="paper" arrow render={<a href={CATALOGUE.href} download={CATALOGUE.filename} />}>
           Download Brochure
         </Button>
 

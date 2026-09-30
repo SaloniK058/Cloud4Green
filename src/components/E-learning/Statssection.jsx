@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import '@/styles/statssection.css';
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { CUE, STAGGER } from "@/components/motion/reveal-tokens";
 
 /* ------------------------------------------------------------------ *
  * Stats — editorial.
@@ -59,17 +61,19 @@ export default function StatsSection({
     <section id="impact" ref={ref} className={`figures ${inView ? "is-in" : ""}`}>
       <div className="figures__inner">
         {/* ------------------------------------------------ the claim */}
-        <div className="figures__head">
+        <RevealGroup delay={CUE.lead} className="figures__head">
           {/* Sits in the first line's indent rather than in a column of
               its own — which is what lets the headline outdent under it
               instead of being pushed right for its whole depth. */}
           <span className="figures__since">{since}</span>
-          <h2 className="figures__title">{headline}</h2>
-        </div>
+          <RevealItem as="h2" className="figures__title">{headline}</RevealItem>
+        </RevealGroup>
 
-        <p className="figures__note figures__note--a">{notes[0]}</p>
-        <p className="figures__note figures__note--b">{notes[1]}</p>
-        <p className="figures__note figures__note--c">{notes[2]}</p>
+        {/* The three notes are placed in separate grid cells, so a wrapper
+            would break the grid; each carries its own step off CUE.follow. */}
+        <Reveal as="p" delay={CUE.follow} className="figures__note figures__note--a">{notes[0]}</Reveal>
+        <Reveal as="p" delay={CUE.follow + STAGGER} className="figures__note figures__note--b">{notes[1]}</Reveal>
+        <Reveal as="p" delay={CUE.follow + STAGGER * 2} className="figures__note figures__note--c">{notes[2]}</Reveal>
 
         {/* ---------------------------------------------- the numbers */}
         <dl className="figures__list">

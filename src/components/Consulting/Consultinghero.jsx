@@ -3,8 +3,16 @@ import { Link } from "react-router-dom";
 import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
+import { CATALOGUE } from "@/config/downloads";
 import backgroundimg from "@/assets/images/lab4.png";
 import consultImg from "@/assets/images/consultingImg.webp"
+import {
+  Reveal,
+  RevealGroup,
+  RevealGround,
+  RevealItem,
+} from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 /* ------------------------------------------------------------------
    Cloud4Green — the /services/consulting masthead.
@@ -76,7 +84,9 @@ export default function ConsultingHero({ imageSrc, imageAlt = "" }) {
       className="relative isolate flex min-h-[calc(100svh_-_var(--c4g-chrome-h))] scroll-mt-24 items-center overflow-hidden border-b border-[#101418]/8 py-16 lg:py-20"
     >
       {/* Full-bleed ground image, same as the E-Learning masthead. */}
-      <img
+      <RevealGround
+        mount
+        as="img"
         src={backgroundimg}
         alt=""
         aria-hidden="true"
@@ -96,40 +106,38 @@ export default function ConsultingHero({ imageSrc, imageAlt = "" }) {
       <Container>
         <div className="grid items-center gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           {/* ------------------------------------------- LEFT: the copy */}
-          <div className="max-w-[560px]">
-            <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
+          <RevealGroup mount delay={CUE.lead} className="max-w-[560px]">
+            <RevealItem as="p" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
               <Asterisk />
               Consulting
-            </p>
+            </RevealItem>
 
             {/* Recoleta ships as a single Medium file, so font-medium. */}
-            <h1 className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
+            <RevealItem as="h1" className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
               Building what's next, together<span className="text-[#0B5CFF]">.</span>
-            </h1>
+            </RevealItem>
 
-            <p className="mt-5 max-w-[500px] text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
+            <RevealItem as="p" className="mt-5 max-w-[500px] text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
               We bring together strategic thinking, industry expertise, and innovative solutions to help businesses
               overcome challenges and turn ambition into measurable outcomes.
-            </p>
+            </RevealItem>
 
-            <div className="mt-8 flex flex-wrap gap-3.5">
+            <RevealItem className="mt-8 flex flex-wrap gap-3.5">
               <Button arrow render={<Link to="/contact" />}>
                 Book a consultation
               </Button>
 
-              {/* No href yet — same treatment as "Download brochure" on
-                  Enterprise Labs. */}
-              <Button variant="paper" arrow>
+              <Button variant="paper" arrow render={<a href={CATALOGUE.href} download={CATALOGUE.filename} />}>
                 Download brochure
               </Button>
-            </div>
-          </div>
+            </RevealItem>
+          </RevealGroup>
 
           {/* ------------------------------------ RIGHT: the image slot */}
           {/* The same white stage as the Enterprise Training hero: a soft
               card with the photo running the full width across it. The
               image carries its own blue ground, so there's no brand panel. */}
-          <div className="relative mx-auto w-full max-w-[620px] lg:mx-0 lg:ml-auto">
+          <Reveal mount delay={CUE.follow} className="relative mx-auto w-full max-w-[620px] lg:mx-0 lg:ml-auto">
             {/* A column of three rows: a white band, the photo, a white band.
                 The bands split whatever height the photo leaves, and each
                 centres its doodles, so they stay aligned at any width. */}
@@ -169,7 +177,7 @@ export default function ConsultingHero({ imageSrc, imageAlt = "" }) {
                 </svg>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </Container>
     </section>

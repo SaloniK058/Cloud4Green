@@ -23,8 +23,19 @@ import {
 } from "@icons-pack/react-simple-icons";
 
 import Container from "@/components/layout/Container";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 import GoogleCloudMark from "@/components/brand/GoogleCloudMark";
 import catalogImg from "@/assets/images/gallerydigital.jpg";
+
+// Visual image
+import skill1 from "@/assets/images/skill1.webp"
+import skill2 from "@/assets/images/skill2.webp"
+import skill3 from "@/assets/images/skill3.webp"
+import skill4 from "@/assets/images/skillcloud.webp"
+import skill5 from "@/assets/images/skill5.webp"
+import skill6 from "@/assets/images/skill6.webp"
+
 
 /*
   Skills catalog: tabs on desktop, accordion on mobile.
@@ -112,6 +123,7 @@ const CATEGORIES = [
       "Identity & Access Management",
     ],
     tools: ["AWS", "Microsoft Azure", "Google Cloud", "Terraform"],
+    image: skill4,
   },
   {
     key: "genai",
@@ -127,6 +139,7 @@ const CATEGORIES = [
       "GenAI for Leadership",
     ],
     tools: ["Claude", "Google Gemini", "LangChain", "Hugging Face"],
+    image: skill2,
   },
   {
     key: "devops",
@@ -142,6 +155,7 @@ const CATEGORIES = [
       "Site Reliability Engineering",
     ],
     tools: ["Docker", "Kubernetes", "GitHub Actions", "Terraform"],
+    image: skill3,
   },
   {
     key: "data",
@@ -157,6 +171,7 @@ const CATEGORIES = [
       "Data Governance",
     ],
     tools: ["Python", "Apache Spark", "Databricks", "Snowflake"],
+    image: skill1,
   },
   {
     key: "security",
@@ -172,6 +187,7 @@ const CATEGORIES = [
       "Secrets Management",
     ],
     tools: ["HashiCorp Vault", "Snyk", "Trivy", "OWASP"],
+    image: skill5,
   },
   {
     key: "pm-it",
@@ -187,6 +203,7 @@ const CATEGORIES = [
       "Lean Six Sigma",
     ],
     tools: ["Jira", "Confluence", "Trello", "Asana"],
+    image: skill6,
   },
 ];
 
@@ -205,18 +222,18 @@ export default function SkillsCatalog() {
     <section id="skills-catalog" className="bg-[#F7F6F2] py-14 lg:py-20">
       <Container>
         {/* ---------------------------------------------- header row */}
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
-          <h2 className="font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.3rem] lg:text-[2.6rem]">
+        <RevealGroup delay={CUE.lead} className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+          <RevealItem as="h2" className="font-recoleta text-[1.9rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.3rem] lg:text-[2.6rem]">
             A <span className="text-[#0B5CFF]">cloud &amp; AI skills</span> catalog
-          </h2>
-          <p className="max-w-[480px] text-[15px] leading-6 text-[#4A5261] lg:text-[16px] lg:leading-7">
+          </RevealItem>
+          <RevealItem as="p" className="max-w-[480px] text-[15px] leading-6 text-[#4A5261] lg:text-[16px] lg:leading-7">
             Every course runs on live cloud accounts, so your teams leave with
             skills they have already used — not just watched.
-          </p>
-        </div>
+          </RevealItem>
+        </RevealGroup>
 
         {/* ---------------------------------------------- desktop: tabs */}
-        <div className="mt-12 hidden lg:block">
+        <Reveal delay={CUE.follow} className="mt-12 hidden lg:block">
           <Tabs
             active={selected}
             onChange={setActive}
@@ -244,14 +261,14 @@ export default function SkillsCatalog() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
 
         {/* ---------------------------------------------- mobile: accordion */}
-        <div className="mt-8 lg:hidden">
+        <RevealGroup delay={CUE.follow} className="mt-8 lg:hidden">
           {CATEGORIES.map((cat, i) => {
             const open = i === active;
             return (
-              <div key={cat.key} className="border-t border-[#101418]/10 last:border-b">
+              <RevealItem key={cat.key} className="border-t border-[#101418]/10 last:border-b">
                 <h3>
                   <button
                     type="button"
@@ -290,10 +307,10 @@ export default function SkillsCatalog() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </RevealItem>
             );
           })}
-        </div>
+        </RevealGroup>
       </Container>
     </section>
   );

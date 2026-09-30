@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "@/styles/industries.css";
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 import imageAutomotive from "@/assets/images/sector1.jpg"
 import imageFinance from "@/assets/images/sector3.jpg"
 import imageIt from "@/assets/images/gallerydigital.jpg"
@@ -142,7 +144,6 @@ const FEATURED = [
        is a foreground blur, so a centre crop gives you cable and shadow.
        Pushed right to land on the vehicle. */
     pos: "68% 55%",
-    href: "/industries/automotive",
   },
   {
     key: "banking",
@@ -152,7 +153,6 @@ const FEATURED = [
     /* A 9:16 portrait tower shot: the top half is bare sky. Held to the
        bottom of the frame so the card gets the facade, not the weather. */
     pos: "50% 78%",
-    href: "/industries/banking-finance",
   },
   {
     key: "it",
@@ -160,21 +160,18 @@ const FEATURED = [
     line: "Technical onboarding and capability building at delivery-centre scale.",
     image: imageIt,
     pos: "50% 42%",
-    href: "/industries/it-ites",
   },
   {
     key: "pharma",
     name: "Pharma & Healthcare",
     line: "Product knowledge and regulatory training for field and clinical teams.",
     image: imagePharma,
-    href: "/industries/pharma-healthcare",
   },
   {
     key: "audit",
     name: "Audit & Assessment",
     line: "Standardised assessment and certification across distributed teams.",
    image: imageAudit,
-    href: "/industries/audit-assessment",
   },
 ];
 
@@ -185,42 +182,36 @@ const ALSO = [
     name: "Manufacturing",
     line: "Upskill frontline workers and improve operational efficiency.",
     icon: Icons.manufacturing,
-    href: "/industries/manufacturing",
   },
   {
     key: "retail",
     name: "Retail",
     line: "Train frontline teams and deliver better customer experiences.",
     icon: Icons.retail,
-    href: "/industries/retail",
   },
   {
     key: "public",
     name: "Public sector",
     line: "Modernise training for government organisations.",
     icon: Icons.public,
-    href: "/industries/public-sector",
   },
   {
     key: "lifesciences",
     name: "Life sciences",
     line: "Reduce risk and evidence compliance across regulated work.",
     icon: Icons.lifesciences,
-    href: "/industries/life-sciences",
   },
   {
     key: "education",
     name: "Higher education",
     line: "Attract, develop and retain faculty and staff.",
     icon: Icons.education,
-    href: "/industries/higher-education",
   },
   {
     key: "nonprofit",
     name: "Nonprofit",
     line: "Develop staff and volunteers to maximise mission impact.",
     icon: Icons.nonprofit,
-    href: "/industries/nonprofit",
   },
 ];
 
@@ -261,27 +252,27 @@ export default function IndustriesSection({
             eyebrow, Recoleta uppercase on the display line, closed with
             the blue full stop — the same three parts as every other
             section on the page. */}
-        <div className="inds__head">
-          <p className="inds__eyebrow">
+        <RevealGroup delay={CUE.lead} className="inds__head">
+          <RevealItem as="p" className="inds__eyebrow">
             <Asterisk />
             Where we deliver
-          </p>
+          </RevealItem>
 
-          <h2 className="inds__title">
+          <RevealItem as="h2" className="inds__title">
             Industries we serve
             <span className="inds__stop">.</span>
-          </h2>
-          <p className="inds__lede">
+          </RevealItem>
+          <RevealItem as="p" className="inds__lede">
             Thirteen years of managed learning delivery across regulated,
             frontline and technical workforces — from fifty learners to fifty
             thousand.
-          </p>
-        </div>
+          </RevealItem>
+        </RevealGroup>
 
         <ul className="inds__grid">
           {featured.map((f, i) => (
             <li className="ind" key={f.key} style={{ "--i": i }}>
-              <a className="ind__link" href={f.href}>
+              <div className="ind__link">
                 <span
                   className={`ind__frame ${f.image ? "" : "ind__frame--drawn"}`}
                 >
@@ -304,19 +295,19 @@ export default function IndustriesSection({
                   <span className="ind__name">{f.name}</span>
                   <span className="ind__line">{f.line}</span>
                 </span>
-              </a>
+              </div>
             </li>
           ))}
         </ul>
 
         {/* --------------------------------------------------- tier two */}
         <div className="inds__more">
-          <p className="inds__morelabel">We also work across</p>
+          <Reveal as="p" className="inds__morelabel">We also work across</Reveal>
 
           <ul className="inds__list">
             {also.map((a, i) => (
               <li className="also" key={a.key} style={{ "--i": i + 5 }}>
-                <a className="also__link" href={a.href}>
+                <div className="also__link">
                   <span className="also__icon" aria-hidden="true">
                     {a.icon}
                   </span>
@@ -324,7 +315,7 @@ export default function IndustriesSection({
                     <span className="also__name">{a.name}</span>
                     <span className="also__line">{a.line}</span>
                   </span>
-                </a>
+                </div>
               </li>
             ))}
           </ul>

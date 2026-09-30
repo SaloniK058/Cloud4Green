@@ -1,12 +1,17 @@
-import { Fragment, useMemo, useRef } from "react";
+import { Fragment, useEffect, useMemo, useRef } from "react";
+import { Link } from "react-router-dom";
 import {
   motion,
+  useMotionValue,
+  useMotionValueEvent,
   useReducedMotion,
   useScroll,
   useTransform,
 } from "framer-motion";
 
 import '@/styles/scrub.css';
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { CUE } from "@/components/motion/reveal-tokens";
 
 /* ------------------------------------------------------------------ *
  * Scroll-scrubbed headline.
@@ -74,7 +79,7 @@ export default function ScrubSection({
   eyebrow = "Why Cloud4Green",
   blurb =
     "Every lab runs in a live sandbox that mirrors production — the same consoles, the same failure modes, the same blast radius. People finish having done the work, not having watched it.",
-  ctaHref = "#catalogue",
+  ctaHref = "/products/enterprise-labs#catalogue",
   ctaLabel = "See the 2026–27 catalogue",
 }) {
   const reduce = useReducedMotion();
@@ -88,8 +93,22 @@ export default function ScrubSection({
     offset: ["start start", "end end"],
   });
 
-  const progress = reduce ? null : scrollYProgress;
-  const rule = useTransform(scrollYProgress, [0, SPREAD + WINDOW], [0, 1]);
+  /* A high-water mark of that progress: it follows the scroll forward and
+     never back. Ink that has been laid down stays down — scrolling back up
+     through the section, or past it and back, doesn't un-read the sentence.
+     The characters and the rail both read this rather than the raw scroll,
+     so the two can't disagree about how far the reader has got. */
+  const peak = useMotionValue(0);
+  const raise = (v) => {
+    if (v > peak.get()) peak.set(v);
+  };
+  useMotionValueEvent(scrollYProgress, "change", raise);
+  /* A page that arrives already scrolled past (a #faq link, a restored
+     offset) has no change event to wait for. */
+  useEffect(() => raise(scrollYProgress.get()), []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const progress = reduce ? null : peak;
+  const rule = useTransform(peak, [0, SPREAD + WINDOW], [0, 1]);
 
   const body = useMemo(
     () =>
@@ -140,11 +159,13 @@ export default function ScrubSection({
             part of the page rather than a slab dropped into it */}
         <div className="c4g-scrub__grid" aria-hidden="true" />
 
-        <div className="c4g-scrub__wrapper">
-          <p className="c4g-scrub__eyebrow">
+        {/* The headline is the scroll scrub's to reveal, so only the eyebrow
+            and the foot around it take the house entrance. */}
+        <RevealGroup delay={CUE.lead} className="c4g-scrub__wrapper">
+          <RevealItem as="p" className="c4g-scrub__eyebrow">
             <span className="c4g-scrub__tick" aria-hidden="true" />
             {eyebrow}
-          </p>
+          </RevealItem>
 
           {/* The whole headline is one heading for assistive tech — the
               split spans are presentational, and a screen reader that met
@@ -153,14 +174,14 @@ export default function ScrubSection({
             <span aria-hidden="true">{body}</span>
           </h2>
 
-          <div className="c4g-scrub__foot">
+          <RevealItem className="c4g-scrub__foot">
             <p className="c4g-scrub__blurb">{blurb}</p>
 
-            <a className="c4g-scrub__cta" href={ctaHref}>
+            <Link className="c4g-scrub__cta" to={ctaHref}>
               {ctaLabel}
               <span aria-hidden="true">»</span>
-            </a>
-          </div>
+            </Link>
+          </RevealItem>
 
           {/* Reads the same value the characters do, so the hairline is a
               progress bar for the sentence rather than decoration. */}
@@ -170,7 +191,7 @@ export default function ScrubSection({
               style={reduce ? { scaleX: 1 } : { scaleX: rule }}
             />
           </div>
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );

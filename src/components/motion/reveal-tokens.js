@@ -36,6 +36,34 @@ export const DURATION = 1;
 
 export const STAGGER = 0.1;
 
+/* The line stagger for masked display type — the 0.12s the hero's two lines
+   run on (.hero-line--1 / --2 in index.css). */
+export const LINE_STAGGER = 0.12;
+
+/**
+ * The cue sheet. Every section on every page enters on the same grid the
+ * homepage hero was timed to, so a section on /services/automation arrives with
+ * the same pulse as one on /:
+ *
+ *   ground   0       backdrop / photograph / tinted panel. Opacity only, no
+ *                    travel — ground that slides reads as a layer on the page.
+ *   lead     0.08    the first beat of a section's header (eyebrow → lines →
+ *                    lede, spaced by STAGGER from here).
+ *   follow   0.24    the block under the header: a card grid, a visual, a
+ *                    form. Two line-beats behind the lead, so it arrives in the
+ *                    tail of the headline rather than waiting for it to settle.
+ *   trail    0.36    a third block, or the foot of a hero (stats, partner
+ *                    strip). Three line-beats.
+ *
+ * Multiples of LINE_STAGGER on purpose (0.08 is the one exception: it is the
+ * lead-in that lets the section edge cross before anything moves). Pick a cue
+ * rather than a number; if something needs a fourth, it is CUE.trail + 0.12.
+ */
+export const CUE = { ground: 0, lead: 0.08, follow: 0.24, trail: 0.36 };
+
+/* Ground fades on a plain ease-out rather than expo — see .hero-map. */
+export const GROUND_DURATION = 1.1;
+
 /**
  * `amount: 0` plus an 18% bottom inset is the framer-motion spelling of
  * ScrollTrigger's `start: "top 82%"`: the negative margin shrinks the observer

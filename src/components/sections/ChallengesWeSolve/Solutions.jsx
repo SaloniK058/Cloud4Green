@@ -11,6 +11,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
@@ -132,7 +133,7 @@ const CHALLENGES = [
 
     cta: {
       label: "Explore Cloud Labs",
-      href: "#cloudlabs",
+      href: "/products/enterprise-labs",
     },
 
     visual: {
@@ -191,7 +192,7 @@ const CHALLENGES = [
 
     cta: {
       label: "See Cloud Labs",
-      href: "#cloudlabs",
+      href: "/products/enterprise-labs#catalogue",
     },
 
     visual: {
@@ -245,7 +246,7 @@ const CHALLENGES = [
 
     cta: {
       label: "Explore Enterprise LMS",
-      href: "#lms",
+      href: "/products/e-learning",
     },
 
     visual: {
@@ -300,7 +301,7 @@ const CHALLENGES = [
 
     cta: {
       label: "Explore Training",
-      href: "#training",
+      href: "/products/enterprise-training",
     },
 
     visual: {
@@ -355,7 +356,7 @@ const CHALLENGES = [
 
     cta: {
       label: "Explore Certifications",
-      href: "#certifications",
+      href: "/products/certifications",
     },
 
     visual: {
@@ -1166,9 +1167,16 @@ export default function ChallengesSection({
           display: none;
         }
 
+        .${uid}-tab {
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        .${uid}-tab:hover {
+          background-color: rgba(15, 23, 42, 0.04);
+        }
+
         .${uid}-tab[aria-selected="true"] {
           background-color: rgba(22, 163, 74, 0.08);
-          
         }
 
         .${uid}-tab[aria-selected="true"]:hover {
@@ -1265,6 +1273,7 @@ export default function ChallengesSection({
                     tabRefs.current[i] =
                       el;
                   }}
+                  type="button"
                   role="tab"
                   id={`${uid}-tab-${item.id}`}
                   aria-selected={on}
@@ -1273,7 +1282,7 @@ export default function ChallengesSection({
                   onClick={() =>
                     setActive(i)
                   }
-                  className={`${uid}-tab flex-1 rounded-lg px-3 py-2 text-center text-[15px] leading-snug transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 sm:px-4`}
+                  className={`${uid}-tab flex-1 cursor-pointer select-none rounded-lg px-3 py-2 text-center text-[15px] leading-snug transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 sm:px-4`}
                   style={{
                     color: on
                       ? T.accent
@@ -1458,7 +1467,7 @@ export default function ChallengesSection({
               <Button
                 variant="ink"
                 arrow
-                render={<a href={current.cta.href} />}
+                render={<Link to={current.cta.href} />}
               >
                 {current.cta.label}
               </Button>

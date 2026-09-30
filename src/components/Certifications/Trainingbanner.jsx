@@ -5,6 +5,13 @@ import { Link } from "react-router-dom";
 
 import Container from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
+import {
+  Reveal,
+  RevealGroup,
+  RevealItem,
+  RevealLines,
+} from "@/components/motion/Reveal";
+import { LINE_STAGGER } from "@/components/motion/reveal-tokens";
 
 import bannerImg from "@/assets/images/CertTrophy.png";
 
@@ -75,8 +82,8 @@ const DEFAULT_STATEMENTS = [
 const DEFAULT_MANIFESTO = ["Skill the team.", "Prove the skill.", "Ship the work."];
 
 const DEFAULT_TABS = [
-  { label: "Certification tracks", href: "#tracks" },
-  { label: "How it works", href: "#how-it-works" },
+  { label: "Certification tracks", href: "#certification-tracks" },
+  { label: "Why certify", href: "#benefits" },
 ];
 
 export default function TrainingBanner({
@@ -113,12 +120,17 @@ export default function TrainingBanner({
     /* id: the product bar's "Training" anchor — see src/config/productNav.js */
     <section id="training" className="scroll-mt-24 bg-[#FAFAF7] py-14 lg:py-20">
       <Container>
-        <div
+        {/* The card is timed like the homepage CTA it sits beside: the frame
+            rises, and its copy follows one line-beat later while the frame
+            is still settling. */}
+        <RevealGroup
+          rise
+          delay={LINE_STAGGER}
           className="rounded-[26px] border px-6 py-9 sm:px-10 lg:px-14 lg:py-12"
           style={{ background: t.ground, color: t.ink, borderColor: t.rule }}
         >
           {/* --------------------------------------- 1 — the head */}
-          <div className="flex flex-wrap items-start justify-between gap-6 pb-7">
+          <RevealItem className="flex flex-wrap items-start justify-between gap-6 pb-7">
             <div>
               <p className="font-recoleta text-[21px] font-medium uppercase leading-none tracking-[-0.015em] sm:text-[24px]">
                 {brand}
@@ -133,32 +145,31 @@ export default function TrainingBanner({
                 <p key={line}>{line}</p>
               ))}
             </div>
-          </div>
+          </RevealItem>
 
           {/* ----------------------------------- 2 — the headline */}
           {/* The air above and below this band is the point: Recoleta at
               this size needs the room a condensed face doesn't. */}
           <div className="border-t pt-10 pb-2 lg:pt-14 lg:pb-4" style={rule}>
             <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-14">
-              <h2
+              {/* Hand-broken, so the lines can rise out of their own masks. */}
+              <RevealLines
+                nested
+                as="h2"
+                lines={headline}
+                lineClassName="whitespace-nowrap"
                 className="font-recoleta font-medium uppercase"
                 style={{
                   fontSize: "clamp(2.1rem, 5vw, 3.5rem)",
                   lineHeight: 1.08,
                   letterSpacing: "-0.02em",
                 }}
-              >
-                {headline.map((line) => (
-                  <span key={line} className="block whitespace-nowrap">
-                    {line}
-                  </span>
-                ))}
-              </h2>
+              />
 
               {/* The bottom-right corner: the image slot, then the
                   statements to its right. Both bottom-aligned, so the
                   column's last line sits on the headline's baseline. */}
-              <div className="flex shrink-0 items-end justify-end gap-6 sm:gap-8">
+              <RevealItem className="flex shrink-0 items-end justify-end gap-6 sm:gap-8">
                 {/* The slot sits directly against the statements column,
                     so the pair reads as one right-hand block rather than
                     the artwork floating in the gap. */}
@@ -194,12 +205,12 @@ export default function TrainingBanner({
                     </li>
                   ))}
                 </ul>
-              </div>
+              </RevealItem>
             </div>
           </div>
 
           {/* --------------------------------------- 3 — the foot */}
-          <div
+          <RevealItem
             className="mt-10 flex flex-wrap items-center justify-between gap-5 border-t pt-7 lg:mt-12"
             style={rule}
           >
@@ -218,14 +229,14 @@ export default function TrainingBanner({
             >
               {signOff}
             </p>
-          </div>
-        </div>
+          </RevealItem>
+        </RevealGroup>
 
         {/* ------------------------------------ 4 — the segmented pill */}
         {/* Paper and ink like the card above it: the taken segment is a
             solid block of the card's one colour. */}
         {tabs?.length > 0 && (
-          <div className="mt-5 flex justify-center">
+          <Reveal className="mt-5 flex justify-center">
             <div
               className="inline-flex rounded-full border p-1.5"
               style={{ background: t.ground, borderColor: t.rule }}
@@ -247,7 +258,7 @@ export default function TrainingBanner({
                 </a>
               ))}
             </div>
-          </div>
+          </Reveal>
         )}
       </Container>
     </section>

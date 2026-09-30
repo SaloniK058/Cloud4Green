@@ -1,224 +1,28 @@
-// // import Container from "./Container";
 
-// // export default function Footer() {
-// //   return (
-// //     <footer className="border-t rounded-t-[50px] py-10 bg-black w-full h-screen ">
-// //       <Container >
-// //         © 2026 Cloud4Green
-// //       </Container>
-// //     </footer>
-// //   );
-// // }
-
-// import Container from "./Container";
-// import { ArrowUpRight } from "lucide-react";
-// import Logo from "../navbar/Logo";
-
-// export default function Footer() {
-//   return (
-//     <footer className="w-full rounded-t-[50px] bg-black text-white">
-//       <Container>
-//         <div className="flex min-h-[80vh] flex-col justify-between py-20 lg:py-24">
-
-//           {/* =========================
-//               TOP — BRAND
-//           ========================== */}
-//           <div>
-//             <div className="max-w-3xl">
-
-//               <Logo placement="footer"/>
-//               <p className="mb-6 text-sm font-medium uppercase tracking-[0.2em] text-white/50">
-//                 Cloud4Green
-//               </p>
-
-//               <h2 className="font-heading text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-//                 Building cloud-ready
-//                 <br />
-//                 <span className="text-white/40">
-//                   teams for the future.
-//                 </span>
-//               </h2>
-
-//               <p className="mt-8 max-w-xl text-base leading-7 text-white/50">
-//                 Hands-on Cloud and AI Labs, enterprise learning platforms,
-//                 and certification programs designed to turn learning into
-//                 real-world capability.
-//               </p>
-//             </div>
-//           </div>
-
-//           {/* =========================
-//               MIDDLE — NAVIGATION
-//           ========================== */}
-//           <div className="mt-24 grid grid-cols-2 gap-12 border-t border-white/10 pt-12 sm:grid-cols-4">
-
-//             {/* Platform */}
-//             <div>
-//               <p className="mb-5 text-sm font-medium text-white/40">
-//                 Platform
-//               </p>
-
-//               <div className="flex flex-col gap-3 text-sm">
-//                 <a
-//                   href="#"
-//                   className="text-white/70 transition-colors hover:text-white"
-//                 >
-//                   Cloud & AI Labs
-//                 </a>
-
-//                 <a
-//                   href="#"
-//                   className="text-white/70 transition-colors hover:text-white"
-//                 >
-//                   E-Learning 
-//                 </a>
-
-//                 <a
-//                   href="#"
-//                   className="text-white/70 transition-colors hover:text-white"
-//                 >
-//                   Enterprise LMS
-//                 </a>
-
-//                 <a
-//                   href="#"
-//                   className="text-white/70 transition-colors hover:text-white"
-//                 >
-//                   Certifications
-//                 </a>
-//               </div>
-//             </div>
-
-//             {/* Solutions */}
-//             <div>
-//               <p className="mb-5 text-sm font-medium text-white/40">
-//                 Solutions
-//               </p>
-
-//               <div className="flex flex-col gap-3 text-sm">
-//                 <a
-//                   href="#"
-//                   className="text-white/70 transition-colors hover:text-white"
-//                 >
-//                   Enterprise Learning
-//                 </a>
-
-//                 <a
-//                   href="#"
-//                   className="text-white/70 transition-colors hover:text-white"
-//                 >
-//                   Cloud Training
-//                 </a>
-
-//                 <a
-//                   href="#"
-//                   className="text-white/70 transition-colors hover:text-white"
-//                 >
-//                   AI Training
-//                 </a>
-
-//                 <a
-//                   href="#"
-//                   className="text-white/70 transition-colors hover:text-white"
-//                 >
-//                   Hands-On Labs
-//                 </a>
-//               </div>
-//             </div>
-
-//             {/* Company */}
-//             <div>
-//               <p className="mb-5 text-sm font-medium text-white/40">
-//                 Company
-//               </p>
-
-//               <div className="flex flex-col gap-3 text-sm">
-//                 <a
-//                   href="#"
-//                   className="text-white/70 transition-colors hover:text-white"
-//                 >
-//                   About
-//                 </a>
-
-//                 <a
-//                   href="#"
-//                   className="text-white/70 transition-colors hover:text-white"
-//                 >
-//                   Resources
-//                 </a>
-
-//                 <a
-//                   href="#"
-//                   className="text-white/70 transition-colors hover:text-white"
-//                 >
-//                   Contact
-//                 </a>
-//               </div>
-//             </div>
-
-//             {/* Connect */}
-//             <div>
-//               <p className="mb-5 text-sm font-medium text-white/40">
-//                 Connect
-//               </p>
-
-//               <div className="flex flex-col gap-3 text-sm">
-//                 <a
-//                   href="#"
-//                   className="group flex items-center gap-1 text-white/70 transition-colors hover:text-white"
-//                 >
-//                   LinkedIn
-//                   <ArrowUpRight className="h-3.5 w-3.5 opacity-50 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-//                 </a>
-
-//                 <a
-//                   href="mailto:info@cloud4green.com"
-//                   className="group flex items-center gap-1 text-white/70 transition-colors hover:text-white"
-//                 >
-//                   Email us
-//                   <ArrowUpRight className="h-3.5 w-3.5 opacity-50 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-//                 </a>
-//               </div>
-//             </div>
-//           </div>
-
-//           {/* =========================
-//               BOTTOM
-//           ========================== */}
-//           <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-white/40 sm:flex-row sm:items-center sm:justify-between">
-
-//             <p>© 2026 Cloud4Green. All rights reserved.</p>
-
-//             <div className="flex gap-6">
-//               <a
-//                 href="#"
-//                 className="transition-colors hover:text-white"
-//               >
-//                 Privacy Policy
-//               </a>
-
-//               <a
-//                 href="#"
-//                 className="transition-colors hover:text-white"
-//               >
-//                 Terms of Service
-//               </a>
-//             </div>
-
-//           </div>
-//         </div>
-//       </Container>
-//     </footer>
-//   );
-// }
 
 // // background: linear-gradient(90deg,rgba(0, 8, 66, 1) 0%, rgba(8, 11, 32, 1) 7%, rgba(8, 11, 32, 1) 93%, rgba(0, 8, 66, 1) 100%);
 
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import Container from "./Container";
 import { ArrowUpRight } from "lucide-react";
 import Logo from "../navbar/Logo";
 
+const EMAIL = "reach@cloud4green.com";
+
 export default function Footer() {
+  const [copied, setCopied] = useState(false);
+
+  function copyEmail() {
+    navigator.clipboard
+      ?.writeText(EMAIL)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => {});
+  }
+
   return (
     <footer className="relative w-full overflow-hidden rounded-t-[50px] bg-black text-white">
 
@@ -268,33 +72,33 @@ export default function Footer() {
 
               <div className="flex flex-col gap-3 text-sm">
 
-                <a
-                  href="#"
+                <Link
+                  to="/products/enterprise-labs"
                   className="text-white/70 transition-colors hover:text-white"
                 >
                   Cloud & AI Labs
-                </a>
+                </Link>
 
-                <a
-                  href="#"
+                <Link
+                  to="/products/e-learning"
                   className="text-white/70 transition-colors hover:text-white"
                 >
                   E-Learning
-                </a>
+                </Link>
 
-                <a
-                  href="#"
+                <Link
+                  to="/enterprise"
                   className="text-white/70 transition-colors hover:text-white"
                 >
                   Enterprise LMS
-                </a>
+                </Link>
 
-                <a
-                  href="#"
+                <Link
+                  to="/products/certifications"
                   className="text-white/70 transition-colors hover:text-white"
                 >
                   Certifications
-                </a>
+                </Link>
 
               </div>
             </div>
@@ -308,33 +112,33 @@ export default function Footer() {
 
               <div className="flex flex-col gap-3 text-sm">
 
-                <a
-                  href="#"
+                <Link
+                  to="/products/enterprise-training"
                   className="text-white/70 transition-colors hover:text-white"
                 >
                   Enterprise Learning
-                </a>
+                </Link>
 
-                <a
-                  href="#"
+                <Link
+                  to="/products/enterprise-training#skills-catalog"
                   className="text-white/70 transition-colors hover:text-white"
                 >
                   Cloud Training
-                </a>
+                </Link>
 
-                <a
-                  href="#"
+                <Link
+                  to="/products/enterprise-labs#catalogue"
                   className="text-white/70 transition-colors hover:text-white"
                 >
                   AI Training
-                </a>
+                </Link>
 
-                <a
-                  href="#"
+                <Link
+                  to="/products/enterprise-labs#how-it-works"
                   className="text-white/70 transition-colors hover:text-white"
                 >
                   Hands-On Labs
-                </a>
+                </Link>
 
               </div>
             </div>
@@ -362,12 +166,12 @@ export default function Footer() {
                   Resources
                 </a>
 
-                <a
-                  href="#"
+                <Link
+                  to="/contact"
                   className="text-white/70 transition-colors hover:text-white"
                 >
                   Contact
-                </a>
+                </Link>
 
               </div>
             </div>
@@ -382,7 +186,9 @@ export default function Footer() {
               <div className="flex flex-col gap-3 text-sm">
 
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/company/cloud4green-technologies/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group flex items-center gap-1 text-white/70 transition-colors hover:text-white"
                 >
                   LinkedIn
@@ -399,11 +205,15 @@ export default function Footer() {
                   />
                 </a>
 
+                {/* mailto does nothing on machines with no default mail
+                    app (common on Windows / webmail users), so the click
+                    also copies the address and says so. */}
                 <a
-                  href="mailto:info@cloud4green.com"
+                  href={`mailto:${EMAIL}`}
+                  onClick={copyEmail}
                   className="group flex items-center gap-1 text-white/70 transition-colors hover:text-white"
                 >
-                  Email us
+                  {copied ? "Copied to clipboard" : EMAIL}
 
                   <ArrowUpRight
                     className="
@@ -426,13 +236,13 @@ export default function Footer() {
           {/* =========================
               BOTTOM
           ========================== */}
-          <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-6 text-sm text-white/40 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-16 flex flex-col items-start gap-4 pt-6 text-sm text-white/40 sm:flex-row sm:items-center sm:justify-between">
 
-            <p>
+            <p className="-ml-3 rounded-full bg-black/40 px-3 py-1.5 backdrop-blur-md">
               © 2026 Cloud4Green. All rights reserved.
             </p>
 
-            <div className="flex gap-6">
+            <div className="-ml-3 flex gap-6 rounded-full bg-black/40 px-3 py-1.5 backdrop-blur-md sm:-mr-3 sm:ml-0">
 
               <a
                 href="#"
