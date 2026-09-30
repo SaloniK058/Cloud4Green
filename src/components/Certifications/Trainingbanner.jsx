@@ -169,7 +169,10 @@ export default function TrainingBanner({
               {/* The bottom-right corner: the image slot, then the
                   statements to its right. Both bottom-aligned, so the
                   column's last line sits on the headline's baseline. */}
-              <RevealItem className="flex shrink-0 items-end justify-end gap-6 sm:gap-8">
+              {/* On phones the image is hidden, so the statements sit on the
+                  headline's left edge rather than pushed into an empty
+                  right-hand corner. */}
+              <RevealItem className="flex shrink-0 items-end justify-start gap-6 sm:justify-end sm:gap-8">
                 {/* The slot sits directly against the statements column,
                     so the pair reads as one right-hand block rather than
                     the artwork floating in the gap. */}

@@ -5,9 +5,11 @@ import footerLogo from "@/assets/images/C4GLogoCropped.png"
 export default function Logo({placement= "navbar", scrolled = false}) {
   const isScrolled = scrolled;
   return (
-    <Link 
+    <Link
     to="/"
+    aria-label="Cloud4Green home"
     className="inline-flex">
+      {/* The link carries the name, so the image stays decorative. */}
       <img src={isScrolled ? logoPlain : placement === 'footer' ? footerLogo : logo}
     alt=""
     className="

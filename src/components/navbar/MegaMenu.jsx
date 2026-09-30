@@ -87,16 +87,6 @@ export default function MegaMenu({ mega, rounded = false, onClose }) {
                   {active.subtitle}
                 </p>
               )}
-
-              {active.browseHref && (
-                <Link
-                  to={active.browseHref}
-                  onClick={onClose}
-                  className="mt-3 inline-block text-sm underline underline-offset-4"
-                >
-                  Browse Enterprise Page
-                </Link>
-              )}
             </div>
 
             <div className="mt-8 grid grid-cols-3 gap-x-10 gap-y-7">

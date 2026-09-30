@@ -62,7 +62,7 @@ export default function Footer() {
           {/* =========================
               MIDDLE — NAVIGATION
           ========================== */}
-          <div className="mt-24 grid grid-cols-2 gap-12 border-t border-white/10 pt-12 sm:grid-cols-4">
+          <div className="mt-24 grid grid-cols-2 gap-x-6 gap-y-12 border-t border-white/10 pt-12 sm:grid-cols-4 sm:gap-12">
 
             {/* Platform */}
             <div>
@@ -152,19 +152,19 @@ export default function Footer() {
 
               <div className="flex flex-col gap-3 text-sm">
 
-                <a
-                  href="#"
+                <Link
+                  to="/about"
                   className="text-white/70 transition-colors hover:text-white"
                 >
                   About
-                </a>
+                </Link>
 
-                <a
-                  href="#"
+                <Link
+                  to="/resources"
                   className="text-white/70 transition-colors hover:text-white"
                 >
                   Resources
-                </a>
+                </Link>
 
                 <Link
                   to="/contact"
@@ -213,12 +213,16 @@ export default function Footer() {
                   onClick={copyEmail}
                   className="group flex items-center gap-1 text-white/70 transition-colors hover:text-white"
                 >
-                  {copied ? "Copied to clipboard" : EMAIL}
+                  {/* Wider than a phone's half-column, so it may wrap. */}
+                  <span className="min-w-0 [overflow-wrap:anywhere]">
+                    {copied ? "Copied to clipboard" : EMAIL}
+                  </span>
 
                   <ArrowUpRight
                     className="
                       h-3.5
                       w-3.5
+                      shrink-0
                       opacity-50
                       transition-transform
                       group-hover:-translate-y-0.5
@@ -244,19 +248,19 @@ export default function Footer() {
 
             <div className="-ml-3 flex gap-6 rounded-full bg-black/40 px-3 py-1.5 backdrop-blur-md sm:-mr-3 sm:ml-0">
 
-              <a
-                href="#"
+              <Link
+                to="/privacy"
                 className="transition-colors hover:text-white"
               >
                 Privacy Policy
-              </a>
+              </Link>
 
-              <a
-                href="#"
+              <Link
+                to="/terms"
                 className="transition-colors hover:text-white"
               >
                 Terms of Service
-              </a>
+              </Link>
 
             </div>
 

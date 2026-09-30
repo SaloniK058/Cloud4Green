@@ -341,7 +341,8 @@ function ResultCard({ card, index, onPickDomain }) {
   relative
   isolate
   flex
-  min-h-[280px]
+  min-h-[200px]
+  sm:min-h-[280px]
   overflow-hidden
   rounded-[22px]
   border

@@ -411,7 +411,7 @@ function CategoryPanel({ cat, compact = false }) {
         </p>
 
         <div className={compact ? "mt-6" : ""}>
-          <h4 className={`font-semibold text-[#101418] ${compact ? "text-[16px]" : "text-[20px]"}`}>Skills</h4>
+          <h3 className={`font-semibold text-[#101418] ${compact ? "text-[16px]" : "text-[20px]"}`}>Skills</h3>
           <ul className={`mt-4 grid grid-cols-2 gap-x-4 ${compact ? "gap-y-3" : "gap-y-3.5"}`}>
             {cat.skills.map((skill) => (
               <li key={skill} className="flex items-start gap-2.5">
@@ -429,7 +429,7 @@ function CategoryPanel({ cat, compact = false }) {
         </div>
 
         <div className={compact ? "mt-6" : ""}>
-          <h4 className={`font-semibold text-[#101418] ${compact ? "text-[16px]" : "text-[20px]"}`}>Tools</h4>
+          <h3 className={`font-semibold text-[#101418] ${compact ? "text-[16px]" : "text-[20px]"}`}>Tools</h3>
           {/* Two columns, the same grid as the Skills list above, so the
               two blocks read as one column of pairs instead of two
               different layouts stacked. */}

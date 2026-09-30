@@ -1,4 +1,9 @@
-import { Fragment, useLayoutEffect, useRef, useState } from "react";
+import {
+  useLayoutEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import {
   motion,
   useReducedMotion,
@@ -296,11 +301,11 @@ function ProductWidget({ product }) {
           {product.name}
         </span>
 
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-4 sm:gap-5">
           <img
             src={elearning}
             alt="Enterprise LMS dashboard preview"
-            className="h-40 w-40 shrink-0 rounded-2xl object-cover shadow-lg shadow-black/25 ring-1 ring-white/10 sm:h-44 sm:w-44"
+            className="h-28 w-28 shrink-0 rounded-2xl object-cover shadow-lg shadow-black/25 ring-1 ring-white/10 sm:h-44 sm:w-44"
           />
 
           <div className="flex flex-1 flex-col gap-4">
@@ -455,7 +460,50 @@ function ProductHeading({ product }) {
   );
 }
 
+/* The pinned horizontal row only works where a card and its copy fit side by
+   side — each group is ~870px wide. Below lg the section is a plain stack. */
+const DESKTOP = "(min-width: 1024px)";
+const subscribeDesktop = (cb) => {
+  const mq = window.matchMedia(DESKTOP);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
+const getDesktop = () => window.matchMedia(DESKTOP).matches;
+
+function StackedProducts() {
+  return (
+    <section className="bg-[#070B14] px-5 py-16 text-white sm:px-8 sm:py-20">
+      <RevealLines
+        as="h2"
+        lines={["Our Products"]}
+        className="text-center font-recoleta text-2xl font-bold uppercase tracking-wide sm:text-4xl"
+      />
+
+      <div className="mx-auto mt-10 flex max-w-xl flex-col gap-14 sm:mt-12">
+        {products.map((product) => (
+          <article key={product.key}>
+            <div
+              className={`flex items-center overflow-hidden rounded-[24px] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.28)] sm:p-5 ${cardStyles[product.accent]}`}
+            >
+              <ProductWidget product={product} />
+            </div>
+
+            <div className="mt-6">
+              <ProductHeading product={product} />
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function ProductsSection() {
+  const isDesktop = useSyncExternalStore(subscribeDesktop, getDesktop, () => true);
+  return isDesktop ? <PinnedProducts /> : <StackedProducts />;
+}
+
+function PinnedProducts() {
   const sectionRef = useRef(null);
   const rowRef = useRef(null);
   const [scrollDistance, setScrollDistance] = useState(0);

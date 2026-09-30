@@ -126,7 +126,7 @@
 //     <Reveal delay={index % 2 ? 0.07 : 0} className="h-full">
 //       <Link
 //         to={solutionHref(problem.slug)}
-//         className="group relative flex h-full flex-col p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B5CFF] lg:p-7"
+//         className="group relative flex h-full flex-col px-5 py-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B5CFF] sm:p-6 lg:p-7"
 //       >
 //         {/* The hover tell: no card, just a blue quote rule that draws down
 //             the left edge, like a pull quote. */}
@@ -351,7 +351,7 @@ function ProblemItem({ problem, index }) {
     <Reveal delay={index % 2 ? STAGGER : 0} className="h-full">
       <Link
         to={solutionHref(problem.slug)}
-        className="group relative flex h-full flex-col p-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B5CFF] lg:p-7"
+        className="group relative flex h-full flex-col px-5 py-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B5CFF] sm:p-6 lg:p-7"
       >
         {/* The hover tell: no card, just a blue quote rule that draws down
             the left edge, like a pull quote. */}
@@ -424,12 +424,14 @@ export default function ProblemsWeSolve() {
           </RevealGroup>
 
           {/* ---------------------------------------------- the list */}
-          {/* Two open columns from md up. The -mx-6 gives each item's
-              hover quote rule a gutter to sit in, while the words
-              themselves stay aligned with the heading above. Six items
-              fill the grid evenly at three rows, so no closing CTA cell
-              is needed. */}
-          <ul className="-mx-6 mt-12 grid gap-3 md:grid-cols-2 md:gap-x-6 md:gap-y-4 lg:-mx-7 lg:mt-14">
+          {/* Two open columns from md up. The negative margin gives each
+              item's hover quote rule a gutter to sit in, while the words
+              themselves stay aligned with the heading above. It matches the
+              Container's own padding at each width (px-5 on phones), so the
+              list never reaches past the edge of the screen. Six items fill
+              the grid evenly at three rows, so no closing CTA cell is
+              needed. */}
+          <ul className="-mx-5 mt-12 grid gap-3 sm:-mx-6 md:grid-cols-2 md:gap-x-6 md:gap-y-4 lg:-mx-7 lg:mt-14">
             {PROBLEMS.map((problem, index) => (
               <li key={problem.slug}>
                 <ProblemItem problem={problem} index={index} />

@@ -113,7 +113,7 @@ export default function CorporateTrainingHero() {
                 their own masks like the homepage headline. */}
             <RevealLines
               nested
-              as="h2"
+              as="h1"
               lines={["People power enterprises.", "We power people"]}
               className="mt-3 font-recoleta text-[clamp(1.75rem,4.6svh,2.4rem)] font-medium leading-[1.05] tracking-[-0.02em] sm:text-[clamp(2rem,5svh,3rem)] lg:text-[clamp(2.4rem,6.5svh,3.6rem)] uppercase"
             />

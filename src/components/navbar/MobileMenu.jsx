@@ -99,12 +99,23 @@ export default function MobileMenu() {
     setTimeout(() => { setStack([]); setDir(1); }, 250);
   };
 
-  const push = (v) => { setDir(1); setStack((s) => [...s, v]); };
-  const pop = () => { setDir(-1); setStack((s) => s.slice(0, -1)); };
+  const push = (...v) => { setDir(1); setStack((s) => [...s, ...v]); };
 
   const navItem = navigation.find((n) => n.label === stack[0]);
   const category = navItem?.mega?.categories.find((c) => c.id === stack[1]);
   const level = stack.length;
+
+  /* A menu with a single category has nothing to choose between, so tapping
+     it goes straight to its items — and back goes straight to the root. */
+  const single = navItem?.mega?.categories.length === 1;
+  const openMega = (item) =>
+    item.mega.categories.length === 1
+      ? push(item.label, item.mega.categories[0].id)
+      : push(item.label);
+  const pop = () => {
+    setDir(-1);
+    setStack((s) => (s.length === 2 && single ? [] : s.slice(0, -1)));
+  };
 
   return (
     <Sheet
@@ -140,7 +151,7 @@ export default function MobileMenu() {
                     item.mega ? (
                       <button
                         key={item.href}
-                        onClick={() => push(item.label)}
+                        onClick={() => openMega(item)}
                         className="flex w-full items-center justify-between rounded-lg px-3 py-3.5 text-base font-medium transition-colors hover:bg-muted"
                       >
                         {item.label}
@@ -197,14 +208,6 @@ export default function MobileMenu() {
                       <ChevronRight className="h-4.5 w-4.5 text-muted-foreground" />
                     </button>
                   ))}
-
-                  <Link
-                    to={navItem.href}
-                    onClick={close}
-                    className="mx-3 mt-3 block rounded-full border py-3 text-center text-base font-medium"
-                  >
-                    Browse all products
-                  </Link>
                 </>
               )}
 
@@ -216,11 +219,11 @@ export default function MobileMenu() {
                     className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-primary"
                   >
                     <ChevronLeft className="h-4 w-4" />
-                    {navItem.label}
+                    {single ? "Menu" : navItem.label}
                   </button>
 
                   <h2 className="px-3 pb-1 pt-1 text-xl font-semibold">
-                    {category.title}
+                    {single ? navItem.label : category.title}
                   </h2>
                   {category.subtitle && (
                     <p className="px-3 pb-3 text-sm leading-relaxed text-muted-foreground">
@@ -244,14 +247,6 @@ export default function MobileMenu() {
                       </span>
                     </Link>
                   ))}
-
-                  <Link
-                    to={navItem.href}
-                    onClick={close}
-                    className="mx-3 mt-4 block rounded-full border py-3 text-center text-base font-medium"
-                  >
-                    Browse all products
-                  </Link>
                 </>
               )}
             </motion.div>

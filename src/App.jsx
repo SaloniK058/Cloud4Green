@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/layout/ScrollToTop";
+import RouteSeo from "@/components/layout/RouteSeo";
 import Enterprise from "@/pages/Enterprise";
 import Individual from "@/pages/Individual";
 import Notfound from "@/pages/Notfound";
@@ -12,12 +13,21 @@ import EnterpriseTraining from "@/pages/EnterpriseTraining";
 import Automation from "@/pages/services/Automation";
 import Consulting from "@/pages/services/Consulting";
 
+/* Every page ships in the one bundle, deliberately. Route-level splitting was
+   tried and measured against this: with Netlify's Brotli the whole bundle is
+   ~225 KB on the wire, so splitting saved ~55 KB but added a request and a
+   Suspense round-trip to every page — sub-pages came up 150–370ms later on a
+   throttled phone profile, and only the homepage got (45ms) faster. Revisit
+   if the bundle grows well past this. */
 function App() {
   return (
     <BrowserRouter>
       {/* Every route arrives at the top. Inside the router, above the routes,
           so it sees the location change before the new page renders. */}
       <ScrollToTop />
+      {/* Title, description, canonical and structured data per route —
+          the data lives in src/config/seo.js. */}
+      <RouteSeo />
 
       <Routes>
         <Route path="/" element= {<Home/>}/>

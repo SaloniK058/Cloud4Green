@@ -263,7 +263,7 @@ export default function HowItWorks() {
               How it works
             </RevealItem>
 
-            <RevealItem as="h2" className="mt-2.5 font-recoleta text-[1.85rem] font-medium uppercase leading-[1.06] tracking-[-0.02em] text-[#101418] sm:text-[2.35rem] lg:text-[2.6rem]">
+            <RevealItem as="h1" className="mt-2.5 font-recoleta text-[1.85rem] font-medium uppercase leading-[1.06] tracking-[-0.02em] text-[#101418] sm:text-[2.35rem] lg:text-[2.6rem]">
               One request, a live environment
               <span className="text-[#0B5CFF]">.</span>
             </RevealItem>
