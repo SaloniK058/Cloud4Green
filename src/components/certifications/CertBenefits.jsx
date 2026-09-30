@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import "@/styles/Certbenefits.css";
+import "@/styles/cert-benefits.css";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { CUE } from "@/components/motion/reveal-tokens";
 

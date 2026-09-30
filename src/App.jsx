@@ -3,13 +3,13 @@ import ScrollToTop from "@/components/layout/ScrollToTop";
 import RouteSeo from "@/components/layout/RouteSeo";
 import Enterprise from "@/pages/Enterprise";
 import Individual from "@/pages/Individual";
-import Notfound from "@/pages/Notfound";
+import Notfound from "@/pages/NotFound";
 import Home from "./pages/Home";
 import Contact from "@/pages/Contact";
 import EnterpriseLabs from "@/pages/products/EnterpriseLabs";
-import ELearning from "@/pages/ELearning";
-import Certifications from "@/pages/Certifications";
-import EnterpriseTraining from "@/pages/EnterpriseTraining";
+import ELearning from "@/pages/products/ELearning";
+import Certifications from "@/pages/products/Certifications";
+import EnterpriseTraining from "@/pages/products/EnterpriseTraining";
 import Automation from "@/pages/services/Automation";
 import Consulting from "@/pages/services/Consulting";
 

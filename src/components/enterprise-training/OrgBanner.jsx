@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
-import "@/styles/Orgbanner.css";
+import "@/styles/org-banner.css";
 import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { LINE_STAGGER } from "@/components/motion/reveal-tokens";
 

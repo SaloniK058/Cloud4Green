@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import '@/styles/statssection.css';
+import '@/styles/stats-section.css';
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { CUE, STAGGER } from "@/components/motion/reveal-tokens";
 

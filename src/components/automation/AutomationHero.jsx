@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
-import automationFlow from '@/components/Services/Automation/Automationflow.svg'
+import automationFlow from '@/assets/images/automation-flow.svg'
 import backgroundimg from "@/assets/images/lab6.png";
 import {
   Reveal,

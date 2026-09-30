@@ -7,7 +7,7 @@ import {
   glintPath,
 } from "@/lib/glint";
 import { BLINK_DOTS, BLINK_PERIOD } from "./blinkField";
-import { DOT_VIEWBOX, WORLD_MAP_DOTS } from "./Worldmapdots";
+import { DOT_VIEWBOX, WORLD_MAP_DOTS } from "./worldMapDots";
 
 /**
  * Pixel-matrix world map, rendered as a single SVG path.

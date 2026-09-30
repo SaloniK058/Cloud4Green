@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import Sparkle from "@/components/Preloader/Sparkle"; // ← adjust to where Sparkle lives
+import Sparkle from "@/components/preloader/Sparkle"; // ← adjust to where Sparkle lives
 import { GLINT_CORE } from "@/lib/glint";
 
 /**

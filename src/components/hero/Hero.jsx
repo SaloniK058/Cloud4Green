@@ -4,7 +4,7 @@
 // import HeroContent from "./HeroContent";
 // // import HeroVisual from "./HeroVisual";
 // import visualImage from "@/assets/images/visualImage.PNG"
-// import PartnerBanner from "../sections/Partners/PartnerBanner";
+// import PartnerBanner from "../sections/partners/PartnerBanner";
 
 
 // const Hero = () => {
@@ -67,8 +67,8 @@
 
 // //////Globe Idea
 // import Container from "@/components/layout/Container";
-// import HeroContent2 from "./GlobeConten";
-// import PartnerBanner from "@/components/sections/Partners/PartnerBanner";
+// import HeroContent2 from "./GlobeContent";
+// import PartnerBanner from "@/components/sections/partners/PartnerBanner";
 // import Globe from "./Globe";
 
 // const Hero = () => {
@@ -133,9 +133,9 @@
 // export default Hero;
 
 // import Container from "@/components/layout/Container";
-// import HeroContent2 from "./GlobeConten";
-// import PartnerBanner from "@/components/sections/Partners/PartnerBanner";
-// import Worldmap from "./Worldmap";
+// import HeroContent2 from "./GlobeContent";
+// import PartnerBanner from "@/components/sections/partners/PartnerBanner";
+// import Worldmap from "./WorldMap";
 
 // const Hero = () => {
 //   return (
@@ -202,10 +202,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import PartnerBanner from "@/components/sections/Partners/PartnerBanner";
+import PartnerBanner from "@/components/sections/partners/PartnerBanner";
 import HeroDisplay from "./HeroDisplay";
 import HeroMapStats from "./HeroMapStats";
-import WorldMap from "./Worldmap";
+import WorldMap from "./WorldMap";
 
 /**
  * One composition on one ground: the map runs the full width of the screen

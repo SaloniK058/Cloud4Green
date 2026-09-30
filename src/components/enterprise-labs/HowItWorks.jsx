@@ -3,10 +3,10 @@
 
 // import Container from "@/components/layout/Container";
 // import { Button } from "@/components/ui/button";
-// import LabFlow from "@/components/sections/EnterpriseLab/Labflow";
+// import LabFlow from "@/components/sections/enterprise-lab/LabFlow";
 // import labFlowIllustration from "@/assets/images/lab10.png";
 
-// import Silkwaves from "@/components/EnterpriseLabs/SilkWaves"
+// import Silkwaves from "@/components/enterprise-labs/SilkWaves"
 
 // export default function HowItWorks() {
 //   return (
@@ -148,7 +148,7 @@ import { Link } from "react-router-dom";
 import Container from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
 import { CATALOGUE } from "@/config/downloads";
-import LabFlow from "@/components/sections/EnterpriseLab/Labflow";
+import LabFlow from "@/components/sections/enterprise-lab/LabFlow";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import SilkGradient from "@/components/backgrounds/SilkGradient";
 import {

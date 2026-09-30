@@ -11,7 +11,7 @@ import {
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 /* Adjust to wherever Sparkle lives in your tree. */
-import Sparkle from "@/components/Preloader/Sparkle";
+import Sparkle from "@/components/preloader/Sparkle";
 
 /* The one line the panel carries. */
 const SUB =

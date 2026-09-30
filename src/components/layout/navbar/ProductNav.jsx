@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { scrollToSection, useSectionSpy } from "@/components/navbar/Usesectionspy";
+import { scrollToSection, useSectionSpy } from "@/hooks/useSectionSpy";
 
 const EASE = [0.22, 1, 0.36, 1];
 

@@ -3,7 +3,7 @@
 Regenerate worldMapDots.js from the reference dot-map artwork.
 
     pip install pillow numpy scipy
-    python scripts/generate-world-map-dots.py src/assets/images/map.jpg src/components/hero/Worldmapdots.js
+    python scripts/generate-world-map-dots.py src/assets/images/map.jpg src/components/hero/worldMapDots.js
 
 The artwork is already a dot matrix, so this finds each existing dot's centre
 (local maxima of darkness, deduped by minimum spacing) rather than resampling

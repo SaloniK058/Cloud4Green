@@ -3,9 +3,9 @@ import Navbar from "@/components/layout/Navbar";
 import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import Footer from "@/components/layout/Footer";
-import EnterpriseHubVisual from "@/components/EnterpriseSections/EnterpriseHubVisual";
-// import EnterpriseEcosystem from "@/components/EnterpriseSections/EnterpriseEcosystem";
-import EnterpriseEcosystemFinal from "@/components/EnterpriseSections/EnterpriseEcosystemFinal";
+import EnterpriseHubVisual from "@/components/enterprise/EnterpriseHubVisual";
+// import EnterpriseEcosystem from "@/components/enterprise/EnterpriseEcosystem";
+import EnterpriseEcosystemFinal from "@/components/enterprise/EnterpriseEcosystemFinal";
 import {
   Reveal,
   RevealGroup,

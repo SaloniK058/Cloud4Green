@@ -1,13 +1,13 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import CtaSection from "@/components/sections/EnterpriseCTA/EnterpriseCTA";
+import CtaSection from "@/components/sections/enterprise-cta/EnterpriseCTA";
 
-import LearningSolutions from "@/components/E-learning/LearningSolutions";
-import ScrubSection from "@/components/E-learning/ScrubSection";
-import Pillarssection from "@/components/E-learning/Pillarssecton";
-import Statssection from "@/components/E-learning/Statssection";
-import Industriessection from "@/components/E-learning/Industriessection";
-import FaqSection from "@/components/faq/Faqsection";
+import LearningSolutions from "@/components/e-learning/LearningSolutions";
+import ScrubSection from "@/components/e-learning/ScrubSection";
+import Pillarssection from "@/components/e-learning/PillarsSection";
+import Statssection from "@/components/e-learning/StatsSection";
+import Industriessection from "@/components/e-learning/IndustriesSection";
+import FaqSection from "@/components/faq/FaqSection";
 import { eLearningFaqs } from "@/data/faqs";
 
 /**

@@ -1,9 +1,9 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
-import CtaSection from "@/components/sections/EnterpriseCTA/EnterpriseCTA";
-import ConsultingHero from "@/components/Consulting/Consultinghero";
-import ConsultingOfferings from "@/components/Consulting/Consultingofferings";
+import CtaSection from "@/components/sections/enterprise-cta/EnterpriseCTA";
+import ConsultingHero from "@/components/consulting/ConsultingHero";
+import ConsultingOfferings from "@/components/consulting/ConsultingOfferings";
 
 /**
  * /services/consulting — linked from the Services tab of the navbar mega menu

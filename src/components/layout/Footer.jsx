@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "./Container";
 import { ArrowUpRight } from "lucide-react";
-import Logo from "../navbar/Logo";
+import Logo from "./navbar/Logo";
 
 const EMAIL = "reach@cloud4green.com";
 

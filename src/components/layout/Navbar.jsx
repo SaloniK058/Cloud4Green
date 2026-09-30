@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
-import Logo from "../navbar/Logo";
-import NavPill from "@/components/navbar/Navpill";
-import ContactButton from "../navbar/ContactButton";
-import MobileMenu from "../navbar/MobileMenu";
-import MegaMenu from "../navbar/MegaMenu";
-import AnnouncementBar from "../navbar/AnnouncementBar";
-import ProductNav from "../navbar/ProductNav";
+import Logo from "./navbar/Logo";
+import NavPill from "@/components/layout/navbar/NavPill";
+import ContactButton from "./navbar/ContactButton";
+import MobileMenu from "./navbar/MobileMenu";
+import MegaMenu from "./navbar/MegaMenu";
+import AnnouncementBar from "./navbar/AnnouncementBar";
+import ProductNav from "./navbar/ProductNav";
 
 import { navigation } from "@/config/navigation";
 import { getProductNav } from "@/config/productNav";
-import { useElementPast, useNavShell } from "@/components/navbar/Usenavshell";
-import { useHideOnScroll } from "@/components/navbar/Usehideonscroll";
+import { useElementPast, useNavShell } from "@/hooks/useNavShell";
+import { useHideOnScroll } from "@/hooks/useHideOnScroll";
 
 const EASE = [0.22, 1, 0.36, 1];
 

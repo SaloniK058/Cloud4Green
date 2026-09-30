@@ -1,11 +1,11 @@
-import { useEffect, useId, useRef } from "react";
+﻿import { useEffect, useId, useRef } from "react";
 
 import poseBrowse from "@/assets/images/certification-flow/pose-browse.webp";
 import poseThink from "@/assets/images/certification-flow/pose-think.webp";
 import posePhone from "@/assets/images/certification-flow/pose-phone.webp";
 import poseFocus from "@/assets/images/certification-flow/pose-focus.webp";
 
-import "./CertificationFlow.css";
+import "@/styles/certification-flow.css";
 
 /* ------------------------------------------------------------------
    CertificationFlow: the animated illustration in the
@@ -21,7 +21,7 @@ import "./CertificationFlow.css";
      timeline (see `journey`) that toggles classes on elements it finds by
      `data-el`. It never calls setState, so React does not re-render 60
      times a second while the dot travels along the line.
-   - Everything is drawn on a fixed 960×440 stage that a ResizeObserver
+   - Everything is drawn on a fixed 960Ã—440 stage that a ResizeObserver
      scales to the container width, so it fits any column.
    - The loop only runs while the illustration is on screen
      (IntersectionObserver) and stops cleanly on unmount, including React
@@ -89,7 +89,7 @@ export default function CertificationFlow({ className = "" }) {
         timers.add(t);
       });
 
-    /* ---------- scale the 960×440 stage to the container ---------- */
+    /* ---------- scale the 960Ã—440 stage to the container ---------- */
     const stage = el("stage");
     const ro = new ResizeObserver(([entry]) =>
       stage.style.setProperty("--cf-scale", entry.contentRect.width / 960)
@@ -183,7 +183,7 @@ export default function CertificationFlow({ className = "" }) {
           dot.setAttribute("transform", `translate(${p.x} ${p.y})`);
           label.setAttribute("x", p.x);
           label.setAttribute("y", p.y - 12);
-          // pathLength=1 on the mask path, so the offset runs 1 → 0 (or -1 → 0 in reverse)
+          // pathLength=1 on the mask path, so the offset runs 1 â†’ 0 (or -1 â†’ 0 in reverse)
           maskPath.setAttribute("stroke-dashoffset", reverse ? t - 1 : 1 - t);
           if (t < 1) {
             raf = requestAnimationFrame(frame);
@@ -255,7 +255,7 @@ export default function CertificationFlow({ className = "" }) {
       setStep(2);
       await travel("CONFIRMATION", { reverse: true, duration: 1200 });
       pose("phone");
-      toast(ICON_CALENDAR, "Exam booked", `14 Oct · 10:00 · ${c.mode === "online" ? "Online" : "Test centre"}`);
+      toast(ICON_CALENDAR, "Exam booked", `14 Oct Â· 10:00 Â· ${c.mode === "online" ? "Online" : "Test centre"}`);
       await wait(1700);
       bubble(false);
       await wait(400);
@@ -263,7 +263,7 @@ export default function CertificationFlow({ className = "" }) {
       // 3. sit the exam
       setView("exam", "Exam session");
       setStatus("IN PROGRESS", "blue");
-      el("exam-mode").textContent = c.mode === "online" ? "Online · Proctored" : "Test centre · Seat 14";
+      el("exam-mode").textContent = c.mode === "online" ? "Online Â· Proctored" : "Test centre Â· Seat 14";
       setBadge("exam");
       el("panel").classList.add("is-glow");
       pose("focus");
@@ -287,7 +287,7 @@ export default function CertificationFlow({ className = "" }) {
 
       // 4. result and credential
       el("cert-name").textContent = c.name;
-      el("cert-code").textContent = `${c.code} · Credential issued`;
+      el("cert-code").textContent = `${c.code} Â· Credential issued`;
       el("score").textContent = c.score;
       setView("result", "Result");
       setStatus("PASSED", "green");
@@ -299,7 +299,7 @@ export default function CertificationFlow({ className = "" }) {
       setBadge("done");
       pose("browse", "cheer");
       confetti();
-      toast(ICON_CHECK, "You’re certified!", `${c.name} · Verified`, true);
+      toast(ICON_CHECK, "Youâ€™re certified!", `${c.name} Â· Verified`, true);
       await wait(2600);
       bubble(false);
       await wait(600);
@@ -508,7 +508,7 @@ export default function CertificationFlow({ className = "" }) {
             {/* 3. exam */}
             <div className="cf-view" data-view="exam">
               <div className="cf-exam-meta">
-                <div className="cf-caps cf-live"><i /><span data-el="exam-mode">Online · Proctored</span></div>
+                <div className="cf-caps cf-live"><i /><span data-el="exam-mode">Online Â· Proctored</span></div>
                 <div className="cf-timer" data-el="timer">02:10:00</div>
               </div>
               <div className="cf-q">Question <span data-el="q-num">1</span> / 65</div>
@@ -530,7 +530,7 @@ export default function CertificationFlow({ className = "" }) {
                 <div>
                   <div className="cf-caps" style={{ color: "var(--cf-green)" }}>Certified</div>
                   <h4 data-el="cert-name">AWS Solutions Architect</h4>
-                  <div className="cf-caps" data-el="cert-code">SAA-C03 · Credential issued</div>
+                  <div className="cf-caps" data-el="cert-code">SAA-C03 Â· Credential issued</div>
                   <div className="cf-score">
                     <div><span className="cf-caps">Score</span><span data-el="score">872</span>/1000</div>
                     <div><span className="cf-caps">Valid until</span>Oct 2029</div>

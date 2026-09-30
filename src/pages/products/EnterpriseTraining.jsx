@@ -1,13 +1,13 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
-import CtaSection from "@/components/sections/EnterpriseCTA/EnterpriseCTA";
-import CorporateTrainingHero from "@/components/EnterpriseTraining/Corporatetraininghero";
-import SkillsCatalog from "@/components/EnterpriseTraining/Skillscatalog";
-import OrgBanner from "@/components/EnterpriseTraining/Orgbanner";
-import EnterpriseWhyUs from "@/components/EnterpriseTraining/Enterprisewhyus";
+import CtaSection from "@/components/sections/enterprise-cta/EnterpriseCTA";
+import CorporateTrainingHero from "@/components/enterprise-training/CorporateTrainingHero";
+import SkillsCatalog from "@/components/enterprise-training/SkillsCatalog";
+import OrgBanner from "@/components/enterprise-training/OrgBanner";
+import EnterpriseWhyUs from "@/components/enterprise-training/EnterpriseWhyUs";
 
-// import FaqSection from "@/components/faq/Faqsection";
+// import FaqSection from "@/components/faq/FaqSection";
 // import { enterpriseTrainingFaqs } from "@/data/faqs";
 
 /**

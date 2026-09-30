@@ -4,19 +4,19 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 // import Container from "@/components/layout/Container";
-import CtaSection from "@/components/sections/EnterpriseCTA/EnterpriseCTA";
+import CtaSection from "@/components/sections/enterprise-cta/EnterpriseCTA";
 // import { Button } from "@/components/ui/button";
-import CatalougeSection from "@/pages/products/CatalougeSections";
+import CatalougeSection from "@/components/enterprise-labs/CatalogueSections";
 
 
 
 // import heroImage from "@/assets/images/clients.jpg";
 // // import flowBackdrop from "@/assets/images/pexels-steve-12843342.jpg";
 // import labFlowIllustration from "@/assets/images/lab10.png";
-// import LabFlow from "@/components/sections/EnterpriseLab/Labflow";
-import Howitworks from "@/components/EnterpriseLabs/Howitworks";
-import WhoItsFor from "@/pages/products/WhoIsItFor";
-import FaqSection from "@/components/faq/Faqsection";
+// import LabFlow from "@/components/sections/enterprise-lab/LabFlow";
+import Howitworks from "@/components/enterprise-labs/HowItWorks";
+import WhoItsFor from "@/components/enterprise-labs/WhoIsItFor";
+import FaqSection from "@/components/faq/FaqSection";
 import { enterpriseLabsFaqs } from "@/data/faqs";
 
 /**

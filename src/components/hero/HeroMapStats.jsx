@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 import { BLINK_DOTS, BLINK_PERIOD } from "./blinkField";
-import { DOT_VIEWBOX } from "./Worldmapdots";
+import { DOT_VIEWBOX } from "./worldMapDots";
 
 /**
  * Three of the map's blinking pixels, given a number to carry.

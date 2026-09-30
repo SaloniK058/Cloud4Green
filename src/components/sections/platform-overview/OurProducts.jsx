@@ -25,7 +25,7 @@ import {
 import { RevealLines } from "@/components/motion/Reveal";
 import elearning from '@/assets/images/ourproducts.jpg'
 import GoogleCloudMark from "@/components/brand/GoogleCloudMark";
-import ZtnaFlow from "@/components/sections/PlatormOverview/ZtnaFlow";
+import ZtnaFlow from "@/components/sections/platform-overview/ZtnaFlow";
 
 // Ordered by standing in the industry: hyperscalers and mega-cap platforms first,
 // then the frontier AI labs, then public security/data vendors, then the

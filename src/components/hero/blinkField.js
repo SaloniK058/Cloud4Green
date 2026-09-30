@@ -1,4 +1,4 @@
-import { WORLD_MAP_DOTS } from "./Worldmapdots";
+import { WORLD_MAP_DOTS } from "./worldMapDots";
 
 /**
  * Which cells of the world map blink, and on what beat.

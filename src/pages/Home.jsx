@@ -4,14 +4,14 @@ import Footer from "@/components/layout/Footer";
 // import Container from "@/components/layout/Container";
 // import Section from "@/components/layout/Section";
 import Hero from "@/components/hero";
-// import PlatformOverview from "@/components/sections/PlatormOverview/PlatformOverview";
-// import TechnologyDomains from "@/components/sections/TechnologyDomains/TechnologyDomains";
-// import WhyCloud4Green from "@/components/sections/WhyCloud4Green/WhyCoud4Green";
-import EnterpriseCTA from "@/components/sections/EnterpriseCTA/EnterpriseCTA";
-import OurProducts from "@/components/sections/PlatormOverview/OurProducts"
-import Solutions from '@/components/sections/ChallengesWeSolve/Solutions'
-import Testimonials from '@/components/sections/Testimonials/Testimonials';
-import Preloader from "@/components/Preloader/Preloader";
+// import PlatformOverview from "@/components/sections/platform-overview/PlatformOverview";
+// import TechnologyDomains from "@/components/sections/technology-domains/TechnologyDomains";
+// import WhyCloud4Green from "@/components/sections/why-cloud4green/WhyCloud4Green";
+import EnterpriseCTA from "@/components/sections/enterprise-cta/EnterpriseCTA";
+import OurProducts from "@/components/sections/platform-overview/OurProducts"
+import Solutions from '@/components/sections/challenges-we-solve/Solutions'
+import Testimonials from '@/components/sections/testimonials/Testimonials';
+import Preloader from "@/components/preloader/Preloader";
 import logo from "@/assets/images/C4GLogoplain.png"
 
 /**

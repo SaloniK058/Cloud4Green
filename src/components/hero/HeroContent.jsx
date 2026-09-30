@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { CATALOGUE } from "@/config/downloads";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import PartnerBanner from "../sections/Partners/PartnerBanner";
+import PartnerBanner from "../sections/partners/PartnerBanner";
 
 const HeroContent = () => {
   const words = ["AI", "Cloud"];
