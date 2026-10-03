@@ -112,29 +112,7 @@ export default function Certifications() {
       <Banner />
       <CertBenefits/>
       <CtaSection />
-      <main className="bg-[#FAFAF7]">
-        {/* ── Masthead ─────────────────────────────────────────────────────
-            The editorial pattern from /products/enterprise-labs: full-bleed
-            photograph with a dark translucent card on the left third. Drop the
-            hero component in here. */}
-        {/* id was "overview", which <CertificationHero> above already carries —
-            two elements with one id, and every #overview link resolving to
-            whichever the browser found first. The hero is the real overview;
-            this scaffold block keeps a distinct id until it's replaced. */}
-        
-
-        {/* ── Who it's for ─────────────────────────────────────────────────── */}
-        <Placeholder id="who-its-for" eyebrow="Who it's for" title="Who it's for" band />
-
-        {/* ── FAQ ──────────────────────────────────────────────────────────
-            Same component as the other two product pages; only the questions
-            differ. Add a `certificationsFaqs` array to src/data/faqs.js, then
-            uncomment this and the two imports at the top of the file. */}
-        {/* <FaqSection faqs={certificationsFaqs} /> */}
-
-        {/* ── Closing CTA — the homepage's, unchanged ─────────────────────── */}
-        
-      </main>
+      
 
       <Footer />
     </>

@@ -91,6 +91,20 @@ export const PAGES = {
       "Strategy, operations, digital and technology, and marketing consulting — twenty services across four practices that turn ambition into measurable outcomes.",
     priority: 0.8,
   },
+  "/customers": {
+    crumb: "Customer Stories",
+    title: "Customer Stories | Cloud4Green",
+    description:
+      "How organisations in finance, healthcare, retail, the public sector and more use Cloud4Green labs, training, certifications and automation to deliver results.",
+    priority: 0.8,
+  },
+  "/whats-new": {
+    crumb: "What's New",
+    title: "What's New: ReyvanX Zero Trust & More | Cloud4Green",
+    description:
+      "The latest from Cloud4Green: ReyvanX zero trust network access, new cloud and GenAI labs, LMS updates and refreshed certification tracks.",
+    priority: 0.7,
+  },
   "/contact": {
     crumb: "Contact",
     title: "Contact Us | Cloud4Green",
@@ -108,8 +122,6 @@ export const COMING_SOON = [
   "/individual",
   "/about",
   "/resources",
-  "/whats-new",
-  "/customers",
   "/privacy",
   "/terms",
   "/services/automation/*",

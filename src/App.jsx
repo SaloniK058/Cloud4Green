@@ -12,6 +12,8 @@ import Certifications from "@/pages/products/Certifications";
 import EnterpriseTraining from "@/pages/products/EnterpriseTraining";
 import Automation from "@/pages/services/Automation";
 import Consulting from "@/pages/services/Consulting";
+import CustomerStories from "@/pages/CustomerStories";
+import WhatsNew from "@/pages/WhatsNew";
 
 /* Every page ships in the one bundle, deliberately. Route-level splitting was
    tried and measured against this: with Netlify's Brotli the whole bundle is
@@ -43,6 +45,10 @@ function App() {
         {/* Services — linked from the Services tab of the navbar mega menu. */}
         <Route path="/services/automation" element={<Automation />} />
         <Route path="/services/consulting" element={<Consulting />} />
+        {/* Customer stories — the mega menu promos and the top-level nav item. */}
+        <Route path="/customers" element={<CustomerStories />} />
+        {/* What's new — the Products mega menu promo. */}
+        <Route path="/whats-new" element={<WhatsNew />} />
         <Route path="*" element={<Notfound/>}/>
       </Routes>
     </BrowserRouter>

@@ -89,7 +89,7 @@ const DEFAULT_TABS = [
 export default function TrainingBanner({
   tone = "signal",
   brand = "Cloud4Green",
-  brandSub = "Certification",
+  // brandSub = "Certification",
   manifesto = DEFAULT_MANIFESTO,
   headline = DEFAULT_HEADLINE,
   statements = DEFAULT_STATEMENTS,
@@ -135,7 +135,7 @@ export default function TrainingBanner({
               <p className="font-recoleta text-[21px] font-medium uppercase leading-none tracking-[-0.015em] sm:text-[24px]">
                 {brand}
               </p>
-              <p className={`${label} mt-2 tracking-[0.28em] opacity-80`}>{brandSub}</p>
+              {/* <p className={`${label} mt-2 tracking-[0.28em] opacity-80`}>{brandSub}</p> */}
             </div>
 
             {/* The manifesto is the card's smallest voice and its thesis

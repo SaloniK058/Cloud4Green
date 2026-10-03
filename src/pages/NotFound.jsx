@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 
@@ -150,6 +151,11 @@ export default function Notfound() {
           </Container>
         </section>
       </main>
+
+      {/* Also what makes the page scroll: html reserves a scrollbar gutter
+          (index.css), and on a page exactly one screen tall that gutter sits
+          empty beside the announcement bar. */}
+      <Footer />
     </>
   );
 }

@@ -63,7 +63,7 @@ export const navigation = [
           {
             title: "What's new",
             description:
-              "Explore new capabilities and the latest releases.",
+              "ReyvanX zero trust access, new labs and the latest releases.",
             href: "/whats-new",
             image: update,
           },
@@ -129,5 +129,5 @@ export const navigation = [
   },
 },
   { label: "Resources", href: "/resources" },
-  { label: "Case study", href: "/about" },
+  { label: "Customer stories", href: "/customers" },
 ];
