@@ -299,7 +299,7 @@ export default function CertificationFlow({ className = "" }) {
       setBadge("done");
       pose("browse", "cheer");
       confetti();
-      toast(ICON_CHECK, "Youâ€™re certified!", `${c.name} Â· Verified`, true);
+      toast(ICON_CHECK, "You're certified!", `${c.name} Â· Verified`, true);
       await wait(2600);
       bubble(false);
       await wait(600);
