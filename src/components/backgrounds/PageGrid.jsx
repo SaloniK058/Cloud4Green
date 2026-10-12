@@ -63,6 +63,10 @@ export default function PageGrid({
      an <img> at -z-10 wants 0 instead, so the grid lands on the picture
      rather than behind it. */
   z = -20,
+  /* Star colour, passed through to GridCorner. Left unset, the stars keep
+     the brand blue; a page whose top section is blue passes white. */
+  color,
+  halo,
   className = "",
 }) {
   const { pathname } = useLocation();
@@ -77,6 +81,8 @@ export default function PageGrid({
         cols={cols}
         rows={rows}
         z={z}
+        color={color}
+        halo={halo}
         className={className}
         {...CHOREOGRAPHY[0]}
       />
@@ -85,6 +91,8 @@ export default function PageGrid({
         cols={cols}
         rows={rows}
         z={z}
+        color={color}
+        halo={halo}
         className={className}
         {...CHOREOGRAPHY[1]}
       />

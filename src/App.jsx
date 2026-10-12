@@ -14,6 +14,7 @@ import Automation from "@/pages/services/Automation";
 import Consulting from "@/pages/services/Consulting";
 import CustomerStories from "@/pages/CustomerStories";
 import WhatsNew from "@/pages/WhatsNew";
+import About from "@/pages/About";
 
 /* Every page ships in the one bundle, deliberately. Route-level splitting was
    tried and measured against this: with Netlify's Brotli the whole bundle is
@@ -36,6 +37,7 @@ function App() {
         <Route path="/enterprise" element={<Enterprise />} />
         <Route path="/individual" element={<Individual/>}/>
         <Route path="/contact" element={<Contact/>}/>
+        <Route path="/about" element={<About />} />
         {/* Products — linked from the navbar mega menu (src/config/navigation.js).
             Individual Trainings has no route yet and falls through to Notfound. */}
         <Route path="/products/enterprise-labs" element={<EnterpriseLabs />} />

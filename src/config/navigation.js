@@ -128,6 +128,5 @@ export const navigation = [
     ],
   },
 },
-  { label: "Resources", href: "/resources" },
   { label: "Customer stories", href: "/customers" },
 ];

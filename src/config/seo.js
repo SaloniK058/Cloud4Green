@@ -105,6 +105,13 @@ export const PAGES = {
       "The latest from Cloud4Green: ReyvanX zero trust network access, new cloud and GenAI labs, LMS updates and refreshed certification tracks.",
     priority: 0.7,
   },
+  "/about": {
+    crumb: "About",
+    title: "About Us | Cloud4Green",
+    description:
+      "Cloud4Green Technologies is a Bengaluru-based learning and technology company: 13+ years of hands-on cloud, AI and security training for people and enterprises.",
+    priority: 0.7,
+  },
   "/contact": {
     crumb: "Contact",
     title: "Contact Us | Cloud4Green",
@@ -120,8 +127,6 @@ export const PAGES = {
    that path. Anything that is neither here nor in PAGES is a real 404. */
 export const COMING_SOON = [
   "/individual",
-  "/about",
-  "/resources",
   "/privacy",
   "/terms",
   "/services/automation/*",

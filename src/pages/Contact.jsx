@@ -35,14 +35,14 @@ import {
 /* --- The house marks ------------------------------------------------------ */
 
 /** The brand asterisk, as it appears on the hero and in the closing CTA. */
-function Asterisk({ className = "h-3.5 w-3.5" }) {
+function Asterisk({ className = "h-3.5 w-3.5 stroke-[#0B5CFF]" }) {
   return (
     <svg
       viewBox="0 0 24 24"
       aria-hidden="true"
       strokeWidth="2.4"
       strokeLinecap="round"
-      className={`shrink-0 stroke-[#0B5CFF] ${className}`}
+      className={`shrink-0 ${className}`}
     >
       <path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9L4.9 19.1" />
     </svg>
@@ -65,11 +65,14 @@ function Chevrons({ className = "" }) {
   );
 }
 
-/** Section eyebrow: asterisk, then a tracked-out label in accent blue. */
+/**
+ * Masthead eyebrow: asterisk, then a tracked-out label — in the closing CTA's
+ * beige, since the masthead now sits on the same blue ground.
+ */
 function Eyebrow({ children }) {
   return (
-    <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
-      <Asterisk />
+    <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#E7E0CE]">
+      <Asterisk className="h-3.5 w-3.5 stroke-[#E7E0CE]" />
       {children}
     </p>
   );
@@ -141,11 +144,13 @@ export default function Contact() {
       <main className="bg-[#FAFAF7]">
         {/* ── Masthead ─────────────────────────────────────────────── */}
         {/* relative/isolate for the corner grid below, which pins itself to
-            this section's corners. */}
-        <section className="relative isolate overflow-hidden border-b border-[#101418]/8 py-16 lg:py-24 bg-[#a9dcff]">
+            this section's corners. Coloured as the closing CTA is: brand blue
+            ground, cream display type, beige for the second voice. */}
+        <section className="relative isolate overflow-hidden border-b border-[#101418]/8 bg-[#0B5CFF] py-16 lg:py-24">
           {/* The corner grid, in this page's diagonal — PageGrid picks it
-              from the URL. */}
-          <PageGrid />
+              from the URL. White stars here: the default brand blue would
+              vanish into the blue ground. */}
+          <PageGrid color="#FFFFFF" halo="#FFFFFF" />
 
           <Container>
             <RevealGroup
@@ -169,16 +174,16 @@ export default function Contact() {
                     "Let's build the right",
                     <>
                       solution together
-                      <span className="text-[#0B5CFF]">.</span>
+                      <span className="text-[#E7E0CE]">.</span>
                     </>,
                   ]}
-                  className="mt-5 font-recoleta text-[2.4rem] font-medium uppercase leading-[1.02] tracking-[-0.025em] text-[#101418] sm:text-[3.2rem] lg:text-[3.8rem]"
+                  className="mt-5 font-recoleta text-[2.4rem] font-medium uppercase leading-[1.02] tracking-[-0.025em] text-[#FAFAF7] sm:text-[3.2rem] lg:text-[3.8rem]"
                 />
               </div>
 
               <RevealItem
                 as="p"
-                className="max-w-xl text-[15px] leading-7 text-[#4A5261] lg:pb-2"
+                className="max-w-xl text-[15px] leading-7 text-[#FAFAF7]/85 lg:pb-2"
               >
                 Whether you need hands-on Cloud &amp; AI Labs, an enterprise LMS,
                 AI engineering, or a tailored learning solution, our team is
@@ -192,7 +197,7 @@ export default function Contact() {
               mount
               as="dl"
               delay={0.24}
-              className="mt-12 grid grid-cols-3 gap-x-4 border-t border-[#101418]/10 pt-6 sm:flex sm:flex-wrap sm:gap-x-12 sm:gap-y-4"
+              className="mt-12 grid grid-cols-3 gap-x-4 border-t border-[#FAFAF7]/25 pt-6 sm:flex sm:flex-wrap sm:gap-x-12 sm:gap-y-4"
             >
               {[
                 ["1", "Working day to a reply"],
@@ -200,11 +205,11 @@ export default function Contact() {
                 ["28", "Subject areas"],
               ].map(([value, label]) => (
                 <RevealItem key={label}>
-                  <dt className="font-recoleta text-[24px] font-medium text-[#101418] sm:text-[28px]">
+                  <dt className="font-recoleta text-[24px] font-medium text-[#FAFAF7] sm:text-[28px]">
                     {value}
                   </dt>
 
-                  <dd className="mt-1 text-[10px] uppercase leading-tight tracking-[0.14em] text-[#101418]/45 sm:text-[11px]">
+                  <dd className="mt-1 text-[10px] uppercase leading-tight tracking-[0.14em] text-[#E7E0CE]/80 sm:text-[11px]">
                     {label}
                   </dd>
                 </RevealItem>

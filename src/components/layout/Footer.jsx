@@ -160,13 +160,6 @@ export default function Footer() {
                 </Link>
 
                 <Link
-                  to="/resources"
-                  className="text-white/70 transition-colors hover:text-white"
-                >
-                  Resources
-                </Link>
-
-                <Link
                   to="/contact"
                   className="text-white/70 transition-colors hover:text-white"
                 >

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import Sparkle from "@/components/preloader/Sparkle"; // ← adjust to where Sparkle lives
-import { GLINT_CORE } from "@/lib/glint";
+import { GLINT_CORE, GLINT_HALO } from "@/lib/glint";
 
 /**
  * GridCorner — a patch of grid pinned to one corner of a section, with
@@ -104,7 +104,7 @@ function usePrefersReducedMotion() {
  * lands the star's centre on the intersection to the pixel — an inline svg
  * would add a baseline gap and sit a few px low.
  */
-function Star({ starRef, size, style }) {
+function Star({ starRef, size, color, halo, style }) {
   return (
     <div
       ref={starRef}
@@ -116,7 +116,7 @@ function Star({ starRef, size, style }) {
         ...style,
       }}
     >
-      <Sparkle variant="flare" size={size} className="block" />
+      <Sparkle variant="flare" size={size} color={color} halo={halo} className="block" />
     </div>
   );
 }
@@ -131,7 +131,7 @@ function Star({ starRef, size, style }) {
  * Three animations share this one timing so they stay locked together:
  * the wrapper's position, the star's scale/opacity pulse, and the trail.
  */
-function Mover({ axis, line, from, to, hop, gap = 2, delay, size, cell, w, h, reduced }) {
+function Mover({ axis, line, from, to, hop, gap = 2, delay, size, cell, w, h, reduced, color, halo }) {
   const ref = useRef(null);
   const starRef = useRef(null);
   const trailRef = useRef(null);
@@ -232,7 +232,7 @@ function Mover({ axis, line, from, to, hop, gap = 2, delay, size, cell, w, h, re
         top: -trailLen,
         width: 1,
         height: trailLen,
-        background: `linear-gradient(to bottom, transparent, ${GLINT_CORE})`,
+        background: `linear-gradient(to bottom, transparent, ${color})`,
         transformOrigin: "50% 100%",
       }
     : {
@@ -240,7 +240,7 @@ function Mover({ axis, line, from, to, hop, gap = 2, delay, size, cell, w, h, re
         left: -trailLen,
         width: trailLen,
         height: 1,
-        background: `linear-gradient(to right, transparent, ${GLINT_CORE})`,
+        background: `linear-gradient(to right, transparent, ${color})`,
         transformOrigin: "100% 50%",
       };
 
@@ -258,6 +258,8 @@ function Mover({ axis, line, from, to, hop, gap = 2, delay, size, cell, w, h, re
       <Star
         starRef={starRef}
         size={size}
+        color={color}
+        halo={halo}
         style={{ opacity: reduced ? alpha(0) : 0 }}
       />
     </div>
@@ -269,7 +271,7 @@ function Mover({ axis, line, from, to, hop, gap = 2, delay, size, cell, w, h, re
  * with a quick flash on an irregular beat. `seed` offsets the phase so no
  * two stills pulse in step.
  */
-function Still({ col, row, size, cell, w, h, reduced }) {
+function Still({ col, row, size, cell, w, h, reduced, color, halo }) {
   const ref = useRef(null);
   const x = col * cell + 0.5;
   const y = row * cell + 0.5;
@@ -302,7 +304,7 @@ function Still({ col, row, size, cell, w, h, reduced }) {
       className="absolute left-0 top-0"
       style={{ transform: `translate(${x}px, ${y}px)` }}
     >
-      <Star starRef={ref} size={size} style={{ opacity: peak * 0.75 }} />
+      <Star starRef={ref} size={size} color={color} halo={halo} style={{ opacity: peak * 0.75 }} />
     </div>
   );
 }
@@ -337,6 +339,9 @@ const CORNERS = {
  *                content; a section whose backdrop is an <img> at -z-10 wants
  *                0 instead, so the grid lands on top of the picture rather
  *                than behind it.
+ * @param color   the stars' core and trail colour — brand blue by default;
+ *                a section on a blue ground passes white so they still show
+ * @param halo    the stars' bloom colour, to go with `color`
  */
 export default function GridCorner({
   corner = "tl",
@@ -345,6 +350,8 @@ export default function GridCorner({
   movers = [],
   stills = [],
   z = -20,
+  color = GLINT_CORE,
+  halo = GLINT_HALO,
   className = "",
 }) {
   const { cell, scale } = useGridSize();
@@ -383,6 +390,8 @@ export default function GridCorner({
           w={w}
           h={h}
           reduced={reduced}
+          color={color}
+          halo={halo}
         />
       ))}
 
@@ -400,6 +409,8 @@ export default function GridCorner({
             w={w}
             h={h}
             reduced={reduced}
+            color={color}
+            halo={halo}
           />
         ))}
     </div>

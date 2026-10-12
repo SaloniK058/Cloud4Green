@@ -82,18 +82,25 @@ import { testimonials } from "@/data/testimonials";
  *  out of track and leaving a gap. */
 const MIN_CARDS = 12;
 
+/** Time each card takes to cross one card-width. One loop is one copy of
+ *  the row, so duration scales with its length — a fixed duration would
+ *  make the rows faster every time a review is added. ~50px/s: slow
+ *  enough to read a card as it passes. */
+const SECONDS_PER_CARD = 8;
+
 function TestimonialCard({ name, role, quote, hidden }) {
   return (
     <div
       // aria-hidden on every copy but the first — otherwise a screen reader
       // reads the whole set four times over.
       aria-hidden={hidden || undefined}
-      className="group h-44 w-72 shrink-0 rounded-2xl border border-border/60 bg-[#0351ef] p-2 text-left transition-shadow duration-300 hover:shadow-lg sm:w-80"
+      className="group h-52 w-72 shrink-0 rounded-2xl border border-border/60 bg-[#0351ef] p-2 text-left transition-shadow duration-300 hover:shadow-lg sm:w-96"
     >
       <div className="flex h-full flex-col rounded-lg border border-dashed border-border/70 bg-background p-4 transition-colors duration-300 group-hover:border-border">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
-            <p className="truncate text-sm font-medium tracking-tight">{name}</p>
+            {/* Google names arrive in whatever case the reviewer typed. */}
+            <p className="truncate text-sm font-medium capitalize tracking-tight">{name}</p>
             <p className="mt-0.5 truncate text-[11px] text-muted-foreground">
               {role}
             </p>
@@ -103,7 +110,9 @@ function TestimonialCard({ name, role, quote, hidden }) {
             aria-hidden="true"
           />
         </div>
-        <blockquote className="mt-auto line-clamp-3 text-[15px] leading-6 text-muted-foreground">
+        {/* Four lines: the Google reviews run longer than the old
+            one-liners, and three cut most of them mid-sentence. */}
+        <blockquote className="mt-auto line-clamp-4 text-[15px] leading-6 text-muted-foreground">
           {quote}
         </blockquote>
       </div>
@@ -175,7 +184,7 @@ export default function Testimonials() {
             as="p"
             className="mt-4 max-w-md text-base leading-7 text-muted-foreground"
           >
-            What teams building on Cloud4Green are saying.
+            What learners who trained with us are saying on Google.
           </RevealItem>
         </RevealGroup>
 
@@ -190,11 +199,16 @@ export default function Testimonials() {
           delay={0.18}
           className="mt-12 -mx-5 flex flex-col gap-4 sm:-mx-8"
         >
-          <MarqueeRow items={rowA} duration={52} />
-          {/* Different direction, and a duration that is not a neat multiple
-              of the first — two rows on the same clock start to look like
-              one object sliding. */}
-          <MarqueeRow items={rowB} duration={61} reverse offset={0.35} />
+          <MarqueeRow items={rowA} duration={rowA.length * SECONDS_PER_CARD} />
+          {/* Different direction, and a pace that is not a neat multiple of
+              the first — two rows on the same clock start to look like one
+              object sliding. */}
+          <MarqueeRow
+            items={rowB}
+            duration={rowB.length * SECONDS_PER_CARD * 1.17}
+            reverse
+            offset={0.35}
+          />
         </Reveal>
       </Container>
     </Section>

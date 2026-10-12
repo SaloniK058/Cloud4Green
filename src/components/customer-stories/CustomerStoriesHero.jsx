@@ -67,8 +67,8 @@ export default function CustomerStoriesHero({ industryCount }) {
             </RevealItem>
 
             <RevealItem className="mt-8 flex flex-wrap gap-3.5">
-              <Button arrow render={<a href="#stories" />}>
-                Browse stories
+              <Button arrow render={<a href="#reviews" />}>
+                Read reviews
               </Button>
 
               <Button variant="paper" arrow render={<Link to="/contact" />}>
