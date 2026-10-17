@@ -224,7 +224,7 @@ const products = [
 ];
 
 const cardStyles = {
-  blue: "bg-gradient-to-br from-[#4B6FF6] to-[#5D7FF7]",
+  blue: "bg-gradient-to-br from-[#4B6FF6] to-[#16418e]",
   purple: "bg-gradient-to-br from-[#7A42D9] to-[#150b2e]",
   teal: "bg-gradient-to-br from-[green] to-[#0da335]",
   dark: "bg-gradient-to-br from-[blue] to-[midnightblue]",

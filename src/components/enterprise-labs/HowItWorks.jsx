@@ -150,7 +150,7 @@ import { Button } from "@/components/ui/button";
 import { CATALOGUE } from "@/config/downloads";
 import LabFlow from "@/components/sections/enterprise-lab/LabFlow";
 import PageGrid from "@/components/backgrounds/PageGrid";
-import SilkGradient from "@/components/backgrounds/SilkGradient";
+import labsBg from "@/assets/images/lab6.png";
 import {
   RevealGroup,
   RevealGround,
@@ -174,9 +174,26 @@ export default function HowItWorks() {
           The bloom is kept tight to the diagram (88% × 100% of the band) —
           at 112% × 125% it washed out nearly the whole width of the upper
           half and the grid with it. */}
-      {/* The silk is the lowest layer (-z-30): the grid lines and the
-          sparkles run over it, the diagram's bloom sits above both. */}
-      <SilkGradient />
+      {/* Full-bleed ground image, the same masthead treatment as the
+          Automation, E-Learning and Consulting heroes. It is the lowest layer
+          (-z-30): the grid lines run over it, the diagram's bloom sits above
+          both. */}
+      <RevealGround
+        mount
+        as="img"
+        src={labsBg}
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-30 h-full w-full object-cover"
+      />
+
+      {/* White scrim, heaviest over the copy column, so the photo stays a
+          subtle ground and the headline keeps its contrast. Same -z-30 as the
+          photo, but later in the markup, so it paints over it. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-30 bg-gradient-to-r from-white/85 via-white/55 to-white/50"
+      />
       <PageGrid />
 
       <Container>

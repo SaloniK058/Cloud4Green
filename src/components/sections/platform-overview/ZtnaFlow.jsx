@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Check, Lock } from "lucide-react";
 
 /**
@@ -14,22 +15,51 @@ import { Check, Lock } from "lucide-react";
  * is the claim — nothing reaches the application until policy says so.
  *
  * Pure CSS keyframes: no framer-motion, no timers, no measurement, SSR-safe.
- * Only opacity / transform / clip-path / paint are animated, so it costs the
- * compositor nothing while ProductsSection is driving the row's x transform.
+ * Several of them are paint animations, though, so the loop is paused while
+ * the widget is off screen — see the observer below.
  */
 export default function ZtnaFlow({ product }) {
   const [a, b, c] = product.flow || [];
   const steps = product.steps || DEFAULT_STEPS;
+  const rootRef = useRef(null);
+
+  /* The keyframes above are not compositor-only after all: background,
+   * box-shadow, stroke, clip-path and the marching background-position all
+   * repaint on the main thread, every frame, forever — and this widget rides
+   * inside the products row, whose x is driven from the scroll on that same
+   * thread. For most of the section's travel the card is clipped off the
+   * sticky viewport, and once the reader has scrolled past it is not on
+   * screen at all, so the loop was spending the row's frame budget on pixels
+   * nobody could see.
+   *
+   * Paused rather than removed, same as the hero map: play-state keeps each
+   * beat's phase, so it resumes mid-cycle instead of restarting. The observer
+   * honours the sticky frame's overflow clip, so "off to the right of the
+   * row" counts as not visible. */
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        el.dataset.ztPaused = String(!entry.isIntersecting);
+      },
+      { rootMargin: "100px" },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="zt flex w-full flex-col gap-4">
+    <div ref={rootRef} className="zt flex w-full flex-col gap-4">
       <style>{CSS}</style>
 
       <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
         {product.name}
       </span>
 
-      <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-sm">
+      <div className="zt-panel rounded-2xl border border-black/5 bg-white p-4 shadow-sm">
         <div className="flex items-start justify-between">
           <Node n="1" node={a} badge={Check} />
           <Segment n="1" />
@@ -212,6 +242,13 @@ const CSS = `
 .zt .zt-cap1{animation:zt-c1 var(--zt-T) ease infinite}
 .zt .zt-cap2{animation:zt-c2 var(--zt-T) ease infinite}
 .zt .zt-cap3{animation:zt-c3 var(--zt-T) ease infinite}
+
+/* Off screen: hold every beat where it is (see the observer in ZtnaFlow). */
+.zt[data-zt-paused="true"] *{animation-play-state:paused}
+
+/* On screen the loop still repaints, so keep that repaint on the panel's own
+   layer instead of invalidating tiles of the whole translated products row. */
+.zt .zt-panel{contain:paint;will-change:transform}
 
 /* Matches the useReducedMotion() branch in ProductsSection: someone who asked
    their OS for less motion still gets the finished diagram, just not the loop. */
