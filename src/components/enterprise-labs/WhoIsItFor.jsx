@@ -2,7 +2,7 @@
 // import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 // import Container from "@/components/layout/Container";
-// import wif1 from "@/assets/images/visualImage.png";
+// import wif1 from "@/assets/images/visualImage.webp";
 
 // const EASE = [0.22, 1, 0.36, 1];
 
@@ -340,7 +340,7 @@ import {
   STAGGER,
   VIEWPORT,
 } from "@/components/motion/reveal-tokens";
-import wif1 from "@/assets/images/visualImage.png";
+import wif1 from "@/assets/images/visualImage.webp";
 
 const EASE = [0.22, 1, 0.36, 1];
 

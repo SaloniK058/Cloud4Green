@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
-import img1 from "@/assets/images/CertBanner2.png";
-import backgroundimg from "@/assets/images/certBanner.png";
+import img1 from "@/assets/images/CertBanner2.webp";
+import backgroundimg from "@/assets/images/certBanner.webp";
 import CertificationFlow from "../illustrations/CertificationFlow";
 import {
   RevealGroup,

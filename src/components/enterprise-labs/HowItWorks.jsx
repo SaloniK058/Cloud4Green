@@ -4,7 +4,7 @@
 // import Container from "@/components/layout/Container";
 // import { Button } from "@/components/ui/button";
 // import LabFlow from "@/components/sections/enterprise-lab/LabFlow";
-// import labFlowIllustration from "@/assets/images/lab10.png";
+// import labFlowIllustration from "@/assets/images/lab10.webp";
 
 // import Silkwaves from "@/components/enterprise-labs/SilkWaves"
 
@@ -150,7 +150,7 @@ import { Button } from "@/components/ui/button";
 import { CATALOGUE } from "@/config/downloads";
 import LabFlow from "@/components/sections/enterprise-lab/LabFlow";
 import PageGrid from "@/components/backgrounds/PageGrid";
-import labsBg from "@/assets/images/lab6.png";
+import labsBg from "@/assets/images/lab6.webp";
 import {
   RevealGroup,
   RevealGround,
@@ -276,11 +276,11 @@ export default function HowItWorks() {
               usual measure only for the headline; the paragraph keeps its
               own 560px so the reading line stays short. */}
           <RevealGroup mount delay={CUE.follow} className="mx-auto mt-4 max-w-[860px] shrink-0 text-center lg:mt-5">
-            <RevealItem as="p" className="text-[12.5px] font-medium uppercase tracking-[0.14em] text-[#4A5261]">
-              How it works
+            <RevealItem as="h1" className="text-[12.5px] font-medium uppercase tracking-[0.14em] text-[#4A5261]">
+              Enterprise cloud and AI labs
             </RevealItem>
 
-            <RevealItem as="h1" className="mt-2.5 font-recoleta text-[1.85rem] font-medium uppercase leading-[1.06] tracking-[-0.02em] text-[#101418] sm:text-[2.35rem] lg:text-[2.6rem]">
+            <RevealItem as="p" className="mt-2.5 font-recoleta text-[1.85rem] font-medium uppercase leading-[1.06] tracking-[-0.02em] text-[#101418] sm:text-[2.35rem] lg:text-[2.6rem]">
               One request, a live environment
               <span className="text-[#0B5CFF]">.</span>
             </RevealItem>

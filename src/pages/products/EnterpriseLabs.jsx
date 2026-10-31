@@ -12,7 +12,7 @@ import CatalougeSection from "@/components/enterprise-labs/CatalogueSections";
 
 // import heroImage from "@/assets/images/clients.jpg";
 // // import flowBackdrop from "@/assets/images/pexels-steve-12843342.jpg";
-// import labFlowIllustration from "@/assets/images/lab10.png";
+// import labFlowIllustration from "@/assets/images/lab10.webp";
 // import LabFlow from "@/components/sections/enterprise-lab/LabFlow";
 import Howitworks from "@/components/enterprise-labs/HowItWorks";
 import WhoItsFor from "@/components/enterprise-labs/WhoIsItFor";

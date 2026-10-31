@@ -27,7 +27,7 @@ import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 ------------------------------------------------------------------ */
 
 import sol1 from "@/assets/images/Solution1.webp";
-import sol2 from "@/assets/images/enterprise.jpg";
+import sol2 from "@/assets/images/enterprise.webp";
 import sol3 from "@/assets/images/solution3.webp";
 
 // Add the remaining files, then swap the `null`s for the imports:

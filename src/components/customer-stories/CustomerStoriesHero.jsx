@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
-import backgroundimg from "@/assets/images/lab4.png";
-import handshake from "@/assets/images/handshake.jpg";
+import backgroundimg from "@/assets/images/lab4.webp";
+import handshake from "@/assets/images/handshake.webp";
 import {
   Reveal,
   RevealGroup,
@@ -51,13 +51,13 @@ export default function CustomerStoriesHero({ industryCount }) {
         <div className="grid items-center gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           {/* ------------------------------------------- LEFT: the copy */}
           <RevealGroup mount delay={CUE.lead} className="max-w-[560px]">
-            <RevealItem as="p" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
+            <RevealItem as="h1" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
               <Asterisk />
-              Customer stories
+              Customer stories and reviews
             </RevealItem>
 
             {/* Recoleta ships as a single Medium file, so font-medium. */}
-            <RevealItem as="h1" className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
+            <RevealItem as="p" className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
               Real teams. Real consoles. Real results<span className="text-[#0B5CFF]">.</span>
             </RevealItem>
 

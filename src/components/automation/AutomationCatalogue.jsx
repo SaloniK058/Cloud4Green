@@ -16,7 +16,8 @@ import {
 
 /* Automation catalogue — the n8n-style workflow browser. The capabilities
    section above says what we do; this one lets a visitor picture it:
-   search or filter, scan the tool chain on each card, open the workflow.
+   search or filter, scan the tool chain on each card, then click through
+   to talk to the team about it.
 
    Each entry is written so the same object can later feed the workflow's
    detail page (trigger, steps, outputs, prerequisites…). `type` separates
@@ -169,7 +170,9 @@ const runStep = (k) => RUN_STEP[Math.min(k, RUN_STEP.length - 1)];
 
 const roleOf = (i, count) => (i === 0 ? "Trigger" : i === count - 1 ? "Output" : "Step");
 
-const workflowHref = (slug) => `/services/automation/workflows/${slug}`;
+/* Each card leads to the contact page. The workflow's name goes with it and
+   arrives in the enquiry email, so the team knows what was clicked. */
+const contactHref = (workflow) => `/contact?service=${encodeURIComponent(workflow)}`;
 
 /* Search matches title, summary, category and every tool, so "aws",
    "jira" or "incident" all find something. */
@@ -181,23 +184,6 @@ function matches(workflow, query) {
     .split(/\s+/)
     .filter(Boolean)
     .every((word) => haystack.includes(word));
-}
-
-/** The arrow on the card's "Open workflow" line; it slides on hover. */
-function LinkArrow() {
-  return (
-    <svg
-      viewBox="0 0 16 16"
-      aria-hidden="true"
-      fill="none"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="h-3.5 w-3.5 shrink-0 stroke-current transition-transform duration-300 group-hover/card:translate-x-1"
-    >
-      <path d="M2.5 8h11M9 3.5 13.5 8 9 12.5" />
-    </svg>
-  );
 }
 
 /* The canvas at the top of every card: the workflow's tools as nodes on a
@@ -261,7 +247,7 @@ function WorkflowCard({ workflow, index }) {
       transition={{ duration: DURATION, ease: REVEAL_EASE, delay: (index % 3) * STAGGER }}
     >
       <Link
-        to={workflowHref(workflow.slug)}
+        to={contactHref(workflow.title)}
         className="group/card relative isolate flex h-full flex-col overflow-hidden rounded-[20px] border border-[#101418]/10 bg-white p-2 transition-[border-color,box-shadow,background-color] duration-300 ease-out hover:border-[#101418]/10 hover:bg-[#F3F1ED] hover:shadow-[0_20px_48px_-32px_rgba(16,32,74,0.5)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B5CFF]"
       >
         {/* The shine sweep. It rides above the content so a white pass has
@@ -290,11 +276,6 @@ function WorkflowCard({ workflow, index }) {
             <span className="flex items-center gap-2 text-[#4A5261]">
               <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${type.dot}`} />
               {type.text}
-            </span>
-
-            <span className="ml-auto inline-flex items-center gap-1.5 font-semibold text-[#101418] transition-colors duration-300 group-hover/card:text-[#0B5CFF]">
-              Open
-              <LinkArrow />
             </span>
           </div>
         </div>

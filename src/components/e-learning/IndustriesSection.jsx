@@ -3,8 +3,8 @@ import "@/styles/industries.css";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { CUE } from "@/components/motion/reveal-tokens";
 import imageAutomotive from "@/assets/images/sector1.jpg"
-import imageFinance from "@/assets/images/sector3.jpg"
-import imageIt from "@/assets/images/gallerydigital.jpg"
+import imageFinance from "@/assets/images/sector3.webp"
+import imageIt from "@/assets/images/gallerydigital.webp"
 import imagePharma from "@/assets/images/sector4.webp"
 import imageAudit from "@/assets/images/sector5.webp"
 /* ------------------------------------------------------------------ *

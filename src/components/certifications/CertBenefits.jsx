@@ -148,7 +148,7 @@ export default function CertBenefits() {
           </RevealItem>
           <RevealItem as="p">
             Advance your career by getting your skills tested and verified by the
-            Cloud4Green team. If you've peeked at our <a href="#">job board</a> lately,
+            Cloud4Green team. If you've peeked at any job board lately,
             you'll know that demand for experienced cloud engineers is on the rise.
           </RevealItem>
           <RevealItem as="p" className="cb-copy__lead">With a Cloud4Green certification, you can:</RevealItem>

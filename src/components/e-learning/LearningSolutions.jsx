@@ -14,7 +14,7 @@ import {
 } from "@/components/motion/Reveal";
 import { CUE } from "@/components/motion/reveal-tokens";
 import img1 from "@/assets/images/elearningBanner.webp";
-import backgroundimg from "@/assets/images/lab4.png"
+import backgroundimg from "@/assets/images/lab4.webp"
 
 /* ------------------------------------------------------------------
    Cloud4Green — the /products/e-learning masthead.
@@ -105,16 +105,16 @@ export default function LearningSolutions({ imageSrc, imageAlt = "" }) {
           <RevealGroup mount delay={CUE.lead} className="max-w-[560px]">
             {/* On the light ground the eyebrow and the full stop are the
                 brand blue, as they are in every cream section. */}
-            <RevealItem as="p" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
+            <RevealItem as="h1" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
               <Asterisk />
-              Learning solutions
+              Enterprise e-learning and LMS solutions
             </RevealItem>
 
             {/* <h1 className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
               Build a cloud-ready workforce on
               hands-on&nbsp;labs<span className="text-[#0B5CFF]">.</span>
             </h1> */}
-            <RevealItem as="h1" className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
+            <RevealItem as="p" className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
   Learn the technologies that shape the future<span className="text-[#0B5CFF]">.</span>
 </RevealItem>
 

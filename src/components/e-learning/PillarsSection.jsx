@@ -37,8 +37,8 @@ import { CUE } from "@/components/motion/reveal-tokens";
  * ------------------------------------------------------------------ */
 import imgNeeds from "@/assets/images/eImg1.webp";
 import imgContent from "@/assets/images/solution4.webp";
-import imgPlatform from "@/assets/images/gallerydigital.jpg";
-import imgVendors from "@/assets/images/enterprise.jpg";
+import imgPlatform from "@/assets/images/gallerydigital.webp";
+import imgVendors from "@/assets/images/enterprise.webp";
 import imgDelivery from "@/assets/images/ourproducts.jpg";
 import imgRoi from "@/assets/images/skill1.webp";
 

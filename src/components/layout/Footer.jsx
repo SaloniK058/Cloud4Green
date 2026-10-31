@@ -41,13 +41,13 @@ export default function Footer() {
                 Cloud4Green
               </p>
 
-              <h2 className="font-heading text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+              <p className="font-heading text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
                 Building cloud-ready
                 <br />
                 <span className="text-white/40">
                   teams for the future.
                 </span>
-              </h2>
+              </p>
 
               <p className="mt-8 max-w-xl text-base leading-7 text-white/50">
                 Hands-on Cloud and AI Labs, enterprise learning platforms,
@@ -140,6 +140,20 @@ export default function Footer() {
                   Hands-On Labs
                 </Link>
 
+                <Link
+                  to="/services/automation"
+                  className="text-white/70 transition-colors hover:text-white"
+                >
+                  Automation
+                </Link>
+
+                <Link
+                  to="/services/consulting"
+                  className="text-white/70 transition-colors hover:text-white"
+                >
+                  Consulting
+                </Link>
+
               </div>
             </div>
 
@@ -157,6 +171,20 @@ export default function Footer() {
                   className="text-white/70 transition-colors hover:text-white"
                 >
                   About
+                </Link>
+
+                <Link
+                  to="/customers"
+                  className="text-white/70 transition-colors hover:text-white"
+                >
+                  Customer Stories
+                </Link>
+
+                <Link
+                  to="/whats-new"
+                  className="text-white/70 transition-colors hover:text-white"
+                >
+                  What&apos;s New
                 </Link>
 
                 <Link

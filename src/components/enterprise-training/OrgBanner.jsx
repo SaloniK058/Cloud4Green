@@ -7,7 +7,7 @@ import { LINE_STAGGER } from "@/components/motion/reveal-tokens";
 
 // Lit office tower at night — reads as "organization" without competing with
 // the copy. It's tinted brand-blue in CSS, so any dark, busy photo works here.
-import bannerBg from "@/assets/images/enterprise.jpg";
+import bannerBg from "@/assets/images/enterprise.webp";
 
 export default function OrgBanner() {
   return (

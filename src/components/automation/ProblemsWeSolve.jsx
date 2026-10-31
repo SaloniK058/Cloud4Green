@@ -269,8 +269,6 @@
 //   );
 // }
 
-import { Link } from "react-router-dom";
-
 import Container from "@/components/layout/Container";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { CUE, STAGGER } from "@/components/motion/reveal-tokens";
@@ -333,11 +331,6 @@ const PROBLEMS = [
   },
 ];
 
-/* Where each problem leads. For now it's an anchor further down this
-   page; when each solution gets its own page, change this one line
-   (e.g. `/services/automation/${slug}`). */
-const solutionHref = (slug) => `#${slug}`;
-
 /* The reveal is the house one (components/motion/Reveal.jsx). This file
    used to run its own IntersectionObserver fade at 0.7s / 12px on a plain
    ease-out, a beat out of step with every other section on the site. */
@@ -349,15 +342,12 @@ function ProblemItem({ problem, index }) {
     /* Right-hand column items trail by one STAGGER, so a row arrives left
        then right instead of both at once. */
     <Reveal delay={index % 2 ? STAGGER : 0} className="h-full">
-      <Link
-        to={solutionHref(problem.slug)}
-        className="group relative flex h-full flex-col px-5 py-6 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B5CFF] sm:p-6 lg:p-7"
-      >
+      <div className="group relative flex h-full flex-col px-5 py-6 sm:p-6 lg:p-7">
         {/* The hover tell: no card, just a blue quote rule that draws down
             the left edge, like a pull quote. */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute bottom-6 left-0 top-6 w-[2px] origin-top scale-y-0 rounded-full bg-[#0B5CFF] transition-transform duration-500 ease-out group-hover:scale-y-100 group-focus-visible:scale-y-100 lg:bottom-7 lg:top-7"
+          className="pointer-events-none absolute bottom-6 left-0 top-6 w-[2px] origin-top scale-y-0 rounded-full bg-[#0B5CFF] transition-transform duration-500 ease-out group-hover:scale-y-100 lg:bottom-7 lg:top-7"
         />
 
         {/* Number and a hairline that runs to the edge — the row's rule,
@@ -374,7 +364,7 @@ function ProblemItem({ problem, index }) {
         </h3>
 
         <p className="mt-3 max-w-[46ch] text-[15px] leading-6 text-[#4A5261]">{problem.body}</p>
-      </Link>
+      </div>
     </Reveal>
   );
 }
@@ -419,7 +409,7 @@ export default function ProblemsWeSolve() {
 
             <RevealItem as="p" className="mt-4 max-w-[560px] text-[15px] leading-6 text-[#4A5261] lg:text-[16px] lg:leading-7">
               Before we talk about automation, here's what's usually getting in the way. Start with the one that
-              sounds like your week — each opens the fix we build for it and the workflows we've already shipped.
+              sounds like your week.
             </RevealItem>
           </RevealGroup>
 

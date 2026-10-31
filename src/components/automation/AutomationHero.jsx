@@ -4,7 +4,7 @@ import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
 import automationFlow from '@/assets/images/automation-flow.svg'
-import backgroundimg from "@/assets/images/lab6.png";
+import backgroundimg from "@/assets/images/lab6.webp";
 import {
   Reveal,
   RevealGroup,
@@ -58,15 +58,16 @@ export default function AutomationHero() {
           {/* Left-aligned from lg (it's a column now, not a centred block),
               centred on small screens where it spans the full width. */}
           <RevealGroup mount delay={CUE.lead} className="mx-auto max-w-[560px] text-center lg:mx-0 lg:text-left">
-            <RevealItem as="p" className="text-[12.5px] font-medium uppercase tracking-[0.14em] text-[#4A5261]">
-              Automation services
+            {/* The h1 is the eyebrow: it names the service in the words people
+                search for, and the display line below stays free to be a line. */}
+            <RevealItem as="h1" className="text-[12.5px] font-medium uppercase tracking-[0.14em] text-[#4A5261]">
+              Workflow automation and AI agents
             </RevealItem>
 
-            {/* h1: this is the page's hero, not a section inside one. The
-                split column is narrower than the centred one, so the size
+            {/* The split column is narrower than the centred one, so the size
                 steps up and the line breaks are allowed — three short
                 stacked lines is the Retool rhythm. */}
-            <RevealItem as="h1" className="mt-3 font-recoleta text-[2.1rem] font-medium uppercase leading-[1.04] tracking-[-0.02em] text-[#101418] sm:text-[2.6rem] lg:text-[3.1rem]">
+            <RevealItem as="p" className="mt-3 font-recoleta text-[2.1rem] font-medium uppercase leading-[1.04] tracking-[-0.02em] text-[#101418] sm:text-[2.6rem] lg:text-[3.1rem]">
               Make Work Flow Smarter
 
               <span className="text-[#0B5CFF]">.</span>

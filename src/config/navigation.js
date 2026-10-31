@@ -1,4 +1,4 @@
-import customerStories from '@/assets/images/handshake.jpg'
+import customerStories from '@/assets/images/handshake.webp'
 import update from '@/assets/images/big.png'
 
 export const navigation = [

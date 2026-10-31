@@ -1,8 +1,8 @@
 /**
  * Search and social metadata — the single source for every page's <head>.
  *
- * Read in three places, which is why this file imports nothing (no React, no
- * assets, no "@/" aliases): vite.config.js loads it in Node.
+ * Read in three places, which is why this file imports nothing but plain data
+ * (no React, no assets, no "@/" aliases): vite.config.js loads it in Node.
  *
  *   1. The build (vite.config.js, seoPages plugin) writes a static HTML file
  *      per route with these tags already in its <head>, plus sitemap.xml,
@@ -17,12 +17,15 @@
  * else — it lands in the sitemap and gets its own HTML file automatically.
  */
 
+import { eLearningFaqs, enterpriseLabsFaqs } from "../data/faqs.js";
+
 /* The production origin. Canonicals, og:url and the sitemap are all absolute,
    so this must be the domain the site is actually served from. */
 export const SITE_URL = "https://cloud4green.com";
 
 export const SITE_NAME = "Cloud4Green";
 const LEGAL_NAME = "Cloud4Green Technologies";
+const LANGUAGE = "en-IN";
 
 /* 1200x630, in /public. */
 const OG_IMAGE = "/og-image.png";
@@ -32,70 +35,128 @@ const EMAIL = "reach@cloud4green.com";
 const PHONE = "+91-7022424545";
 const LINKEDIN = "https://www.linkedin.com/company/cloud4green-technologies/";
 
-/* Indexable pages. `title` is the full <title> (keep it under ~60 characters);
-   `description` is the search snippet (~150–160). `crumb` names the page in
-   breadcrumb structured data. */
+/* Indexable pages.
+     title        the full <title>; keep it under ~60 characters
+     description  the search snippet; ~120–160 characters
+     keywords     the phrases the page targets, kept short and truthful
+     crumb        names the page in breadcrumb structured data
+     h1           must match the page's real <h1>
+     sections     the page's real section headings, for the no-JavaScript copy
+     pageType     schema.org type, when more specific than WebPage
+     service      adds a Service node: what the page sells
+     faqs         adds an FAQPage node; only for questions shown on the page */
 export const PAGES = {
   "/": {
-    title: "Cloud4Green | Hands-On Cloud & AI Labs for Enterprise Learning",
+    title: "Cloud & AI Labs and Corporate IT Training | Cloud4Green",
     description:
-      "Hands-on cloud and AI labs, an enterprise LMS, certification programs and corporate training that turn learning into real-world capability for your teams.",
+      "Hands-on cloud and AI labs, an enterprise LMS, certification and corporate IT training from Bengaluru, turning learning into real-world skills for your teams.",
+    keywords:
+      "cloud labs, AI labs, hands-on labs, corporate IT training, enterprise LMS, certification training, Cloud4Green",
+    h1: "Hands-on labs for enterprise learning",
+    sections: ["Our Products", "What challenges can we solve for you?", "Testimonials"],
     priority: 1.0,
   },
   "/enterprise": {
     crumb: "Enterprise",
-    title: "Enterprise Learning Platform | Cloud4Green",
+    title: "Enterprise Learning Platform for Cloud & AI | Cloud4Green",
     description:
-      "One connected platform for enterprise learning: cloud labs, AI labs, an enterprise LMS, certifications and analytics, built for modern organizations.",
+      "One connected enterprise learning platform for cloud labs, AI labs, an LMS, certifications and analytics, built to upskill modern organisations at scale.",
+    keywords: "enterprise learning platform, enterprise upskilling, workforce training platform, learning analytics",
+    h1: "Enterprise learning platform",
+    sections: ["Everything your enterprise needs", "Real tools. Real environments"],
+    service: "Enterprise learning platform",
     priority: 0.9,
   },
   "/products/enterprise-labs": {
     crumb: "Enterprise Labs",
-    title: "Enterprise Cloud & AI Labs | Cloud4Green",
+    title: "Enterprise Cloud & AI Labs: AWS, Azure, GCP | Cloud4Green",
     description:
-      "Live cloud and AI lab environments for enterprise teams — 28 domains and 415 technologies across AWS, Azure, GCP, Kubernetes and more, validated as people work.",
+      "Live cloud and AI lab environments for enterprise teams: 28 domains and 415 technologies across AWS, Azure, GCP and Kubernetes, validated as people work.",
+    keywords:
+      "enterprise cloud labs, AI labs, hands-on labs, AWS labs, Azure labs, GCP labs, Kubernetes labs, cloud sandbox for training",
+    h1: "Enterprise cloud and AI labs",
+    sections: ["Twenty-eight domains, 415 technologies", "Turn learning investments into team capabilities"],
+    service: "Enterprise cloud and AI labs",
+    faqs: enterpriseLabsFaqs,
     priority: 0.9,
   },
   "/products/e-learning": {
     crumb: "E-Learning",
-    title: "Enterprise E-Learning & LMS Solutions | Cloud4Green",
+    title: "Enterprise E-Learning & Managed LMS Services | Cloud4Green",
     description:
-      "Managed enterprise learning: needs analysis, content development, LMS management and ROI reporting, with hands-on training across cloud, AI, data and security.",
+      "Managed enterprise e-learning: needs analysis, content development, LMS management and ROI reporting, with hands-on training in cloud, AI, data and security.",
+    keywords:
+      "enterprise e-learning, managed LMS, LMS management, learning content development, managed learning services, training ROI",
+    h1: "Enterprise e-learning and LMS solutions",
+    sections: ["The 6 Pillars of Enterprise Learning at Cloud4Green", "Industries we serve"],
+    service: "Enterprise e-learning and LMS management",
+    faqs: eLearningFaqs,
     priority: 0.9,
   },
   "/products/certifications": {
     crumb: "Certifications",
-    title: "Cloud & IT Certification Training | Cloud4Green",
+    title: "Cloud & IT Certification Training: AWS, Azure | Cloud4Green",
     description:
-      "Exam-mapped certification tracks for AWS, Azure, Google Cloud, Kubernetes, cybersecurity and more, with hands-on practice labs, mock exams and voucher support.",
+      "Exam-mapped certification training for AWS, Azure, Google Cloud, Kubernetes and cybersecurity, with hands-on practice labs, mock exams and voucher support.",
+    keywords:
+      "cloud certification training, AWS certification training, Azure certification training, Google Cloud certification, Kubernetes certification, cybersecurity certification",
+    h1: "Turn Hands-On Skills Into Industry Credentials",
+    sections: [
+      "Certification tracks we prepare candidates for",
+      "Train deep. Certify fast",
+      "Prove your abilities and accelerate your career",
+    ],
+    service: "Cloud and IT certification training",
     priority: 0.9,
   },
   "/products/enterprise-training": {
     crumb: "Enterprise Training",
     title: "Corporate Cloud & AI Training Programs | Cloud4Green",
     description:
-      "Customised corporate training in cloud, GenAI, DevOps, data and security — instructor-led, self-paced or blended, on live cloud accounts, built around your goals.",
+      "Customised corporate training in cloud, GenAI, DevOps, data and security: instructor-led, self-paced or blended, on live cloud accounts, built for your goals.",
+    keywords:
+      "corporate training, corporate cloud training, enterprise AI training, GenAI training, DevOps training, instructor-led training",
+    h1: "Corporate cloud and AI training",
+    sections: ["A cloud & AI skills catalog"],
+    service: "Corporate cloud and AI training",
     priority: 0.9,
   },
   "/services/automation": {
     crumb: "Automation",
-    title: "Workflow Automation & AI Agents | Cloud4Green",
+    title: "Workflow Automation & AI Agent Services | Cloud4Green",
     description:
       "Automate repetitive processes, connect enterprise systems and deploy AI agents. Workflow automation, AI agents and agentic automation built on your own stack.",
+    keywords:
+      "workflow automation services, AI agents, agentic automation, business process automation, enterprise automation, RPA",
+    h1: "Workflow automation and AI agents",
+    sections: [
+      "Your teams deserve better than repetitive work",
+      "From simple automation to intelligent execution",
+      "Explore automation solutions",
+    ],
+    service: "Workflow automation and AI agents",
     priority: 0.8,
   },
   "/services/consulting": {
     crumb: "Consulting",
-    title: "Business & Technology Consulting | Cloud4Green",
+    title: "Business & Technology Consulting Services | Cloud4Green",
     description:
-      "Strategy, operations, digital and technology, and marketing consulting — twenty services across four practices that turn ambition into measurable outcomes.",
+      "Strategy, operations, digital, technology and marketing consulting: twenty services across four practices that turn ambition into measurable business outcomes.",
+    keywords:
+      "business consulting, technology consulting, strategy consulting, operational excellence, digital transformation consulting",
+    h1: "Business and technology consulting",
+    sections: ["Consulting across the whole business"],
+    service: "Business and technology consulting",
     priority: 0.8,
   },
   "/customers": {
     crumb: "Customer Stories",
-    title: "Customer Stories | Cloud4Green",
+    title: "Customer Stories & Learner Reviews | Cloud4Green",
     description:
-      "How organisations in finance, healthcare, retail, the public sector and more use Cloud4Green labs, training, certifications and automation to deliver results.",
+      "Read what learners say about Cloud4Green's AWS, Azure, VMware and cloud training in their own Google reviews, and how teams build skills with our programmes.",
+    keywords: "Cloud4Green reviews, cloud training reviews, AWS training reviews, Azure training reviews, customer stories",
+    h1: "Customer stories and reviews",
+    sections: ["In our learners' own words"],
     priority: 0.8,
   },
   "/whats-new": {
@@ -103,21 +164,48 @@ export const PAGES = {
     title: "What's New: ReyvanX Zero Trust & More | Cloud4Green",
     description:
       "The latest from Cloud4Green: ReyvanX zero trust network access, new cloud and GenAI labs, LMS updates and refreshed certification tracks.",
+    keywords: "ReyvanX, zero trust network access, ZTNA, new cloud labs, GenAI labs, Cloud4Green updates",
+    h1: "The latest from Cloud4Green",
+    sections: ["Zero Trust Network Access with ReyvanX", "Everything we've shipped"],
     priority: 0.7,
   },
   "/about": {
     crumb: "About",
-    title: "About Us | Cloud4Green",
+    title: "About Cloud4Green: Cloud & AI Training in Bengaluru",
     description:
       "Cloud4Green Technologies is a Bengaluru-based learning and technology company: 13+ years of hands-on cloud, AI and security training for people and enterprises.",
+    keywords: "about Cloud4Green, Cloud4Green Technologies, cloud training company Bengaluru, IT training company India",
+    h1: "About Cloud4Green Technologies",
+    sections: ["From one learner to whole enterprises", "How we work", "From first lab to production"],
+    pageType: "AboutPage",
     priority: 0.7,
   },
   "/contact": {
     crumb: "Contact",
-    title: "Contact Us | Cloud4Green",
+    title: "Contact Cloud4Green | Cloud & AI Training, Bengaluru",
     description:
-      "Talk to Cloud4Green about hands-on Cloud & AI Labs, an enterprise LMS or tailored training. Book a 30-minute call or send a message; we reply within a working day.",
+      "Talk to Cloud4Green about hands-on cloud and AI labs, an enterprise LMS or tailored training. Book a 30-minute call or send us a message to get started.",
+    keywords: "contact Cloud4Green, enterprise training enquiry, book a cloud training consultation",
+    h1: "Let's build the right solution together",
+    sections: ["Get in touch", "Book a slot", "Talk with our team"],
+    pageType: "ContactPage",
     priority: 0.7,
+  },
+  "/privacy": {
+    crumb: "Privacy Policy",
+    title: "Privacy Policy | Cloud4Green",
+    description:
+      "How Cloud4Green collects, uses and protects personal data through this website, who we share it with, and the rights and choices you have.",
+    h1: "Privacy Policy",
+    priority: 0.3,
+  },
+  "/terms": {
+    crumb: "Terms of Service",
+    title: "Terms of Service | Cloud4Green",
+    description:
+      "The terms for using the Cloud4Green website, including acceptable use, intellectual property, disclaimers and how they relate to our service agreements.",
+    h1: "Terms of Service",
+    priority: 0.3,
   },
 };
 
@@ -125,12 +213,7 @@ export const PAGES = {
    "in progress" page and are kept out of the index (noindex, not in the
    sitemap) until they have content. A trailing /* matches everything under
    that path. Anything that is neither here nor in PAGES is a real 404. */
-export const COMING_SOON = [
-  "/individual",
-  "/privacy",
-  "/terms",
-  "/services/automation/*",
-];
+export const COMING_SOON = [];
 
 const COMING_SOON_META = {
   title: `Coming soon | ${SITE_NAME}`,
@@ -172,44 +255,105 @@ const esc = (s) =>
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 
+const ORG_ID = `${SITE_URL}/#organization`;
+const SITE_ID = `${SITE_URL}/#website`;
+
+/* No aggregateRating here, on purpose: Google treats ratings a business puts
+   on its own site as self-serving and won't show them, and marking up the
+   Google Maps score as ours breaks its review snippet policy. */
 function structuredData(meta) {
-  const org = {
-    "@type": "Organization",
-    "@id": `${SITE_URL}/#organization`,
-    name: SITE_NAME,
-    legalName: LEGAL_NAME,
-    url: `${SITE_URL}/`,
-    logo: SITE_URL + LOGO,
-    email: EMAIL,
-    sameAs: [LINKEDIN],
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        contactType: "sales",
-        email: EMAIL,
-        telephone: PHONE,
-        availableLanguage: ["English"],
+  const url = absolute(meta.path);
+
+  const graph = [
+    {
+      "@type": "Organization",
+      "@id": ORG_ID,
+      name: SITE_NAME,
+      legalName: LEGAL_NAME,
+      url: `${SITE_URL}/`,
+      logo: SITE_URL + LOGO,
+      description:
+        "Bengaluru-based learning and technology company providing hands-on cloud and AI labs, enterprise learning, certification training, automation and consulting.",
+      foundingDate: "2013",
+      email: EMAIL,
+      telephone: PHONE,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Bengaluru",
+        addressRegion: "Karnataka",
+        addressCountry: "IN",
       },
-    ],
-  };
-
-  const graph = [org];
-
-  if (meta.path === "/") {
-    graph.push({
+      sameAs: [LINKEDIN],
+      knowsAbout: [
+        "Cloud computing",
+        "Artificial intelligence",
+        "DevOps",
+        "Cybersecurity",
+        "Corporate training",
+        "Workflow automation",
+      ],
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          contactType: "sales",
+          email: EMAIL,
+          telephone: PHONE,
+          availableLanguage: ["English"],
+        },
+      ],
+    },
+    {
       "@type": "WebSite",
-      "@id": `${SITE_URL}/#website`,
+      "@id": SITE_ID,
       url: `${SITE_URL}/`,
       name: SITE_NAME,
-      publisher: { "@id": `${SITE_URL}/#organization` },
-    });
-  } else if (meta.crumb) {
+      inLanguage: LANGUAGE,
+      publisher: { "@id": ORG_ID },
+    },
+    {
+      "@type": meta.pageType ?? "WebPage",
+      "@id": `${url}#webpage`,
+      url,
+      name: meta.title,
+      description: meta.description,
+      inLanguage: LANGUAGE,
+      isPartOf: { "@id": SITE_ID },
+      about: { "@id": ORG_ID },
+      primaryImageOfPage: SITE_URL + OG_IMAGE,
+    },
+  ];
+
+  if (meta.crumb) {
     graph.push({
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-        { "@type": "ListItem", position: 2, name: meta.crumb, item: absolute(meta.path) },
+        { "@type": "ListItem", position: 2, name: meta.crumb, item: url },
       ],
+    });
+  }
+
+  if (meta.service) {
+    graph.push({
+      "@type": "Service",
+      "@id": `${url}#service`,
+      name: meta.service,
+      description: meta.description,
+      url,
+      provider: { "@id": ORG_ID },
+    });
+  }
+
+  if (meta.faqs) {
+    graph.push({
+      "@type": "FAQPage",
+      mainEntity: meta.faqs
+        .filter(({ a }) => typeof a === "string")
+        .map(({ q, a }) => ({
+          "@type": "Question",
+          name: q,
+          acceptedAnswer: { "@type": "Answer", text: a },
+        })),
     });
   }
 
@@ -234,15 +378,20 @@ export function headTags(path) {
     `<meta data-seo name="description" content="${esc(meta.description)}" />`,
   ];
 
+  /* Google ignores this tag; Bing and smaller engines may still read it. */
+  if (meta.keywords) {
+    tags.push(`<meta data-seo name="keywords" content="${esc(meta.keywords)}" />`);
+  }
+
   if (meta.noindex) {
     tags.push(`<meta data-seo name="robots" content="noindex, follow" />`);
   } else {
     tags.push(
-      `<meta data-seo name="robots" content="index, follow, max-image-preview:large" />`,
+      `<meta data-seo name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />`,
       `<link data-seo rel="canonical" href="${esc(url)}" />`,
       `<meta data-seo property="og:type" content="website" />`,
       `<meta data-seo property="og:site_name" content="${SITE_NAME}" />`,
-      `<meta data-seo property="og:locale" content="en_US" />`,
+      `<meta data-seo property="og:locale" content="en_IN" />`,
       `<meta data-seo property="og:title" content="${esc(meta.title)}" />`,
       `<meta data-seo property="og:description" content="${esc(meta.description)}" />`,
       `<meta data-seo property="og:url" content="${esc(url)}" />`,
@@ -254,9 +403,49 @@ export function headTags(path) {
       `<meta data-seo name="twitter:title" content="${esc(meta.title)}" />`,
       `<meta data-seo name="twitter:description" content="${esc(meta.description)}" />`,
       `<meta data-seo name="twitter:image" content="${esc(image)}" />`,
+      `<meta data-seo name="twitter:image:alt" content="${SITE_NAME} — hands-on cloud and AI labs for enterprise learning" />`,
       `<script data-seo type="application/ld+json">${structuredData(meta)}</script>`,
     );
   }
 
   return tags.join("\n    ");
 }
+
+/* The links in the no-JavaScript copy of each page. */
+const SHELL_LINKS = Object.entries(PAGES)
+  .filter(([path]) => path !== "/privacy" && path !== "/terms")
+  .map(([path, page]) => `<li><a href="${path}">${esc(page.crumb ?? "Home")}</a></li>`)
+  .join("");
+
+/**
+ * The page's real heading, summary, section headings and FAQs as plain HTML,
+ * written into #root at build time so a crawler that doesn't run JavaScript
+ * gets content instead of an empty div. React replaces it on mount.
+ *
+ * It holds the same words the page shows and must keep doing so: serving
+ * crawlers text that visitors never see is cloaking. See SHELL_STYLE for why
+ * visitors don't see this copy flash past.
+ */
+export function shellHtml(path) {
+  const meta = metaFor(path);
+  if (!meta.h1) return "";
+
+  const sections = (meta.sections ?? []).map((s) => `<h2>${esc(s)}</h2>`).join("");
+  const faqs = (meta.faqs ?? [])
+    .filter(({ a }) => typeof a === "string")
+    .map(({ q, a }) => `<h3>${esc(q)}</h3><p>${esc(a)}</p>`)
+    .join("");
+
+  return (
+    `<main class="seo-shell"><h1>${esc(meta.h1)}</h1><p>${esc(meta.description)}</p>` +
+    `${sections}${faqs}<nav aria-label="Pages"><ul>${SHELL_LINKS}</ul></nav></main>`
+  );
+}
+
+/* The app mounts well inside this delay, so a normal visit never shows the
+   shell. If the JavaScript is slow or blocked, the copy fades in and the
+   visitor has something to read instead of a blank page. */
+export const SHELL_STYLE =
+  "<style>.seo-shell{max-width:720px;margin:0 auto;padding:48px 20px;font:16px/1.6 system-ui,sans-serif;" +
+  "color:#101418;opacity:0;animation:seo-shell-in .3s 3s forwards}" +
+  "@keyframes seo-shell-in{to{opacity:1}}</style>";

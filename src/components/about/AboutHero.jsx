@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
-import backgroundimg from "@/assets/images/lab4.png";
+import backgroundimg from "@/assets/images/lab4.webp";
 import logo from "@/assets/images/C4GLogo.png";
 import { Reveal, RevealGroup, RevealGround, RevealItem } from "@/components/motion/Reveal";
 import { CUE } from "@/components/motion/reveal-tokens";
@@ -43,12 +43,12 @@ export default function AboutHero() {
       <Container>
         <div className="grid items-center gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <RevealGroup mount delay={CUE.lead} className="max-w-[560px]">
-            <RevealItem as="p" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
+            <RevealItem as="h1" className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0B5CFF]">
               <Asterisk />
-              About Cloud4Green
+              About Cloud4Green Technologies
             </RevealItem>
 
-            <RevealItem as="h1" className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
+            <RevealItem as="p" className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
               Learn it. Build it. Run it<span className="text-[#0B5CFF]">.</span>
             </RevealItem>
 

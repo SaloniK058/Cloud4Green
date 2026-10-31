@@ -17,19 +17,17 @@ import { CUE } from "@/components/motion/reveal-tokens";
 import slideImg1 from "@/assets/images/clients.jpg";
 import slideImg2 from "@/assets/images/corpTraining2.webp";
 import slideImg3 from "@/assets/images/corpTraining3.webp";
-import heroBg from "@/assets/images/CT1.png";
+import heroBg from "@/assets/images/CT1.webp";
 
 /*
-  Each slide pairs a photo with one stat. The photo and the stat change
-  together, so the card always talks about what's in the picture.
-
-  ⚠ PLACEHOLDER FIGURES — replace with real Cloud4Green numbers before
-  this ships. A made-up stat on a sales page is worse than no stat.
+  Each slide pairs a photo with one delivery format. The photo and the
+  format change together. These are formats, not figures: only put a number
+  here if it's a real, confirmed Cloud4Green number.
 */
 const SLIDES = [
-  { image: slideImg1, value: "40+", label: "hands-on cloud & AI learning paths" },
-  { image: slideImg2, value: "3 clouds", label: "AWS, Azure and GCP labs in every programme" },
-  { image: slideImg3, value: "24/7", label: "lab access, so teams train on their own schedule" },
+  { image: slideImg1, value: "Instructor-led", label: "live sessions with our trainers" },
+  { image: slideImg2, value: "Self-paced", label: "learning that fits around the work" },
+  { image: slideImg3, value: "Blended", label: "workshops combined with hands-on labs" },
 ];
 
 const INTERVAL = 4500; // ms per slide
@@ -103,8 +101,8 @@ export default function CorporateTrainingHero() {
         <div className="flex min-h-0 flex-1 flex-col gap-6 py-6 sm:gap-8 sm:py-8 lg:grid lg:grid-cols-[1fr_minmax(0,620px)] lg:items-center lg:gap-16 lg:py-8">
           {/* ------------------------------------------------ the words */}
           <RevealGroup mount delay={CUE.lead} className="max-w-[560px] shrink-0">
-            <RevealItem as="p" className="text-[12.5px] font-semibold uppercase tracking-[0.18em] text-[#0B5CFF]">
-              For Enterprises
+            <RevealItem as="h1" className="text-[12.5px] font-semibold uppercase tracking-[0.18em] text-[#0B5CFF]">
+              Corporate cloud and AI training
             </RevealItem>
 
             {/* Sized off the viewport height as well as the breakpoint, so a
@@ -113,7 +111,7 @@ export default function CorporateTrainingHero() {
                 their own masks like the homepage headline. */}
             <RevealLines
               nested
-              as="h1"
+              as="p"
               lines={["People power enterprises.", "We power people"]}
               className="mt-3 font-recoleta text-[clamp(1.75rem,4.6svh,2.4rem)] font-medium leading-[1.05] tracking-[-0.02em] sm:text-[clamp(2rem,5svh,3rem)] lg:text-[clamp(2.4rem,6.5svh,3.6rem)] uppercase"
             />
@@ -221,7 +219,7 @@ export default function CorporateTrainingHero() {
                         i === active ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
                       }`}
                     >
-                      <p className="text-[1.4rem] font-medium leading-none tracking-[-0.02em] text-[#0B5CFF] sm:text-[1.75rem]">
+                      <p className="text-[1.05rem] font-medium leading-none tracking-[-0.02em] text-[#0B5CFF] sm:text-[1.3rem]">
                         {s.value}
                       </p>
                       <p className="mt-1.5 text-[12px] font-medium leading-snug text-[#4A5261] sm:text-[13px]">

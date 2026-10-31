@@ -24,7 +24,7 @@ import { DOT_VIEWBOX, WORLD_MAP_DOTS } from "./worldMapDots";
  * drawn on top of the static one and pops in with opacity + scale, so the field
  * feels alive rather than flashing.
  *
- * Cell shape and tightness are governed by PIXEL_SIDE below â€” that's the one
+ * Cell shape and tightness are governed by PIXEL_SIDE below — that's the one
  * number to move to open the grid back up or weld it solid.
  */
 
@@ -32,7 +32,7 @@ import { DOT_VIEWBOX, WORLD_MAP_DOTS } from "./worldMapDots";
 //
 // The field sits on a ~12-unit pitch (10 where the map's baked-in curvature
 // squeezes rows together, 13.6 at its loosest). Measuring map.jpg gives a
-// square/pitch ratio of 0.59 â€” so the reference is deliberately *airy*: the
+// square/pitch ratio of 0.59 — so the reference is deliberately *airy*: the
 // square is about 3 units of ink to 2 of gap, and cells never touch. That
 // separation is what keeps the grid reading as a grid at small sizes.
 //
@@ -74,7 +74,7 @@ const DOT_PATH = (() => {
 // at BLINK_COUNT leaves roughly a dozen pixels up at any moment.
 //
 // Every pixel shares BLINK_PERIOD, so the duration lives here rather than being
-// set inline on every node â€” only the phase offset varies per pixel.
+// set inline on every node — only the phase offset varies per pixel.
 const BLINK_STYLES = `
 @keyframes c4gMapBlink {
   0%   { opacity: 0; transform: scale(0.7); }
@@ -124,20 +124,20 @@ const BLINK_STYLES = `
 [data-blink-paused="true"] .c4g-map-spark { animation-play-state: paused; }
 `;
 
-export const WORLD_MAP_ASPECT = DOT_VIEWBOX.width / DOT_VIEWBOX.height; // â‰ˆ 2.51
+export const WORLD_MAP_ASPECT = DOT_VIEWBOX.width / DOT_VIEWBOX.height; // ≈ 2.51
 
-// The bloom is the cell's own square, drawn larger â€” as concentric squares at
+// The bloom is the cell's own square, drawn larger — as concentric squares at
 // low opacity rather than as a blurred one.
 //
 // feGaussianBlur was the obvious route and is the wrong one here: an SVG filter
 // is an offscreen pass, and these squares animate, so the blur is recomputed
-// every frame â€” 48 buffers per frame if applied per pixel, or one buffer the
+// every frame — 48 buffers per frame if applied per pixel, or one buffer the
 // size of the whole map if applied to the group. Stacked rects are plain
 // geometry the compositor already knows how to animate.
 //
 // Falloff comes for free from the stacking: each ring is a full square, not an
 // outline, so K overlapping rings at alpha a leave 1-(1-a)^K at the centre and
-// a single a at the rim. Monotonic, and quantised into square steps â€” which is
+// a single a at the rim. Monotonic, and quantised into square steps — which is
 // how pixel art draws a glow anyway.
 //
 // Ratios are geometric (~1.3x per ring), so the steps fall off in proportion
@@ -156,13 +156,13 @@ const GLOW_RING_ALPHA = 0.13; // per ring, before the highlight's own alpha
 // used to be built here from its own waist parameter, and the two were never
 // actually the same: this one's control points sat on the axes near the
 // centre, which put the waist at 0.24 of the arm length against the mark's
-// 0.39 â€” thinner, spikier, a different family. Both now come out of
+// 0.39 — thinner, spikier, a different family. Both now come out of
 // src/lib/glint.js, so they cannot drift again.
 //
 // REACH is the star's full span in cells, measured the same way as the bloom
 // rings so the two are directly comparable. The arms have to clear the bloom
-// by a cell or so â€” that gap is what makes the shape read as a sparkle rather
-// than as a plus sign sitting in a haze â€” and past that, smaller is better.
+// by a cell or so — that gap is what makes the shape read as a sparkle rather
+// than as a plus sign sitting in a haze — and past that, smaller is better.
 //
 // The mark's glint carries much more ink than the needle this replaced: fuller
 // arms, an opaque brand-blue core and a halo under it. At the 6 the needles
@@ -171,19 +171,19 @@ const GLOW_RING_ALPHA = 0.13; // per ring, before the highlight's own alpha
 // and the ink is taken down with it. This is ambient light on a backdrop; it
 // should be noticed on the second look, not the first.
 const SPARKLE_REACH = 3.6;
-const SPARKLE_ALPHA = 0.55; // the glint's own colour is strong â€” carry it lightly
+const SPARKLE_ALPHA = 0.55; // the glint's own colour is strong — carry it lightly
 const SPARKLE_RADIUS = (PIXEL_SIDE * SPARKLE_REACH) / 2;
 const SPARKLE_PATH = glintPath(SPARKLE_RADIUS);
 
 // The preloader lays a blurred copy of the glint under the crisp one. A blur
-// is out of the question on 48 forever-animating nodes â€” that is an offscreen
+// is out of the question on 48 forever-animating nodes — that is an offscreen
 // raster pass per node per frame, and the reason the bloom above is stacked
 // squares rather than a feGaussianBlur.
 //
 // A wide, translucent stroke of the star's own outline gets to the same
 // picture for nothing: `paint-order: stroke fill` lays the halo down first and
 // drops the crisp core on top, so one node carries both layers. Half the
-// stroke falls outside the path, so the width is twice the bleed wanted â€”
+// stroke falls outside the path, so the width is twice the bleed wanted —
 // 0.09 of the mark's size in the preloader, which is 0.18 of its radius.
 const SPARKLE_HALO_WIDTH = SPARKLE_RADIUS * 0.36;
 
@@ -194,8 +194,8 @@ const WorldMap = ({
   className,
   highlight = "#639df3c0",
   /* The glint keeps the mark's own colours rather than the pixel's. A lit cell
-     is the map's light â€” pale, so it separates from the gray field without
-     shouting â€” while the star is the brand glint, and the two read as one
+     is the map's light — pale, so it separates from the gray field without
+     shouting — while the star is the brand glint, and the two read as one
      thing lighting up because the star sits on top of the cell it belongs to. */
   sparkleColor = GLINT_CORE,
   sparkleHalo = GLINT_HALO,
@@ -206,7 +206,7 @@ const WorldMap = ({
   /* The blink is 48 cells x (4 bloom rings + a sparkle + a core) = 288 nodes,
    * each running an opacity + transform animation forever. Blink can't hand a
    * transform animation on an SVG child to the compositor, so all 288 are
-   * updated on the main thread every frame for as long as the page is open â€”
+   * updated on the main thread every frame for as long as the page is open —
    * including while the reader is somewhere else entirely.
    *
    * That budget is not free anywhere, but the place it is *felt* is the
@@ -250,7 +250,7 @@ const WorldMap = ({
       <style>{BLINK_STYLES}</style>
 
       {/* At the reference's PIXEL_SIDE the cells never touch, so fill-rule is
-          moot â€” but raise PIXEL_SIDE past the ~9-unit tightest pitch and they
+          moot — but raise PIXEL_SIDE past the ~9-unit tightest pitch and they
           do overlap, where nonzero merges them into a solid block and even-odd
           would punch holes. It's the default; stated so it survives that. */}
       <path d={DOT_PATH} fillRule="nonzero" />
@@ -278,7 +278,7 @@ const WorldMap = ({
 
       {/* Sparkle above the bloom, below the core. The path is built centred on
           the origin and moved into place by the wrapper <g>, so the CSS scale
-          on the path itself is free to use its own centre as the origin â€”
+          on the path itself is free to use its own centre as the origin —
           putting both on one element would have the animation overwrite the
           positioning transform. */}
       <g

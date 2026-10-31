@@ -2,7 +2,7 @@ import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
 import ZtnaFlow from "@/components/sections/platform-overview/ZtnaFlow";
-import backgroundimg from "@/assets/images/lab4.png";
+import backgroundimg from "@/assets/images/lab4.webp";
 import {
   Reveal,
   RevealGroup,

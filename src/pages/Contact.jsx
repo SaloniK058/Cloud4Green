@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -137,6 +138,33 @@ const solutions = [
 /* --- Page ----------------------------------------------------------------- */
 
 export default function Contact() {
+  /* "?service=" is how the Consulting and ReyvanX links say what they were
+     about; it travels with the message so the team sees it. */
+  const [searchParams] = useSearchParams();
+  const [status, setStatus] = useState("idle");
+
+  /* public/api/contact.php does the sending. It only exists on the cPanel
+     host, so under `npm run dev` this lands on the error message. */
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    setStatus("sending");
+
+    try {
+      const response = await fetch("/api/contact.php", {
+        method: "POST",
+        body: new FormData(form),
+      });
+      const result = await response.json();
+      if (!result.ok) throw new Error("Not sent");
+
+      form.reset();
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
+  }
+
   return (
     <>
       <Navbar />
@@ -248,7 +276,20 @@ export default function Contact() {
                     back to you shortly.
                   </p>
 
-                  <form className="mt-9 space-y-6">
+                  <form onSubmit={handleSubmit} className="relative mt-9 space-y-6">
+                    <input
+                      type="hidden"
+                      name="service"
+                      value={searchParams.get("service") ?? ""}
+                    />
+
+                    {/* Off-screen rather than display:none, so a bot still
+                        fills it in. Anything here means it wasn't a person. */}
+                    <div aria-hidden="true" className="absolute -left-[9999px]">
+                      <label htmlFor="website">Website</label>
+                      <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+                    </div>
+
                     {/* NAME */}
                     <div className="grid gap-6 sm:grid-cols-2">
                       <div>
@@ -258,6 +299,9 @@ export default function Contact() {
                           id="firstName"
                           name="firstName"
                           type="text"
+                          required
+                          maxLength={80}
+                          autoComplete="given-name"
                           placeholder="Jane"
                           className={CONTROL}
                         />
@@ -284,6 +328,8 @@ export default function Contact() {
                         id="email"
                         name="email"
                         type="email"
+                        required
+                        autoComplete="email"
                         placeholder="you@company.com"
                         className={CONTROL}
                       />
@@ -335,6 +381,8 @@ export default function Contact() {
                         id="message"
                         name="message"
                         rows={5}
+                        required
+                        maxLength={5000}
                         placeholder="Tell us a little about what you're looking for..."
                         className={`${CONTROL} resize-none`}
                       />
@@ -344,9 +392,10 @@ export default function Contact() {
                     <div className="flex flex-wrap items-center gap-x-5 gap-y-3 pt-2">
                       <button
                         type="submit"
-                        className="group inline-flex items-center gap-3 rounded-[10px] bg-[#101418] py-2 pl-5 pr-2 text-sm font-semibold text-white transition-colors hover:bg-[#1C2228] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5CFF] focus-visible:ring-offset-2"
+                        disabled={status === "sending"}
+                        className="group inline-flex items-center gap-3 rounded-[10px] bg-[#101418] py-2 pl-5 pr-2 text-sm font-semibold text-white transition-colors hover:bg-[#1C2228] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5CFF] focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-70"
                       >
-                        Send message
+                        {status === "sending" ? "Sending…" : "Send message"}
 
                         <span className="flex h-7 w-7 items-center justify-center rounded-md bg-[#0B5CFF] text-white transition-transform group-hover:translate-x-0.5">
                           <Chevrons className="h-3.5 w-3.5 stroke-current" />
@@ -357,6 +406,35 @@ export default function Contact() {
                         We reply within one working day.
                       </p>
                     </div>
+
+                    <div aria-live="polite">
+                      {status === "sent" && (
+                        <p className="rounded-[10px] bg-[#0E9F6E]/[0.08] px-4 py-3 text-[14px] leading-6 text-[#0A7A54]">
+                          Thanks, your message is on its way to our team.
+                        </p>
+                      )}
+
+                      {status === "error" && (
+                        <p className="rounded-[10px] bg-[#D92D20]/[0.07] px-4 py-3 text-[14px] leading-6 text-[#B42318]">
+                          We couldn&apos;t send your message. Please try again, or email us at{" "}
+                          <a href="mailto:reach@cloud4green.com" className="font-medium underline underline-offset-4">
+                            reach@cloud4green.com
+                          </a>
+                          .
+                        </p>
+                      )}
+                    </div>
+
+                    <p className="text-[12.5px] leading-6 text-[#101418]/45">
+                      We use these details to respond to you, as set out in our{" "}
+                      <Link
+                        to="/privacy"
+                        className="underline underline-offset-4 transition-colors hover:text-[#0B5CFF]"
+                      >
+                        Privacy Policy
+                      </Link>
+                      .
+                    </p>
                   </form>
                 </div>
               </Reveal>

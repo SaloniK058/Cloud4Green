@@ -13,7 +13,7 @@ import { CUE } from "@/components/motion/reveal-tokens";
 import imgExpertise from "@/assets/images/sector5.webp";
 import imgWays from "@/assets/images/Solution1.webp";
 import imgTailored from "@/assets/images/solution3.webp";
-import imgPartners from "@/assets/images/handshake.jpg";
+import imgPartners from "@/assets/images/handshake.webp";
 
 /* Icons in the pillars' drawing language: 30×30 box, no fill, 1.25
    stroke on currentColor, round caps and joins. */

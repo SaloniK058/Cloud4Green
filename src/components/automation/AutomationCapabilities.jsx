@@ -291,8 +291,6 @@
 //   );
 // }
 
-import { Link } from "react-router-dom";
-
 import Container from "@/components/layout/Container";
 import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { CUE } from "@/components/motion/reveal-tokens";
@@ -315,12 +313,10 @@ import { CUE } from "@/components/motion/reveal-tokens";
 
    Set on navy so it breaks up the run of cream sections around it: the
    house asterisk eyebrow and Recoleta headline, over glassy cards with a
-   ghosted tier number and a blue top edge that draws in on hover. The
-   whole card is the link; there's no separate CTA line at the foot. */
+   ghosted tier number and a blue top edge that draws in on hover. */
 
 const SOLUTIONS = [
   {
-    slug: "workflow-automation",
     kicker: "Rule-based",
     title: "Workflow Automation",
     body: "Connects your applications and carries out repeatable, well-defined work exactly the way you'd do it yourself — every time, without exception.",
@@ -328,7 +324,6 @@ const SOLUTIONS = [
     icon: "workflow",
   },
   {
-    slug: "ai-agents",
     kicker: "Judgment-based",
     title: "AI Agents",
     body: "Goal-oriented assistants that read the situation, reach into your enterprise tools, and complete tasks you'd otherwise hand to a person.",
@@ -336,7 +331,6 @@ const SOLUTIONS = [
     icon: "agent",
   },
   {
-    slug: "agentic-automation",
     kicker: "Orchestrated",
     title: "Agentic Automation",
     body: "Pairs AI reasoning with dependable workflow execution to run complex, multi-step processes end to end — with people kept in the loop where it matters.",
@@ -344,8 +338,6 @@ const SOLUTIONS = [
     icon: "agentic",
   },
 ];
-
-const solutionHref = (slug) => `/services/automation/${slug}`;
 
 /* Three icons on a shared 24-viewBox / 1.5-stroke grid: a simple wired
    connection for rule-based work, a single reasoning point for an agent,
@@ -425,10 +417,7 @@ function SolutionCard({ solution, index }) {
   const number = String(index + 1).padStart(2, "0");
 
   return (
-    <Link
-      to={solutionHref(solution.slug)}
-      className="group relative isolate flex h-full flex-col overflow-hidden rounded-[20px] border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm transition-[border-color,background-color,box-shadow] duration-300 ease-out hover:border-[#8FB2FF]/40 hover:bg-white/[0.06] hover:shadow-[0_24px_60px_-30px_rgba(11,92,255,0.55)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8FB2FF] lg:p-8"
-    >
+    <div className="group relative isolate flex h-full flex-col overflow-hidden rounded-[20px] border border-white/10 bg-white/[0.03] p-7 backdrop-blur-sm transition-[border-color,background-color,box-shadow] duration-300 ease-out hover:border-[#8FB2FF]/40 hover:bg-white/[0.06] hover:shadow-[0_24px_60px_-30px_rgba(11,92,255,0.55)] lg:p-8">
       {/* A blue edge along the top that draws in from the left on hover. */}
       <span
         aria-hidden="true"
@@ -468,7 +457,7 @@ function SolutionCard({ solution, index }) {
           {solution.capabilities.join(" · ")}
         </span>
       </p>
-    </Link>
+    </div>
   );
 }
 

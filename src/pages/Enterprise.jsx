@@ -15,7 +15,7 @@ import {
 } from "@/components/motion/Reveal";
 import { CUE } from "@/components/motion/reveal-tokens";
 
-import Image from '@/assets/images/lms2.png'
+import Image from '@/assets/images/lms2.webp'
 
 export default function Enterprise() {
   return (
@@ -60,15 +60,15 @@ export default function Enterprise() {
         <RevealGroup mount delay={CUE.lead} className="max-w-2xl backdrop-blur-sm">
 
           {/* Eyebrow */}
-          <RevealItem className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#08243F]/10 bg-white/70 px-4 py-2 text-sm text-muted-foreground backdrop-blur-sm">
+          <RevealItem as="h1" className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#08243F]/10 bg-white/70 px-4 py-2 text-sm text-muted-foreground backdrop-blur-sm">
             <span className="h-2 w-2 rounded-full bg-blue-900 " />
-            Enterprise Learning
+            Enterprise learning platform
           </RevealItem>
 
           {/* Heading */}
           <RevealLines
             nested
-            as="h1"
+            as="p"
             lines={[
               "Learning built for",
               <span className="text-[blue-900]">modern enterprises.</span>,

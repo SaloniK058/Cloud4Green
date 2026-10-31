@@ -28,8 +28,10 @@ import { dirname, join } from "node:path";
 import {
   COMING_SOON,
   PAGES,
+  SHELL_STYLE,
   absolute,
   headTags,
+  shellHtml,
 } from "./src/config/seo.js";
 
 /**
@@ -82,8 +84,15 @@ function seoPages() {
       const pages = Object.keys(PAGES);
       const fileFor = (path) => (path === "/" ? "index.html" : `${path.slice(1)}.html`);
 
-      for (const path of pages) write(fileFor(path), inject(template, path));
-      write("coming-soon.html", inject(template, COMING_SOON[0]));
+      // Pages also carry their words in the HTML itself, for crawlers that
+      // don't run JavaScript. React replaces this copy when it mounts.
+      const page = (path) =>
+        inject(template, path)
+          .replace("</head>", `${SHELL_STYLE}</head>`)
+          .replace('<div id="root"></div>', `<div id="root">${shellHtml(path)}</div>`);
+
+      for (const path of pages) write(fileFor(path), page(path));
+      if (COMING_SOON.length) write("coming-soon.html", inject(template, COMING_SOON[0]));
       write("404.html", inject(template, "/__not-found__"));
 
       const today = new Date().toISOString().slice(0, 10);
@@ -103,7 +112,7 @@ function seoPages() {
 
       write(
         "robots.txt",
-        `User-agent: *\nAllow: /\n\nSitemap: ${absolute("/sitemap.xml")}\n`,
+        `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${absolute("/sitemap.xml")}\n`,
       );
 
       // First match wins, so pages come before the coming-soon globs (one of
@@ -137,12 +146,27 @@ function seoPages() {
           "# src/config/seo.js, not this file.",
           "DirectoryIndex index.html",
           "ErrorDocument 404 /404.html",
+          "Options -Indexes",
           "",
           "RewriteEngine On",
+          "",
+          "# One address per page, so search engines never split a page's",
+          "# ranking across duplicates.",
+          "RewriteCond %{HTTP_HOST} ^www\\.(.+)$ [NC]",
+          "RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]",
           "",
           "# HTTPS only: the Bookings embed on /contact refuses plain HTTP.",
           "RewriteCond %{HTTPS} off",
           "RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]",
+          "",
+          "RewriteCond %{THE_REQUEST} \\s/index\\.html[\\s?] [NC]",
+          "RewriteRule ^ / [L,R=301]",
+          "",
+          "RewriteCond %{THE_REQUEST} \\s/([^\\s?]+)\\.html[\\s?] [NC]",
+          "RewriteRule ^ /%1 [L,R=301]",
+          "",
+          "RewriteCond %{REQUEST_FILENAME} !-d",
+          "RewriteRule ^(.+)/$ /$1 [L,R=301]",
           "",
           "RewriteCond %{REQUEST_FILENAME} -f",
           "RewriteRule ^ - [L]",
@@ -154,7 +178,7 @@ function seoPages() {
           "",
           "# Hashed build assets never change, so cache them for a year.",
           "<IfModule mod_headers.c>",
-          '  <FilesMatch "\\.[0-9A-Za-z_-]{8,}\\.(js|css|woff2?)$">',
+          '  <FilesMatch "-[0-9A-Za-z_-]{8}\\.(js|css|woff2?|ttf|webp|png|jpe?g|svg)$">',
           '    Header set Cache-Control "public, max-age=31536000, immutable"',
           "  </FilesMatch>",
           "</IfModule>",

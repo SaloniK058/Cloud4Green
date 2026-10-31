@@ -26,7 +26,7 @@ import Container from "@/components/layout/Container";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { CUE } from "@/components/motion/reveal-tokens";
 import GoogleCloudMark from "@/components/brand/GoogleCloudMark";
-import catalogImg from "@/assets/images/gallerydigital.jpg";
+import catalogImg from "@/assets/images/gallerydigital.webp";
 
 // Visual image
 import skill1 from "@/assets/images/skill1.webp"

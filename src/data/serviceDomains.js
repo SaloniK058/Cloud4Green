@@ -1,7 +1,7 @@
 import img4 from "@/assets/images/ai-labs2.jpg"
 import img4b from "@/assets/images/cloud-labs2.jpg";
 import img1 from "@/assets/images/cloud-sandbox.webp"
-import img1b from "@/assets/images/enterprise.jpg"
+import img1b from "@/assets/images/enterprise.webp"
 import img2 from "@/assets/images/ai-enterprise.webp"
 import img2b from "@/assets/images/ai-background.jpg"
 import img3 from "@/assets/images/Devops.webp"
@@ -9,7 +9,7 @@ import img3b from "@/assets/images/ai-b.jpg"
 import img5 from "@/assets/images/cryptography.jpg"
 import img5b from "@/assets/images/lightrays.jpg"
 import img6 from "@/assets/images/data.jpg"
-import img6b from "@/assets/images/gallerydigital.jpg"
+import img6b from "@/assets/images/gallerydigital.webp"
 import img7 from "@/assets/images/ai-claude.jpg"
 import img7b from "@/assets/images/abstract.jpg"
 

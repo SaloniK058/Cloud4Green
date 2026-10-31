@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Container from "@/components/layout/Container";
 import { Button } from "@/components/ui/button";
 import CertificationFlow from "@/components/illustrations/CertificationFlow";
-import backgroundimg from "@/assets/images/certBanner.png";
+import backgroundimg from "@/assets/images/certBanner.webp";
 
 /* ------------------------------------------------------------------
    Cloud4Green — the /products/certifications masthead.
