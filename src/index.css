@@ -1,23 +1,10 @@
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: sans-serif;
-} */
-
-
-
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-/* @import "@fontsource-variable/geist"; */
 
 @font-face {
   font-family: "Recoleta";
-  src: url("./assets/fonts/Recoleta-Medium.ttf") format("truetype");
+  src: url("./assets/fonts/Recoleta-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -27,18 +14,11 @@ body {
 
 @theme inline {
   /* Typography */
-  /* --font-heading: "Manrope", sans-serif;
-  --font-body: "Inter", sans-serif;
-  --font-sans: var(--font-body); */
 
- /* --font-heading: "Playfair Display Variable", serif;
-  --font-body: "Inter", sans-serif;
-  --font-sans: var(--font-body);
---font-script: "Manrope", sans-serif; */
 
 --font-heading: "Playfair Display Variable", serif;
   --font-recoleta: "Recoleta", serif;
-  --font-body: "Inter", sans-serif;
+  --font-body: "Inter Variable", sans-serif;
   --font-sans: var(--font-body);
   --font-script: "Manrope", sans-serif;
 
@@ -98,40 +78,6 @@ body {
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* :root {
-    --background: oklch(100% 0.00011 271.152);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --radius: 0.625rem;
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
-} */
 
 :root {
   /* ======================================================
@@ -203,8 +149,6 @@ body {
   ====================================================== */
 
   --background: var(--neutral-100);
-  /* --background: #F8F0E5; */
-  /* --foreground: var(--neutral-900); */
   --foreground: var(--text-color);
 
   --card: var(--neutral-50);
@@ -303,39 +247,6 @@ body {
   --sidebar-ring: var(--brand-yellow);
 }
 
-/* .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.87 0 0);
-    --chart-2: oklch(0.556 0 0);
-    --chart-3: oklch(0.439 0 0);
-    --chart-4: oklch(0.371 0 0);
-    --chart-5: oklch(0.269 0 0);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
-} */
 
 @layer base {
   * {
@@ -379,23 +290,6 @@ body {
 }
 
 /* Animated border */
-/* .contact-sales-button::before {
-  content: "";
-  position: absolute;
-  inset: -100%;
-  z-index: -2;
-  background: conic-gradient(
-    from 90deg,
-    transparent 0%,
-    transparent 25%,
-    #60a5fa 45%,
-    #2563eb 50%,
-    #60a5fa 55%,
-    transparent 75%,
-    transparent 100%
-  );
-  animation: border-spin 2.5s linear infinite;
-} */
 
 .contact-sales-button::before {
   content: "";
@@ -506,9 +400,7 @@ body {
 }
 
 .brandPromo {
-  /* background: linear-gradient(90deg,rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%); */
 
- /* background: linear-gradient(90deg,rgb(60, 87, 207) 0%, rgba(5, 112, 179, 1) 62%, rgb(9, 211, 110) 100%); */
  background: #010d1b;
 }
 
@@ -621,7 +513,6 @@ body {
      would now that the measure itself is wider. */
   --hero-measure: min(75vw, 1600px, 200vh);
   --hero-cap: 0.072;
-  /* --hero-fs: calc(var(--hero-measure) * var(--hero-cap)); */
   --hero-fs: clamp(2.5rem, 7.2vw, 4.5rem);
   --hero-leading: 0.86;
 

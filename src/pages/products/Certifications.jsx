@@ -10,8 +10,6 @@ import CertBenefits from "@/components/certifications/CertBenefits";
 import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { CUE } from "@/components/motion/reveal-tokens";
 
-// import FaqSection from "@/components/faq/FaqSection";
-// import { certificationsFaqs } from "@/data/faqs";
 
 /**
  * /products/certifications — the third of the five product pages the Products

@@ -4,7 +4,7 @@ import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import { Button } from "@/components/ui/button";
 import backgroundimg from "@/assets/images/lab4.webp";
-import logo from "@/assets/images/C4GLogo.png";
+import logo from "@/assets/images/C4GLogo.webp";
 import { Reveal, RevealGroup, RevealGround, RevealItem } from "@/components/motion/Reveal";
 import { CUE } from "@/components/motion/reveal-tokens";
 import { Asterisk } from "@/components/customer-stories/parts";

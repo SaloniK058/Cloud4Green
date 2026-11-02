@@ -39,7 +39,7 @@ import imgNeeds from "@/assets/images/eImg1.webp";
 import imgContent from "@/assets/images/solution4.webp";
 import imgPlatform from "@/assets/images/gallerydigital.webp";
 import imgVendors from "@/assets/images/enterprise.webp";
-import imgDelivery from "@/assets/images/ourproducts.jpg";
+import imgDelivery from "@/assets/images/ourproducts.webp";
 import imgRoi from "@/assets/images/skill1.webp";
 
 /* Icons match the reference's drawing language: one 30×30 box, no fill,

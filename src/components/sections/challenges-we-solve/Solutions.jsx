@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import React, {
@@ -30,14 +28,8 @@ import sol1 from "@/assets/images/Solution1.webp";
 import sol2 from "@/assets/images/enterprise.webp";
 import sol3 from "@/assets/images/solution3.webp";
 
-// Add the remaining files, then swap the `null`s for the imports:
-// import sol3 from "@/assets/images/Solution3.webp";
 import sol4 from "@/assets/images/solution4.webp";
 import sol5 from "@/assets/images/solution5.webp";
-
-
-
-
 
 /* ==================================================================
    1. TOKENS

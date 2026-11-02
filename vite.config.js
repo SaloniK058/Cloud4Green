@@ -28,11 +28,32 @@ import { dirname, join } from "node:path";
 import {
   COMING_SOON,
   PAGES,
-  SHELL_STYLE,
   absolute,
   headTags,
-  shellHtml,
 } from "./src/config/seo.js";
+import { SHELL_STYLE, bootScript, shellHtml } from "./src/config/seoShell.js";
+
+/* What each route needs first: its page module, and the image most likely to
+   be its largest paint. Their real, hashed file names are looked up in the
+   bundle and preloaded from that page's HTML. */
+const ROUTE_ASSETS = {
+  "/": { module: "pages/Home.jsx" },
+  "/enterprise": { module: "pages/Enterprise.jsx", image: "lms2" },
+  /* Text is these pages' largest paint and it can't wait on a webfont anyway
+     (font-display: swap), so preloading one only delays everything else. */
+  "/contact": { module: "pages/Contact.jsx", font: false },
+  "/about": { module: "pages/About.jsx", image: "lab4" },
+  "/products/enterprise-labs": { module: "pages/products/EnterpriseLabs.jsx", image: "lab6" },
+  "/products/e-learning": { module: "pages/products/ELearning.jsx", image: "lab4" },
+  "/products/certifications": { module: "pages/products/Certifications.jsx", image: "certBanner" },
+  "/products/enterprise-training": { module: "pages/products/EnterpriseTraining.jsx", image: "CT1" },
+  "/services/automation": { module: "pages/services/Automation.jsx", image: "lab6" },
+  "/services/consulting": { module: "pages/services/Consulting.jsx", image: "lab4" },
+  "/customers": { module: "pages/CustomerStories.jsx", image: "lab4" },
+  "/whats-new": { module: "pages/WhatsNew.jsx", image: "lab4" },
+  "/privacy": { module: "pages/Privacy.jsx", font: false },
+  "/terms": { module: "pages/Terms.jsx", font: false },
+};
 
 /**
  * seoPages — gives every route its own HTML, and the site its crawl files.
@@ -62,11 +83,48 @@ import {
 function seoPages() {
   let outDir = "dist";
   const inject = (html, path) => html.replace("<!--seo-->", headTags(path));
+  let bundle = {};
+
+  /* The hero image goes in the <head> so it starts at once. Everything else a
+     route needs is handed to the boot script, which requests it after the
+     first paint (see bootScript in seoShell.js). */
+  const preloads = (path) => {
+    const files = Object.values(bundle);
+    const { module, image, font: preloadFont = true } = ROUTE_ASSETS[path] ?? {};
+    const entry = files.find((f) => f.type === "chunk" && f.facadeModuleId?.endsWith(module));
+    const later = [];
+
+    const font = files.find((f) => /Recoleta-Medium.*\.woff2$/.test(f.fileName));
+    if (font && preloadFont) {
+      later.push({ rel: "preload", as: "font", type: "font/woff2", href: `/${font.fileName}`, crossorigin: "" });
+    }
+
+    const seen = new Set();
+    const walk = (chunk) => {
+      if (!chunk || seen.has(chunk.fileName) || chunk.isEntry) return;
+      seen.add(chunk.fileName);
+      later.push({ rel: "modulepreload", href: `/${chunk.fileName}` });
+      for (const css of chunk.viteMetadata?.importedCss ?? []) {
+        later.push({ rel: "preload", as: "style", href: `/${css}` });
+      }
+      chunk.imports.forEach((file) => walk(bundle[file]));
+    };
+    walk(entry);
+
+    const picture =
+      image && files.find((f) => f.type === "asset" && f.fileName.startsWith(`assets/${image}-`));
+    const head = picture ? `<link rel="preload" as="image" href="/${picture.fileName}" fetchpriority="high" />` : "";
+
+    return { head, later };
+  };
 
   return {
     name: "c4g-seo-pages",
     configResolved(config) {
       outDir = config.build.outDir;
+    },
+    generateBundle(_, output) {
+      bundle = output;
     },
     transformIndexHtml(html, ctx) {
       // Dev: fill the head for the page being requested. Build: leave the
@@ -84,12 +142,33 @@ function seoPages() {
       const pages = Object.keys(PAGES);
       const fileFor = (path) => (path === "/" ? "index.html" : `${path.slice(1)}.html`);
 
+      const logoFile = Object.values(bundle).find((f) => /assets\/C4GLogo-.*\.webp$/.test(f.fileName))?.fileName;
+
+      const markFile = Object.values(bundle).find((f) => /assets\/C4GLogoplain-.*\.webp$/.test(f.fileName))?.fileName;
+
+      const heroFile = (path) => {
+        const image = ROUTE_ASSETS[path]?.image;
+        if (!image) return undefined;
+        return Object.values(bundle).find(
+          (f) => f.type === "asset" && f.fileName.startsWith(`assets/${image}-`),
+        )?.fileName;
+      };
+
       // Pages also carry their words in the HTML itself, for crawlers that
       // don't run JavaScript. React replaces this copy when it mounts.
-      const page = (path) =>
-        inject(template, path)
-          .replace("</head>", `${SHELL_STYLE}</head>`)
-          .replace('<div id="root"></div>', `<div id="root">${shellHtml(path)}</div>`);
+      const page = (path) => {
+        const { head, later } = preloads(path);
+        const html = inject(template, path);
+        const entry = html.match(/<script type="module"[^>]*src="\/([^"]+)"[^>]*><\/script>\s*/);
+        return html
+          .replace(entry[0], "")
+          .replace("</head>", `${head}\n    ${SHELL_STYLE}\n  </head>`)
+          .replace(
+            '<div id="root"></div>',
+            `<div id="root">${shellHtml(path, logoFile, heroFile(path), path === "/" ? markFile : undefined)}</div>`,
+          )
+          .replace("</body>", `${bootScript(entry[1], later)}\n  </body>`);
+      };
 
       for (const path of pages) write(fileFor(path), page(path));
       if (COMING_SOON.length) write("coming-soon.html", inject(template, COMING_SOON[0]));
@@ -130,6 +209,12 @@ function seoPages() {
           "/*  /404.html  404",
           "",
         ].join("\n"),
+      );
+
+      // Hashed files never change, so Netlify can let browsers keep them.
+      write(
+        "_headers",
+        "/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n",
       );
 
       // The same rules for Apache (cPanel hosting), which ignores _redirects.

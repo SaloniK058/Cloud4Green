@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -267,7 +266,7 @@ function Step({ step, index, isLast }) {
             mt-auto pins it, so the three cards line up at the foot. */}
         <div className="mt-auto pt-6">
           <div className="rounded-xl border border-[#101828]/[0.06] bg-gradient-to-b from-[#F9FAFB] to-[#F1F3F6] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
-            <p className="flex items-center gap-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-[#8A93A3]">
+            <p className="flex items-center gap-2 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-[#667085]">
               <span aria-hidden="true" className="h-px w-3 bg-[#0B5CFF]" />
               You receive
             </p>

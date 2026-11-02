@@ -1,12 +1,3 @@
-/* =========================================================
-   Org banner — Pluralsight-style "blade" in the site's palette.
-   Layers, back to front:
-     .ob-blade          → rounded rectangle: background photo under a
-                          brand-blue tint (the blue arcs you see)
-     .ob-blade::before  → a huge off-white ellipse; only its curved
-                          left/right edges show, leaving blue arcs
-     .ob-blade::after   → soft "silk" sheen on the off-white
-   ========================================================= */
 .ob {
   --ob-blue: #0b5cff;
   --ob-ink: #101418;

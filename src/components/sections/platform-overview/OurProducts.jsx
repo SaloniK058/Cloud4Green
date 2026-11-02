@@ -23,7 +23,7 @@ import {
   AppWindow,
 } from "lucide-react";
 import { RevealLines } from "@/components/motion/Reveal";
-import elearning from '@/assets/images/ourproducts.jpg'
+import elearning from '@/assets/images/ourproducts.webp'
 import GoogleCloudMark from "@/components/brand/GoogleCloudMark";
 import ZtnaFlow from "@/components/sections/platform-overview/ZtnaFlow";
 
@@ -302,7 +302,7 @@ function ProductWidget({ product }) {
         </span>
 
         <div className="flex items-center gap-4 sm:gap-5">
-          <img
+          <img loading="lazy" decoding="async"
             src={elearning}
             alt="Enterprise LMS dashboard preview"
             className="h-28 w-28 shrink-0 rounded-2xl object-cover shadow-lg shadow-black/25 ring-1 ring-white/10 sm:h-44 sm:w-44"
@@ -333,54 +333,6 @@ function ProductWidget({ product }) {
   if (product.layout === "ztna") {
     return (
       <ZtnaFlow product={product} />
-      // <div className="flex w-full flex-col gap-4">
-      //   <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
-      //     {product.name}
-      //   </span>
-
-      //   {/* Drawn as a path rather than listed as bullets: the point of ZTNA is
-      //       that nothing reaches the application directly, and that only reads
-      //       if the broker is shown sitting between the user and the app. */}
-      //   <div className="rounded-2xl border border-black/5 bg-white p-4 shadow-sm">
-      //     <div className="flex items-center justify-between">
-      //       {(product.flow || []).map((node, i) => {
-      //         const Icon = node.icon;
-      //         return (
-      //           <Fragment key={node.label}>
-      //             {i > 0 && (
-      //               <span className="mx-1 h-px flex-1 bg-gradient-to-r from-slate-200 via-slate-300 to-slate-200" />
-      //             )}
-      //             <div className="flex w-[84px] flex-col items-center gap-2">
-      //               <span
-      //                 className={`flex h-10 w-10 items-center justify-center rounded-xl ${
-      //                   node.primary
-      //                     ? "bg-slate-900/10 ring-1 ring-slate-900/25"
-      //                     : "bg-slate-100 ring-1 ring-slate-200"
-      //                 }`}
-      //               >
-      //                 <Icon className="h-4 w-4 text-slate-900" strokeWidth={2} />
-      //               </span>
-      //               <span className="text-center text-[10px] leading-tight text-slate-700">
-      //                 {node.label}
-      //               </span>
-      //             </div>
-      //           </Fragment>
-      //         );
-      //       })}
-      //     </div>
-      //   </div>
-
-      //   <div className="flex flex-wrap gap-2">
-      //     {(product.tags || []).map((tag) => (
-      //       <span
-      //         key={tag}
-      //         className="rounded-full border border-white/10 bg-white/[0.06] px-2.5 py-1 text-[11px] leading-tight text-white/75"
-      //       >
-      //         {tag}
-      //       </span>
-      //     ))}
-      //   </div>
-      // </div>
     );
   }
 
@@ -608,9 +560,6 @@ function PinnedProducts() {
     >
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden py-16">
         <div className="mx-auto mb-12 w-full max-w-7xl px-6 text-center sm:px-8 lg:px-12">
-          {/* <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#C7B8FF]">
-            Our Products
-          </p> */}
           {/* Two words on one line, so it takes the masked-line treatment
               rather than a fade-up: the type slides out from behind its own
               baseline at full opacity. Worth doing here and not on the longer

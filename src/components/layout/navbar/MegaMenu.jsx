@@ -1,6 +1,3 @@
-
-
-
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -117,7 +114,7 @@ export default function MegaMenu({ mega, rounded = false, onClose }) {
                     onClick={onClose}
                     className="flex items-center gap-4 rounded-xl bg-muted/60 p-3.5 transition hover:bg-muted"
                   >
-                    <img
+                    <img loading="lazy" decoding="async"
                       src={p.image}
                       alt=""
                       width={110}

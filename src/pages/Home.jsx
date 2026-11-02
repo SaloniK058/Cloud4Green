@@ -1,18 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-// import Container from "@/components/layout/Container";
-// import Section from "@/components/layout/Section";
 import Hero from "@/components/hero";
-// import PlatformOverview from "@/components/sections/platform-overview/PlatformOverview";
-// import TechnologyDomains from "@/components/sections/technology-domains/TechnologyDomains";
-// import WhyCloud4Green from "@/components/sections/why-cloud4green/WhyCloud4Green";
 import EnterpriseCTA from "@/components/sections/enterprise-cta/EnterpriseCTA";
 import OurProducts from "@/components/sections/platform-overview/OurProducts"
 import Solutions from '@/components/sections/challenges-we-solve/Solutions'
 import Testimonials from '@/components/sections/testimonials/Testimonials';
 import Preloader from "@/components/preloader/Preloader";
-import logo from "@/assets/images/C4GLogoplain.png"
+import logo from "@/assets/images/C4GLogoplain.webp"
 
 /**
  * The page is built in three beats, because everything below the fold is
@@ -83,9 +78,6 @@ export default function Home() {
           <OurProducts />
           <Solutions />
           <Testimonials />
-          {/* <PlatformOverview /> */}
-          {/* <TechnologyDomains /> */}
-          {/* <WhyCloud4Green /> */}
           <EnterpriseCTA />
           <Footer />
         </>

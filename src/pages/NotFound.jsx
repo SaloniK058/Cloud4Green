@@ -82,7 +82,7 @@ export default function Notfound() {
                 Work in progress
               </RevealItem>
 
-              <RevealItem as="p" className={`${META} text-right text-[#101418]/45`}>
+              <RevealItem as="p" className={`${META} text-right text-[#101418]/65`}>
                 Cloud4Green
               </RevealItem>
             </RevealGroup>
@@ -138,7 +138,7 @@ export default function Notfound() {
               delay={0.8}
               className="flex flex-wrap items-center justify-between gap-4 border-t border-[#101418]/10 pt-6"
             >
-              <p className={`${META} text-[#101418]/45`}>Coming soon</p>
+              <p className={`${META} text-[#101418]/65`}>Coming soon</p>
 
               <Link
                 to="/contact"

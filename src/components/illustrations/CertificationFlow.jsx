@@ -363,7 +363,6 @@ export default function CertificationFlow({ className = "" }) {
     <div
       ref={rootRef}
       className={`cf ${className}`}
-      // style= {{ height: "100%"}}
       role="img"
       aria-label="A candidate searches for a certification such as AWS, Azure or Microsoft, books the exam online or at a test centre, takes the exam, and gets certified."
     >

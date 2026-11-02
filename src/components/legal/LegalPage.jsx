@@ -73,11 +73,11 @@ export default function LegalPage({ title, updated, intro, sections }) {
                 className="mt-5 font-recoleta text-[2.4rem] font-medium uppercase leading-[1.02] tracking-[-0.025em] text-[#101418] sm:text-[3.2rem] lg:text-[3.8rem]"
               />
 
-              <RevealItem as="p" className="mt-6 text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">
-                {intro}
-              </RevealItem>
+              {/* Not revealed: this is the page's largest paint on a phone, and
+                  a staged fade only delays it. */}
+              <p className="mt-6 text-[15px] leading-7 text-[#4A5261] lg:text-[16px]">{intro}</p>
 
-              <RevealItem as="p" className="mt-5 text-[13px] text-[#8A93A3]">
+              <RevealItem as="p" className="mt-5 text-[13px] text-[#667085]">
                 Last updated {updated}
               </RevealItem>
             </RevealGroup>
@@ -89,7 +89,7 @@ export default function LegalPage({ title, updated, intro, sections }) {
           <Container>
             <div className="grid gap-10 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-16">
               <nav aria-label="On this page" className="lg:sticky lg:top-28 lg:self-start">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#101418]/45">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#101418]/65">
                   On this page
                 </p>
 
@@ -100,7 +100,7 @@ export default function LegalPage({ title, updated, intro, sections }) {
                         href={`#${section.id}`}
                         className="flex gap-2.5 text-[#4A5261] transition-colors hover:text-[#0B5CFF]"
                       >
-                        <span className="tabular-nums text-[#8A93A3]">{String(i + 1).padStart(2, "0")}</span>
+                        <span className="tabular-nums text-[#667085]">{String(i + 1).padStart(2, "0")}</span>
                         {section.title}
                       </a>
                     </li>

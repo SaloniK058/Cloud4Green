@@ -221,7 +221,7 @@ function WorkflowCanvas({ tools, type }) {
                 {tool}
               </span>
               <span
-                className={`text-[9.5px] font-semibold uppercase tracking-[0.14em] text-[#8A93A3] group-hover/card:transition-colors group-hover/card:duration-200 ${type.role} ${runStep(i * 2)}`}
+                className={`text-[9.5px] font-semibold uppercase tracking-[0.14em] text-[#667085] group-hover/card:transition-colors group-hover/card:duration-200 ${type.role} ${runStep(i * 2)}`}
               >
                 {roleOf(i, tools.length)}
               </span>
@@ -379,7 +379,7 @@ export default function AutomationCatalogue() {
             tracked "Filter" label, the chips, and an underline search
             pushed to the right edge. */}
         <Reveal delay={CUE.follow} className="mt-12 flex flex-wrap items-center gap-x-4 gap-y-3 border-y border-[#101418]/8 py-4">
-          <span className="hidden items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#8A93A3] sm:flex">
+          <span className="hidden items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#667085] sm:flex">
             <Asterisk className="h-3 w-3" />
             Filter
           </span>
@@ -408,7 +408,7 @@ export default function AutomationCatalogue() {
           </div>
 
           <div className="flex w-full items-center gap-2 border-b border-[#101418]/20 transition-colors focus-within:border-[#0B5CFF] lg:ml-auto lg:w-[280px]">
-            <Search aria-hidden="true" className="h-4 w-4 shrink-0 text-[#8A93A3]" />
+            <Search aria-hidden="true" className="h-4 w-4 shrink-0 text-[#667085]" />
             <label htmlFor="catalogue-search" className="sr-only">
               Search workflows
             </label>
@@ -425,7 +425,7 @@ export default function AutomationCatalogue() {
                 type="button"
                 onClick={() => setQuery("")}
                 aria-label="Clear search"
-                className="text-[12px] text-[#8A93A3] transition-colors hover:text-[#101418]"
+                className="text-[12px] text-[#667085] transition-colors hover:text-[#101418]"
               >
                 Clear
               </button>
@@ -435,7 +435,7 @@ export default function AutomationCatalogue() {
 
         {/* Result count, announced politely as the list changes, with a way
             back once anything is narrowed. */}
-        <div className="mt-5 flex items-center gap-3 text-[13px] tabular-nums text-[#8A93A3]">
+        <div className="mt-5 flex items-center gap-3 text-[13px] tabular-nums text-[#667085]">
           <p aria-live="polite">
             {results.length} {results.length === 1 ? "workflow" : "workflows"}
             {category !== "All" && ` in ${category}`}
@@ -487,7 +487,7 @@ export default function AutomationCatalogue() {
 
         {/* Honest footnote: these are illustrations until real case
             studies replace them. Remove once they're real. */}
-        <p className="mt-10 flex items-center gap-2 border-t border-[#101418]/8 pt-5 text-[12.5px] text-[#8A93A3]">
+        <p className="mt-10 flex items-center gap-2 border-t border-[#101418]/8 pt-5 text-[12.5px] text-[#667085]">
           <span aria-hidden="true" className="h-px w-3 bg-[#0B5CFF]" />
           Illustrative workflows, not claims about existing Cloud4Green implementations.
         </p>

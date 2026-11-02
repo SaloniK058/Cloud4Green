@@ -13,7 +13,7 @@ import { useId } from "react";
  *
  * If you have a WHITE / monochrome version of your logo, you can also
  * delete the white chip below (see "HUB LOGO" comment) and drop the
- * <img> straight onto the blue circle, like the reference.
+ * <img loading="lazy" decoding="async"> straight onto the blue circle, like the reference.
  *
  * Respects prefers-reduced-motion (dots hide, floating stops).
  */
@@ -245,7 +245,7 @@ export default function EnterpriseHubVisual({ logoSrc }) {
             rendered directly on the blue circle. */}
         {logoSrc ? (
           <span className="c4g-hub-chip">
-            <img src={logoSrc} alt="Cloud4Green" />
+            <img loading="lazy" decoding="async" src={logoSrc} alt="Cloud4Green" />
           </span>
         ) : (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">

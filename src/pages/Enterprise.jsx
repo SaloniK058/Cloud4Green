@@ -4,7 +4,6 @@ import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import Footer from "@/components/layout/Footer";
 import EnterpriseHubVisual from "@/components/enterprise/EnterpriseHubVisual";
-// import EnterpriseEcosystem from "@/components/enterprise/EnterpriseEcosystem";
 import EnterpriseEcosystemFinal from "@/components/enterprise/EnterpriseEcosystemFinal";
 import {
   Reveal,
@@ -29,6 +28,7 @@ export default function Enterprise() {
       the resting opacity, so it is the animate target rather than a class. */}
   <RevealGround
     mount
+    hero
     opacity={0.5}
     className="
       absolute
@@ -128,9 +128,6 @@ export default function Enterprise() {
         </RevealGroup>
 
         {/* Right — Platform hub animation */}
-        {/* <div className="flex items-center justify-center">
-          <EnterpriseHubVisual />
-        </div> */}
 
       </div>
     </Container>
@@ -173,26 +170,6 @@ export default function Enterprise() {
         <RevealGroup delay={CUE.lead} className="relative z-10 max-w-xl py-24 lg:py-32">
 
           {/* Eyebrow */}
-          {/* <div
-            className="
-              mb-7
-              inline-flex
-              items-center
-              gap-2
-              rounded-full
-              border
-              border-white/15
-              bg-white/5
-              px-4
-              py-2
-              text-sm
-              text-white/70
-            "
-          >
-            <span className="h-2 w-2 rounded-full bg-blue-800" />
-
-            One connected platform
-          </div> */}
           <RevealItem as="span" className="block text-sm font-bold uppercase tracking-[0.18em] text-blue-600">
             One connected platform
           </RevealItem>
@@ -321,7 +298,6 @@ export default function Enterprise() {
 
         {/* Learning tracks — tap or auto-advancing accordion */}
         <Container>
-          {/* <EnterpriseEcosystem /> */}
           <EnterpriseEcosystemFinal/>
         </Container>
       </main>

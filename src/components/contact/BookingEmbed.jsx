@@ -1,3 +1,5 @@
+import { useDeferredEmbed } from "@/hooks/useDeferredEmbed";
+
 /**
  * The Microsoft Bookings page, embedded on the contact card.
  *
@@ -127,9 +129,12 @@ export default function BookingEmbed({
   className = "",
   frameClassName = "",
 }) {
+  const [frameRef, showFrame] = useDeferredEmbed();
+
   return (
     <div className={className}>
       <div
+        ref={frameRef}
         className={`relative h-[680px] w-full overflow-hidden rounded-[12px] border border-[#101418]/10 sm:h-[760px] ${frameClassName}`}
       >
         <BookingSkeleton />
@@ -137,13 +142,14 @@ export default function BookingEmbed({
         {/* Pinned to the box rather than sized at 100%: under an override the
             box's height comes from flex, and an absolute fill resolves against
             that without needing a definite height to take a percentage of. */}
-        <iframe
-          src={bookingsUrl}
-          title="Book a slot with Cloud4Green"
-          loading="lazy"
-          referrerPolicy="strict-origin-when-cross-origin"
-          className="absolute inset-0 h-full w-full border-0"
-        />
+        {showFrame && (
+          <iframe
+            src={bookingsUrl}
+            title="Book a slot with Cloud4Green"
+            referrerPolicy="strict-origin-when-cross-origin"
+            className="absolute inset-0 h-full w-full border-0"
+          />
+        )}
       </div>
 
       {/* Fallback link — styled like the site's secondary CTAs */}

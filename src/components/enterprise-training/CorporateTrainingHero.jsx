@@ -14,7 +14,7 @@ import {
 import { CUE } from "@/components/motion/reveal-tokens";
 
 // Swap these for your own photos (real team / client training shots work best).
-import slideImg1 from "@/assets/images/clients.jpg";
+import slideImg1 from "@/assets/images/clients.webp";
 import slideImg2 from "@/assets/images/corpTraining2.webp";
 import slideImg3 from "@/assets/images/corpTraining3.webp";
 import heroBg from "@/assets/images/CT1.webp";
@@ -232,7 +232,7 @@ export default function CorporateTrainingHero() {
 
               {/* Dots — real buttons, so they work by keyboard too. They sit
                   on the blue panel, under the stat card. */}
-              <div className="absolute bottom-[18%] right-[4%] flex w-[40%] max-w-[220px] justify-center gap-2.5">
+              <div className="absolute bottom-[calc(18%-7px)] right-[4%] flex w-[40%] max-w-[220px] justify-center">
                 {SLIDES.map((_, i) => (
                   <button
                     key={i}
@@ -242,10 +242,15 @@ export default function CorporateTrainingHero() {
                     onBlur={() => setPaused(false)}
                     aria-label={`Show highlight ${i + 1} of ${SLIDES.length}`}
                     aria-current={i === active}
-                    className={`h-2.5 rounded-full bg-white transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
-                      i === active ? "w-6" : "w-2.5 opacity-60 hover:opacity-100"
-                    }`}
-                  />
+                    className="grid h-6 min-w-6 place-items-center px-[3px] focus-visible:outline-2 focus-visible:outline-white"
+                  >
+                    {/* The dot is small; the button around it is a full tap target. */}
+                    <span
+                      className={`block h-2.5 rounded-full bg-white transition-all duration-300 ${
+                        i === active ? "w-6" : "w-2.5 opacity-60 hover:opacity-100"
+                      }`}
+                    />
+                  </button>
                 ))}
               </div>
             </div>

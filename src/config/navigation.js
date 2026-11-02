@@ -1,5 +1,5 @@
 import customerStories from '@/assets/images/handshake.webp'
-import update from '@/assets/images/big.png'
+import update from '@/assets/images/big.webp'
 
 export const navigation = [
   { label: "Home", href: "/" },

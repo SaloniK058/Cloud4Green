@@ -68,6 +68,7 @@ export default function ProductNav({ product, visible }) {
   return (
     <div
       aria-hidden={visible ? undefined : "true"}
+      inert={!visible}
       className={cn(
         "absolute inset-x-0 top-full",
         !visible && "pointer-events-none"

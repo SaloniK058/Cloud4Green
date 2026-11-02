@@ -60,7 +60,7 @@ export default function PageGrid({
   cols = 4,
   rows = 3,
   /* -20 sits under a scrim or bloom at -z-10. A section whose backdrop is
-     an <img> at -z-10 wants 0 instead, so the grid lands on the picture
+     an <img loading="lazy" decoding="async"> at -z-10 wants 0 instead, so the grid lands on the picture
      rather than behind it. */
   z = -20,
   /* Star colour, passed through to GridCorner. Left unset, the stars keep

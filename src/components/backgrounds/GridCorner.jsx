@@ -72,12 +72,15 @@ function maskAt(x, y, w, h) {
    the whole patch is meant to be a detail you notice, not a feature. */
 const starAlpha = (m) => Math.min(1, 0.15 + m * 0.6);
 
+/* Read during the first render, not after it: starting at desktop size and
+   correcting in an effect visibly shifted the patch on every phone. */
+const currentSize = () => (window.matchMedia("(min-width: 768px)").matches ? SIZES.desktop : SIZES.mobile);
+
 function useGridSize() {
-  const [size, setSize] = useState(SIZES.desktop);
+  const [size, setSize] = useState(currentSize);
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
-    const apply = () => setSize(mq.matches ? SIZES.desktop : SIZES.mobile);
-    apply();
+    const apply = () => setSize(currentSize());
     mq.addEventListener("change", apply);
     return () => mq.removeEventListener("change", apply);
   }, []);
@@ -336,7 +339,7 @@ const CORNERS = {
  * @param stills  [{ col, row }] — intersections with a star that only twinkles
  * @param z       where the patch sits in its section's stack. -20 by default,
  *                which is under a scrim or bloom at -z-10 and under the
- *                content; a section whose backdrop is an <img> at -z-10 wants
+ *                content; a section whose backdrop is an <img loading="lazy" decoding="async"> at -z-10 wants
  *                0 instead, so the grid lands on top of the picture rather
  *                than behind it.
  * @param color   the stars' core and trail colour — brand blue by default;

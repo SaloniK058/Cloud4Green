@@ -1,7 +1,3 @@
-
-
-// // background: linear-gradient(90deg,rgba(0, 8, 66, 1) 0%, rgba(8, 11, 32, 1) 7%, rgba(8, 11, 32, 1) 93%, rgba(0, 8, 66, 1) 100%);
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "./Container";
@@ -44,7 +40,7 @@ export default function Footer() {
               <p className="font-heading text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
                 Building cloud-ready
                 <br />
-                <span className="text-white/40">
+                <span className="text-white/60">
                   teams for the future.
                 </span>
               </p>
@@ -66,7 +62,7 @@ export default function Footer() {
 
             {/* Platform */}
             <div>
-              <p className="mb-5 text-sm font-medium text-white/40">
+              <p className="mb-5 text-sm font-medium text-white/60">
                 Platform
               </p>
 
@@ -106,7 +102,7 @@ export default function Footer() {
 
             {/* Solutions */}
             <div>
-              <p className="mb-5 text-sm font-medium text-white/40">
+              <p className="mb-5 text-sm font-medium text-white/60">
                 Solutions
               </p>
 
@@ -160,7 +156,7 @@ export default function Footer() {
 
             {/* Company */}
             <div>
-              <p className="mb-5 text-sm font-medium text-white/40">
+              <p className="mb-5 text-sm font-medium text-white/60">
                 Company
               </p>
 
@@ -200,7 +196,7 @@ export default function Footer() {
 
             {/* Connect */}
             <div>
-              <p className="mb-5 text-sm font-medium text-white/40">
+              <p className="mb-5 text-sm font-medium text-white/60">
                 Connect
               </p>
 
@@ -261,7 +257,7 @@ export default function Footer() {
           {/* =========================
               BOTTOM
           ========================== */}
-          <div className="mt-16 flex flex-col items-start gap-4 pt-6 text-sm text-white/40 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-16 flex flex-col items-start gap-4 pt-6 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
 
             <p className="-ml-3 rounded-full bg-black/40 px-3 py-1.5 backdrop-blur-md">
               © 2026 Cloud4Green. All rights reserved.

@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import LegalPage from "@/components/legal/LegalPage";
 
 /**
- * /terms — the terms for using the website. Paid labs, training and services
- * are governed by their own agreements, which take priority (see "Our
- * services"), so nothing commercial belongs here.
+ * /terms — the terms for using the website, plus baseline rules for lab and
+ * platform logins. Paid labs, training and services are governed by their own
+ * agreements, which take priority (see "Our services"), so nothing commercial
+ * (fees, renewals, liability caps) belongs here.
  */
 
 const EMAIL = "reach@cloud4green.com";
@@ -43,6 +44,34 @@ const sections = [
     ),
   },
   {
+    id: "lab-access",
+    title: "Labs and platform access",
+    content: (
+      <>
+        <p>
+          If we give you a login to a lab or learning platform, these rules apply unless your agreement says otherwise.
+          You are responsible for keeping your login details safe and for activity under them, and you agree to tell us
+          promptly if you think they have been misused.
+        </p>
+        <p>You agree not to:</p>
+        <ul>
+          <li>share your access, or resell or provide the service to anyone else;</li>
+          <li>copy, modify or reverse engineer our software, except where the law allows it;</li>
+          <li>use lab environments for anything other than the learning they were provided for;</li>
+          <li>
+            use lab resources for cryptocurrency mining, attacks on other systems, or to get around their limits and
+            controls; or
+          </li>
+          <li>break the terms of the cloud or software providers whose services a lab uses.</li>
+        </ul>
+        <p>
+          Lab environments are temporary. Unless we agree otherwise, don&apos;t store confidential or personal data in
+          them, and save anything you want to keep, because it may be deleted when the lab ends.
+        </p>
+      </>
+    ),
+  },
+  {
     id: "content",
     title: "Examples and third-party certifications",
     content: (
@@ -68,10 +97,25 @@ const sections = [
         <ul>
           <li>use the website unlawfully, or in a way that harms us or anyone else;</li>
           <li>try to gain unauthorised access to, disrupt or overload the website or its systems;</li>
-          <li>introduce malware, or send spam or misleading information through our forms; or</li>
+          <li>introduce malware, or send spam or misleading information through our forms;</li>
+          <li>submit content that is unlawful or that you have no right to share; or</li>
           <li>scrape or copy the website with automated tools, except as ordinary search engine indexing allows.</li>
         </ul>
+        <p>
+          We may suspend or end your access to the website, or to a lab or platform login, if you break these terms or
+          to protect our systems or other users. Your agreement with us may set out further steps.
+        </p>
       </>
+    ),
+  },
+  {
+    id: "submissions",
+    title: "What you send us",
+    content: (
+      <p>
+        You are responsible for what you send us through the website. If you give us feedback or suggestions about our
+        website or services, we may use them without any obligation to you.
+      </p>
     ),
   },
   {
@@ -95,10 +139,20 @@ const sections = [
     id: "third-parties",
     title: "Third-party sites and tools",
     content: (
-      <p>
-        The website links to, or embeds, services we don&apos;t control, such as Microsoft Bookings and LinkedIn. Their
-        own terms and privacy policies apply, and we are not responsible for them.
-      </p>
+      <>
+        <p>
+          The website links to, or embeds, services we don&apos;t control, such as Microsoft Bookings, LinkedIn and
+          Google Maps. Their own terms and privacy policies apply, and we are not responsible for them.
+        </p>
+        <p>
+          Reviews shown from Google Maps are the opinions of their authors, and using them or our embedded map is
+          subject to the{" "}
+          <a href="https://maps.google.com/help/terms_maps/" target="_blank" rel="noopener noreferrer">
+            Google Maps Terms of Service
+          </a>
+          .
+        </p>
+      </>
     ),
   },
   {
@@ -145,6 +199,23 @@ const sections = [
     ),
   },
   {
+    id: "general",
+    title: "General",
+    content: (
+      <>
+        <p>
+          You agree to comply with the laws that apply to your use of the website and our services, including export
+          control laws.
+        </p>
+        <p>
+          If any part of these terms can&apos;t be enforced, the rest still applies. If we don&apos;t enforce a right
+          straight away, we haven&apos;t given it up. You may not transfer your rights under these terms without our
+          written consent.
+        </p>
+      </>
+    ),
+  },
+  {
     id: "changes",
     title: "Changes to these terms",
     content: (
@@ -170,8 +241,8 @@ export default function Terms() {
   return (
     <LegalPage
       title="Terms of Service"
-      updated="31 October 2026"
-      intro="The rules for using the Cloud4Green website, and how they relate to any services you buy from us."
+      updated="2 November 2026"
+      intro="The rules for using the Cloud4Green website and lab logins, and how they relate to any services you buy from us."
       sections={sections}
     />
   );

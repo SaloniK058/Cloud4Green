@@ -52,28 +52,6 @@ function Asterisk({ className = "h-3.5 w-3.5", stroke = "stroke-[#0B5CFF]" }) {
 
 /** Stand-in for the hero image until it exists. Dashed, quiet, and
     clearly labelled, so nobody mistakes it for finished design. */
-// function ImagePlaceholder() {
-//   return (
-//     <div className="grid aspect-[4/3] w-full place-items-center rounded-[10px] border border-dashed border-[#101418]/15 bg-[#FAFAF7]/70">
-//       <div className="flex flex-col items-center gap-3 text-center">
-//         <svg
-//           viewBox="0 0 24 24"
-//           aria-hidden="true"
-//           fill="none"
-//           strokeWidth="1.5"
-//           strokeLinecap="round"
-//           strokeLinejoin="round"
-//           className="h-8 w-8 stroke-[#8A93A3]"
-//         >
-//           <rect x="3" y="4.5" width="18" height="15" rx="2" />
-//           <circle cx="8.5" cy="9.5" r="1.75" />
-//           <path d="m21 15.5-5-5-9 9" />
-//         </svg>
-//         <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-[#8A93A3]">Image coming soon</p>
-//       </div>
-//     </div>
-//   );
-// }
 
 export default function ConsultingHero({ imageSrc, imageAlt = "" }) {
   return (

@@ -110,10 +110,6 @@ export default function LearningSolutions({ imageSrc, imageAlt = "" }) {
               Enterprise e-learning and LMS solutions
             </RevealItem>
 
-            {/* <h1 className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
-              Build a cloud-ready workforce on
-              hands-on&nbsp;labs<span className="text-[#0B5CFF]">.</span>
-            </h1> */}
             <RevealItem as="p" className="mt-5 font-recoleta text-[2rem] font-medium uppercase leading-[1.08] tracking-[-0.02em] text-[#101418] sm:text-[2.5rem] lg:text-[3.1rem]">
   Learn the technologies that shape the future<span className="text-[#0B5CFF]">.</span>
 </RevealItem>

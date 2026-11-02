@@ -51,7 +51,7 @@ function Entry({ update }) {
         <Tag tone={launch ? "dark" : "light"}>{update.category}</Tag>
         <time
           dateTime={update.date}
-          className={`text-[12px] font-medium ${launch ? "text-white/50" : "text-[#8A93A3]"}`}
+          className={`text-[12px] font-medium ${launch ? "text-white/50" : "text-[#667085]"}`}
         >
           {dayOf(update.date)}
         </time>

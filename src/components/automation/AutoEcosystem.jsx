@@ -29,7 +29,7 @@ const TOOLS = [
   { name: "n8n", category: "Workflow automation", Mark: SiN8n },
   { name: "Zapier", category: "App integrations", Mark: SiZapier },
   { name: "Make", category: "Visual automation", Mark: SiMake },
-  { name: "Grok", category: "Conversational AI", img: "/logos/grok.svg" },
+  { name: "Grok", category: "Conversational AI" },
   { name: "LangGraph", category: "Agent orchestration", Mark: SiLanggraph, color: "#101418" },
   { name: "LangChain", category: "AI application framework", Mark: SiLangchain, color: "#101418" },
 ];
@@ -76,7 +76,7 @@ function ToolLogo({ tool }) {
   if (Mark) {
     logo = <Mark size={24} color={color ?? "default"} />;
   } else if (img && !imgFailed) {
-    logo = <img src={img} alt="" className="h-6 w-6 object-contain" onError={() => setImgFailed(true)} />;
+    logo = <img loading="lazy" decoding="async" src={img} alt="" className="h-6 w-6 object-contain" onError={() => setImgFailed(true)} />;
   } else {
     logo = <span className="text-[17px] font-semibold text-[#101418]">{name[0]}</span>;
   }
@@ -142,10 +142,6 @@ export default function TechnologyEcosystem() {
           ))}
         </RevealGroup>
 
-        {/* <p className="mt-8 text-[13.5px] leading-6 text-[#4A5261]">
-          A representative sample, not the full list — if it's already part of your stack, chances are we can build
-          around it.
-        </p> */}
       </Container>
     </section>
   );

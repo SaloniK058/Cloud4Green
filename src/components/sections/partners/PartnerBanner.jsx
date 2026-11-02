@@ -11,11 +11,11 @@ import {
 const partners = [
   {
     name: "AWS",
-    render: () => <img src="/logos/aws.svg" alt="AWS" className="h-8 w-auto" />,
+    render: () => <img loading="lazy" decoding="async" src="/logos/aws.svg" alt="AWS" width={32} height={32} className="h-8 w-auto" />,
   },
   {
     name: "Microsoft Azure",
-    render: () => <img src="/logos/azure.svg" alt="Microsoft Azure" className="h-8 w-auto" />,
+    render: () => <img loading="lazy" decoding="async" src="/logos/azure.svg" alt="Microsoft Azure" width={32} height={32} className="h-8 w-auto" />,
   },
   {
     name: "Google Cloud",

@@ -96,7 +96,7 @@ export default function OurValues() {
                     {v.icon}
                   </svg>
                 </span>
-                <span className="text-[11px] font-bold tabular-nums tracking-[0.16em] text-[#8A93A3]">
+                <span className="text-[11px] font-bold tabular-nums tracking-[0.16em] text-[#667085]">
                   {String(i + 1).padStart(2, "0")}
                 </span>
               </div>

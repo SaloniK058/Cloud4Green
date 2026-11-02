@@ -13,7 +13,7 @@ import {
 } from "@/components/motion/Reveal";
 import { LINE_STAGGER } from "@/components/motion/reveal-tokens";
 
-import bannerImg from "@/assets/images/CertTrophy.png";
+import bannerImg from "@/assets/images/CertTrophy.webp";
 
 /* ------------------------------------------------------------------
    Cloud4Green — the training & certification banner.
@@ -135,7 +135,6 @@ export default function TrainingBanner({
               <p className="font-recoleta text-[21px] font-medium uppercase leading-none tracking-[-0.015em] sm:text-[24px]">
                 {brand}
               </p>
-              {/* <p className={`${label} mt-2 tracking-[0.28em] opacity-80`}>{brandSub}</p> */}
             </div>
 
             {/* The manifesto is the card's smallest voice and its thesis
@@ -181,7 +180,7 @@ export default function TrainingBanner({
                   style={{ border: `1px solid ${t.ink}` }}
                 >
                   {imageSrc ? (
-                    <img src={imageSrc} alt={imageAlt} className="block h-auto w-full" />
+                    <img loading="lazy" decoding="async" src={imageSrc} alt={imageAlt} className="block h-auto w-full" />
                   ) : (
                     /* Holds the slot's height while the artwork is
                        outstanding — 4:5, the proportion a portrait crop

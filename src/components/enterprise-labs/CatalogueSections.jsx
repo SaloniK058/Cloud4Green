@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
@@ -227,7 +225,7 @@ function ProductsDropdown({ options, selected, onToggle, onClear }) {
           id={panelId}
           className="absolute left-0 z-30 mt-2 w-[min(92vw,44rem)] rounded-2xl border border-[#101418]/10 bg-white p-5 shadow-[0_24px_60px_-24px_rgba(16,20,24,0.35)] max-sm:fixed max-sm:inset-x-3 max-sm:bottom-3 max-sm:top-auto max-sm:mt-0 max-sm:w-auto"
         >
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#8A93A3]">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#667085]">
             Products
           </p>
 
@@ -287,40 +285,6 @@ function ProductsDropdown({ options, selected, onToggle, onClear }) {
 /* ------------------------------------------------------------------
    One result card.
 ------------------------------------------------------------------ */
-// function ResultCard({ card, index, onPickDomain }) {
-//   return (
-//     <motion.article
-//       initial={{ opacity: 0, y: 14 }}
-//       animate={{ opacity: 1, y: 0 }}
-//       transition={{ duration: 0.4, ease: EASE, delay: (index % PAGE) * 0.035 }}
-//       className="group flex h-full flex-col rounded-2xl border border-[#101418]/10 bg-white p-6 transition-colors duration-200 hover:border-[#0B5CFF]/45 hover:shadow-xl"
-//     >
-//       <button
-//         type="button"
-//         onClick={() => onPickDomain(card.domainIndex)}
-//         className="mb-4 self-start text-left text-[10.5px] font-semibold uppercase leading-tight tracking-[0.14em] text-[#0B5CFF]/75 underline-offset-4 transition-colors hover:text-[#0B5CFF] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0B5CFF]"
-//       >
-//         {card.domain}
-//       </button>
-
-//       <h3 className="mb-8 font-recoleta text-[1.6rem] leading-[1.15] tracking-[-0.015em] text-[#101418]">
-//         {card.name}
-//       </h3>
-
-//       <div className="mt-auto flex items-center gap-3 border-t border-[#101418]/8 pt-4 text-[12px] text-[#8A93A3]">
-//         <span className="flex items-center gap-2">
-//           <span aria-hidden="true" className="h-px w-3 bg-[#0B5CFF]" />
-//           {card.kind}
-//         </span>
-//         {card.isNew && (
-//           <span className="ml-auto rounded-md bg-[#0B5CFF]/10 px-1.5 py-0.5 text-[9.5px] font-bold uppercase tracking-[0.1em] text-[#0B5CFF]">
-//             New
-//           </span>
-//         )}
-//       </div>
-//     </motion.article>
-//   );
-// }
 
 function ResultCard({ card, index, onPickDomain }) {
   return (
@@ -513,7 +477,7 @@ function ResultCard({ card, index, onPickDomain }) {
               border-[#101418]/[0.08]
               pt-4
               text-[12px]
-              text-[#8A93A3]
+              text-[#667085]
               transition-colors
               duration-500
               group-hover:border-[#101418]/[0.12]
@@ -749,7 +713,7 @@ export default function CatalogueSection() {
 
         <Reveal delay={CUE.follow} className="mt-12 flex flex-wrap items-center gap-4 border-y border-[#101418]/8 py-4">
           {/* Filter label */}
-          <span className="hidden items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#8A93A3] sm:flex">
+          <span className="hidden items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#667085] sm:flex">
             <Asterisk className="h-3 w-3" />
             Filter
           </span>
@@ -765,7 +729,7 @@ export default function CatalogueSection() {
           {/* Result count */}
           <p
             aria-live="polite"
-            className="hidden text-[13px] tabular-nums text-[#8A93A3] sm:block"
+            className="hidden text-[13px] tabular-nums text-[#667085] sm:block"
           >
             {searchQuery.trim()
               ? `${searchResults.length} ${
@@ -840,7 +804,7 @@ export default function CatalogueSection() {
         {/* No search results */}
         {searchQuery.trim() && searchResults.length === 0 && (
           <div className="mt-16 text-center">
-            <p className="text-[14px] text-[#8A93A3]">
+            <p className="text-[14px] text-[#667085]">
               No products found for{" "}
               <span className="font-medium text-[#101418]">
                 "{searchQuery}"
@@ -875,7 +839,7 @@ export default function CatalogueSection() {
 function ProductSearch({ value, onChange }) {
   return (
     <div className="ml-auto flex w-full items-center gap-2 border-b border-[#101418]/20 transition-colors focus-within:border-[#0B5CFF] sm:w-[260px]">
-      <Search className="h-4 w-4 shrink-0 text-[#8A93A3]" />
+      <Search className="h-4 w-4 shrink-0 text-[#667085]" />
 
       <input
         type="search"
@@ -883,7 +847,7 @@ function ProductSearch({ value, onChange }) {
         onChange={(e) => onChange(e.target.value)}
         placeholder="Search products..."
         aria-label="Search products"
-        className="h-[42px] min-w-0 flex-1 bg-transparent text-[13px] text-[#101418] outline-none placeholder:text-[#8A93A3]"
+        className="h-[42px] min-w-0 flex-1 bg-transparent text-[13px] text-[#101418] outline-none placeholder:text-[#667085]"
       />
 
       {value && (
@@ -891,7 +855,7 @@ function ProductSearch({ value, onChange }) {
           type="button"
           onClick={() => onChange("")}
           aria-label="Clear search"
-          className="text-[12px] text-[#8A93A3] transition-colors hover:text-[#101418]"
+          className="text-[12px] text-[#667085] transition-colors hover:text-[#101418]"
         >
           Clear
         </button>

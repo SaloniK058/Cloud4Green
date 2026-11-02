@@ -457,7 +457,7 @@ function CategoryPanel({ cat, compact = false }) {
   One tool logo, centred in a fixed square box.
 
   The box is what keeps the row tidy. The marks carry different amounts of
-  padding inside their own artwork, so sizing the <svg>/<img> alone leaves
+  padding inside their own artwork, so sizing the <svg>/<img loading="lazy" decoding="async"> alone leaves
   them looking uneven; centring each in a same-sized box puts every tool
   name on the same left edge.
 
@@ -469,10 +469,10 @@ function CategoryPanel({ cat, compact = false }) {
       `invisible`, mobile with a 0fr grid row), so all six categories are
       crawlable, not just the open one.
     · The mark itself is decorative — the text beside it already names the
-      tool — so it's aria-hidden and the <img> takes an empty alt. Without
+      tool — so it's aria-hidden and the <img loading="lazy" decoding="async"> takes an empty alt. Without
       that a screen reader announces "Docker Docker".
 
-  width/height on the <img> are set so the browser reserves the square
+  width/height on the <img loading="lazy" decoding="async"> are set so the browser reserves the square
   before the file arrives, which keeps the row from shifting (CLS).
 */
 function ToolMark({ name, size }) {

@@ -1,67 +1,3 @@
-// import { Quote } from "lucide-react";
-
-// import Container from "@/components/layout/Container";
-// import Section from "@/components/layout/Section";
-
-// import { testimonials } from "@/data/testimonials";
-
-// function TestimonialCard({ name, role, quote }) {
-//   return (
-//     <div className="h-44 w-72 shrink-0 rounded-2xl border border-border/60 bg-[#0351ef] p-2 text-left sm:w-80">
-//       <div className="flex h-full flex-col rounded-lg border border-dashed border-border/70 bg-background p-4">
-//         <div className="flex items-start justify-between gap-4">
-//           <div className="min-w-0">
-//             <p className="truncate text-sm font-medium tracking-tight">
-//               {name}
-//             </p>
-//             <p className="mt-0.5 truncate text-[11px] text-muted-foreground">
-//               {role}
-//             </p>
-//           </div>
-//           <Quote
-//             className="size-4 shrink-0 fill-current text-muted-foreground/30"
-//             aria-hidden="true"
-//           />
-//         </div>
-//         <blockquote className="mt-auto line-clamp-3 text-[15px] leading-6 text-muted-foreground">
-//           {quote}
-//         </blockquote>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default function Testimonials() {
-//   return (
-//     <Section>
-//       <Container>
-//         <div>
-//           <h2 className="text-3xl font-medium tracking-tight text-balance sm:text-4xl">
-//             Words from our learners
-//           </h2>
-//           <p className="mt-4 max-w-md text-base leading-7 text-muted-foreground">
-//             What teams building on Cloud4Green are saying.
-//           </p>
-//         </div>
-
-//         <div className="relative mt-12 -mx-5 overflow-hidden sm:-mx-8">
-//           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-background to-transparent sm:w-24" />
-//           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-background to-transparent sm:w-24" />
-
-//           <div className="flex w-max animate-marquee gap-4">
-//             {[...testimonials, ...testimonials].map((testimonial, index) => (
-//               <TestimonialCard
-//                 key={`${testimonial.name}-${index}`}
-//                 {...testimonial}
-//               />
-//             ))}
-//           </div>
-//         </div>
-//       </Container>
-//     </Section>
-//   );
-// }
-
 import { Quote } from "lucide-react";
 
 import Container from "@/components/layout/Container";
@@ -75,7 +11,6 @@ import {
 
 import { testimonials } from "@/data/testimonials";
 
-// import "./marquee.css";
 
 /** Cards on the visible track, per row. Repeats are derived from this so a
  *  short testimonials list still fills a wide viewport instead of running

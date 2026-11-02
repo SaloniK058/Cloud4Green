@@ -1,73 +1,3 @@
-
-// import { Menu } from "lucide-react";
-// import { NavLink } from "react-router-dom";
-
-// import { navigation } from "@/config/navigation";
-
-// import { Button } from "@/components/ui/button";
-
-// import { Link } from "react-router-dom";
-
-// import {
-//   Sheet,
-//   SheetContent,
-//   SheetTrigger,
-// } from "@/components/ui/sheet";
-
-// import {useState} from "react";
-
-// import {cn} from "@/lib/utils";
-
-// export default function MobileMenu() {
-
-//   const [isOpen, setIsOpen] = useState(false);
-
-//   return (
-//     <Sheet open={isOpen} onOpenChange = {setIsOpen}>
-      
-//       <SheetTrigger
-//         render={
-//     <Button
-//       variant="ghost"
-//       size="icon"
-//       className="lg:hidden"
-//     >
-//       <Menu className="h-6 w-6" />
-//     </Button>
-//   }
-// />
-
-//       <SheetContent side="right" className="w-80">
-//         <nav className="mt-8 flex items-center flex-col gap-6 mx-auto">
-//           {navigation.map((item) => (
-//             <NavLink
-//               key={item.href}
-//               to={item.href}
-//               onClick={()=> setIsOpen(false)}
-//               className={({ isActive }) =>
-//                 cn(
-//                   "text-lg font-medium transition-colors ",
-//                   isActive
-//                     ? "text-primary bg-muted rounded-md px-3 py-2"
-//                     : "text-muted-foreground hover:text-primary hover:bg-muted rounded-md px-3 py-2"
-//                 )
-//               }
-//             >
-//               {item.label}
-//             </NavLink>
-//           ))}
-
-//           <Link to="/contact">
-//           <Button className="mt-8 w-full" 
-//           onClick={()=> setIsOpen(false)}>
-//             Contact Sales
-//           </Button></Link>
-//         </nav>
-//       </SheetContent>
-//     </Sheet>
-//   );
-// }
-
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -124,7 +54,7 @@ export default function MobileMenu() {
     >
       <SheetTrigger
         render={
-          <Button variant="ghost" size="icon" className="lg:hidden">
+          <Button variant="ghost" size="icon" className="lg:hidden" aria-label="Open menu">
             <Menu className="h-6 w-6" />
           </Button>
         }

@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import Container from "@/components/layout/Container";
 import PageGrid from "@/components/backgrounds/PageGrid";
 import BookingEmbed from "@/components/contact/BookingEmbed";
+import { useDeferredEmbed } from "@/hooks/useDeferredEmbed";
 
 import {
   Reveal,
@@ -72,7 +73,7 @@ function Chevrons({ className = "" }) {
  */
 function Eyebrow({ children }) {
   return (
-    <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#E7E0CE]">
+    <p className="flex items-center gap-2.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-white">
       <Asterisk className="h-3.5 w-3.5 stroke-[#E7E0CE]" />
       {children}
     </p>
@@ -87,7 +88,7 @@ function Eyebrow({ children }) {
  */
 function RailLabel({ children }) {
   return (
-    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#101418]/45">
+    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#101418]/65">
       {children}
     </p>
   );
@@ -135,6 +136,12 @@ const solutions = [
   { label: "AI Engineering", href: "/products/enterprise-labs" },
 ];
 
+/* What the map and directions search for. The business name lands on the
+   Google listing, so the pin follows the listing if the office moves. */
+const MAP_QUERY = encodeURIComponent("Cloud4Green Technologies, Bengaluru");
+const MAP_EMBED_URL = `https://www.google.com/maps?q=${MAP_QUERY}&output=embed`;
+const DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${MAP_QUERY}`;
+
 /* --- Page ----------------------------------------------------------------- */
 
 export default function Contact() {
@@ -142,6 +149,7 @@ export default function Contact() {
      about; it travels with the message so the team sees it. */
   const [searchParams] = useSearchParams();
   const [status, setStatus] = useState("idle");
+  const [mapRef, showMap] = useDeferredEmbed();
 
   /* public/api/contact.php does the sending. It only exists on the cPanel
      host, so under `npm run dev` this lands on the error message. */
@@ -202,21 +210,20 @@ export default function Contact() {
                     "Let's build the right",
                     <>
                       solution together
-                      <span className="text-[#E7E0CE]">.</span>
+                      <span className="text-white">.</span>
                     </>,
                   ]}
                   className="mt-5 font-recoleta text-[2.4rem] font-medium uppercase leading-[1.02] tracking-[-0.025em] text-[#FAFAF7] sm:text-[3.2rem] lg:text-[3.8rem]"
                 />
               </div>
 
-              <RevealItem
-                as="p"
-                className="max-w-xl text-[15px] leading-7 text-[#FAFAF7]/85 lg:pb-2"
-              >
+              {/* Not revealed: this is the page's largest paint on a phone, and
+                  a staged fade only delays it. */}
+              <p className="max-w-xl text-[15px] leading-7 text-white lg:pb-2">
                 Whether you need hands-on Cloud &amp; AI Labs, an enterprise LMS,
                 AI engineering, or a tailored learning solution, our team is
                 here to help.
-              </RevealItem>
+              </p>
             </RevealGroup>
 
             {/* The three things a first-time visitor actually wants to know
@@ -237,7 +244,7 @@ export default function Contact() {
                     {value}
                   </dt>
 
-                  <dd className="mt-1 text-[10px] uppercase leading-tight tracking-[0.14em] text-[#E7E0CE]/80 sm:text-[11px]">
+                  <dd className="mt-1 text-[10px] uppercase leading-tight tracking-[0.14em] text-white/90 sm:text-[11px]">
                     {label}
                   </dd>
                 </RevealItem>
@@ -402,7 +409,7 @@ export default function Contact() {
                         </span>
                       </button>
 
-                      <p className="text-[12.5px] leading-6 text-[#101418]/45">
+                      <p className="text-[12.5px] leading-6 text-[#101418]/65">
                         We reply within one working day.
                       </p>
                     </div>
@@ -425,7 +432,7 @@ export default function Contact() {
                       )}
                     </div>
 
-                    <p className="text-[12.5px] leading-6 text-[#101418]/45">
+                    <p className="text-[12.5px] leading-6 text-[#101418]/65">
                       We use these details to respond to you, as set out in our{" "}
                       <Link
                         to="/privacy"
@@ -474,6 +481,70 @@ export default function Contact() {
                 </div>
               </Reveal>
             </div>
+          </Container>
+        </section>
+
+        {/* ── Find us ──────────────────────────────────────────────── */}
+        {/* On the page's vertical seam, like the bands around it. lazy keeps
+            Google's frame, and its cookies, off the page until it's near. */}
+        <section className="border-t border-[#101418]/8 py-16 lg:py-24">
+          <Container>
+            <RevealGroup
+              delay={0.08}
+              className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-16"
+            >
+              <RevealItem as="div" className="overflow-hidden rounded-[18px] border border-[#DFE6F5] bg-white">
+                <div ref={mapRef} className="h-[320px] w-full bg-[#FAFAF7] lg:h-[400px]">
+                  {showMap && (
+                    <iframe
+                      title="Map showing Cloud4Green Technologies in Bengaluru"
+                      src={MAP_EMBED_URL}
+                      referrerPolicy="no-referrer-when-downgrade"
+                      className="block h-full w-full border-0"
+                    />
+                  )}
+                </div>
+              </RevealItem>
+
+              <div>
+                <RevealItem as="div">
+                  <RailLabel>Visit us</RailLabel>
+                </RevealItem>
+
+                <RevealLines
+                  nested
+                  as="h2"
+                  lines={[
+                    <>
+                      Find us
+                      <span className="text-[#0B5CFF]">.</span>
+                    </>,
+                  ]}
+                  className="mt-4 font-recoleta text-[1.75rem] font-medium uppercase leading-[1.04] tracking-[-0.02em] text-[#101418] sm:text-[2.4rem] lg:text-[2.8rem]"
+                />
+
+                <RevealItem as="div">
+                  <address className="mt-5 max-w-md text-[15px] not-italic leading-7 text-[#4A5261]">
+                    Cloud4Green Technologies
+                    <br />
+                    23, 3rd Main Rd, Nethaji Nagar, Hebbal Kempapura
+                    <br />
+                    Bengaluru, Karnataka 560024
+                  </address>
+
+                  <a
+                    href={DIRECTIONS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-6 inline-flex items-center gap-2.5 rounded-[10px] border border-[#101418]/12 bg-white px-5 py-2.5 text-sm font-semibold text-[#101418] shadow-sm transition-colors hover:border-[#101418]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5CFF] focus-visible:ring-offset-2"
+                  >
+                    Get Directions
+
+                    <Chevrons className="h-3.5 w-3.5 stroke-[#0B5CFF] transition-transform group-hover:translate-x-0.5" />
+                  </a>
+                </RevealItem>
+              </div>
+            </RevealGroup>
           </Container>
         </section>
 

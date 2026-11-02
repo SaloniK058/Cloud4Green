@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Link } from "react-router-dom";
@@ -62,11 +61,11 @@ export default function CtaSection({
         {/* Straight off the poster — two small voices pinned to opposite
             corners, with the rule under them holding the sheet together. */}
         <RevealItem className="flex flex-wrap items-start justify-between gap-4 border-b border-[#FAFAF7]/25 pb-7">
-          <p className={`${META} flex items-center gap-2.5 text-[#E7E0CE]`}>
+          <p className={`${META} flex items-center gap-2.5 text-white`}>
             <Asterisk />
             {hook}
           </p>
-          <p className={`${META} text-right text-[#E7E0CE]/80`}>{stamp}</p>
+          <p className={`${META} text-right text-white/90`}>{stamp}</p>
         </RevealItem>
 
         {/* The same faint grid the video panel carried, now on the whole
@@ -97,7 +96,7 @@ export default function CtaSection({
               "Tell us the roles.",
               <>
                 We&apos;ll send back a plan
-                <span className="text-[#E7E0CE]">.</span>
+                <span className="text-white">.</span>
               </>,
             ]}
             className="-ml-[0.02em] max-w-5xl font-recoleta font-medium uppercase text-[#FAFAF7]"
@@ -114,7 +113,7 @@ export default function CtaSection({
           <div className="mt-10 grid gap-8 lg:mt-14 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-14">
             <RevealItem
               as="p"
-              className="max-w-md border-l-2 border-[#E7E0CE]/60 pl-5 text-[15px] leading-7 text-[#FAFAF7]/85 sm:text-base"
+              className="max-w-md border-l-2 border-[#E7E0CE]/60 pl-5 text-[15px] leading-7 text-white sm:text-base"
             >
               Share your goals with us. We’ll help you chart the right path
               forward.
@@ -151,24 +150,13 @@ export default function CtaSection({
             </RevealItem>
           </div>
 
-          {/* ── the video panel — off for now ──────────────────────
-              Parked until the lab film exists. To bring it back, restore the
-              two-column grid (lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)])
-              around the pitch, drop the headline back to
-              clamp(1.8rem, 4.6vw, 3.4rem), remove the grid above, and
-              uncomment this:
-
-          <RevealItem>
-            <VideoPanel video={video} onPlay={onPlay} />
-          </RevealItem>
-          */}
         </div>
 
         {/* ── the foot: the sheet's last small voice ───────────── */}
         <RevealItem className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-[#FAFAF7]/25 pt-7 lg:mt-12">
-          <p className={`${META} text-[#E7E0CE]/80`}>Cloud4Green</p>
+          <p className={`${META} text-white/90`}>Cloud4Green</p>
           <p
-            className="font-recoleta font-medium uppercase text-[#E7E0CE]"
+            className="font-recoleta font-medium uppercase text-white"
             style={{
               fontSize: "clamp(1.05rem, 2vw, 1.45rem)",
               letterSpacing: "-0.015em",
@@ -199,7 +187,7 @@ function VideoPanel({ video, onPlay }) {
           linear-gradient(150deg,#12171E 0%,#07090C 78%)`,
       }}
     >
-      {/* swap this span for your <img> poster frame once the video exists */}
+      {/* swap this span for your <img loading="lazy" decoding="async"> poster frame once the video exists */}
       <span aria-hidden="true" className="absolute inset-0" style={INK_GRID} />
 
       <span className="absolute left-5 top-5 flex items-center gap-2">

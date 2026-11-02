@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-// ^ on framer-motion instead of the `motion` package, change to:
-//   import { AnimatePresence, motion } from "framer-motion";
 import {
   Reveal,
   RevealGroup,
@@ -336,8 +334,6 @@ const BRANDS = {
 
 /* --------------------------- content ---------------------------- */
 
-
-
 const TRACKS = [
   {
     id: "cloud",
@@ -617,7 +613,7 @@ function useReducedMotion() {
 
 /**
  * BrandMark — resolves a tool to its logo, in priority order:
- *   1. tool.logo         → an <img> you dropped in /public/logos/
+ *   1. tool.logo         → an <img loading="lazy" decoding="async"> you dropped in /public/logos/
  *   2. BRANDS[].rects    → multi-color flat mark (Microsoft)
  *   3. BRANDS[].path     → single-path mark in the official brand color
  *   4. BRANDS[].text     → designed lettermark where no open asset exists

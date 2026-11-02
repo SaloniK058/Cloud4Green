@@ -7,8 +7,6 @@ import SkillsCatalog from "@/components/enterprise-training/SkillsCatalog";
 import OrgBanner from "@/components/enterprise-training/OrgBanner";
 import EnterpriseWhyUs from "@/components/enterprise-training/EnterpriseWhyUs";
 
-// import FaqSection from "@/components/faq/FaqSection";
-// import { enterpriseTrainingFaqs } from "@/data/faqs";
 
 /**
  * /products/enterprise-training — the fourth of the five product pages the
@@ -111,7 +109,6 @@ export default function EnterpriseTraining() {
         {/* ── FAQ ──────────────────────────────────────────────────────────
             Add an `enterpriseTrainingFaqs` array to src/data/faqs.js, then
             uncomment this and the two imports at the top of the file. */}
-        {/* <FaqSection faqs={enterpriseTrainingFaqs} /> */}
 
         {/* ── Closing CTA — the homepage's, unchanged ─────────────────────── */}
         <CtaSection />

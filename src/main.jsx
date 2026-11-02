@@ -1,19 +1,20 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import "@fontsource/inter/400.css";
-import "@fontsource/inter/500.css";
-import "@fontsource/inter/600.css";
-import "@fontsource/inter/700.css";
+/* One variable file carries every Inter weight, about half the bytes of four
+   separate files. Manrope is Latin only: the full packages add a @font-face per
+   script (Cyrillic, Greek…) to the stylesheet every page has to wait for. */
+import "@fontsource-variable/inter/wght.css";
 
-import "@fontsource/manrope/400.css";
-import "@fontsource/manrope/500.css";
-import "@fontsource/manrope/600.css";
-import "@fontsource/manrope/700.css";
-import "@fontsource/manrope/800.css";
+import "@fontsource/manrope/latin-400.css";
+import "@fontsource/manrope/latin-500.css";
+import "@fontsource/manrope/latin-600.css";
+import "@fontsource/manrope/latin-700.css";
+import "@fontsource/manrope/latin-800.css";
 
 import './index.css'
 import App from './App.jsx'
+import { preloadLinkedPages, routeFor } from './routes.jsx'
 
 /* Take scroll restoration off the browser, for the whole app, before anything
  * renders.
@@ -35,8 +36,17 @@ if (typeof history !== 'undefined' && 'scrollRestoration' in history) {
   history.scrollRestoration = 'manual'
 }
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+/* The page's code lands before React starts, so the first render is the page
+   itself rather than a Suspense fallback. If the chunk fails, render anyway:
+   the route's own lazy import retries it. */
+routeFor(location.pathname)
+  .preload()
+  .catch(() => {})
+  .finally(() => {
+    createRoot(document.getElementById('root')).render(
+      <StrictMode>
+        <App />
+      </StrictMode>,
+    )
+    preloadLinkedPages()
+  })

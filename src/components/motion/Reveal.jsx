@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import {
@@ -116,6 +117,7 @@ export function RevealGround({
   duration = GROUND_DURATION,
   opacity = 1,
   mount = false,
+  hero = false,
   className,
   style,
   children,
@@ -124,9 +126,16 @@ export function RevealGround({
   const still = useReducedMotion();
   const Tag = motion[as] ?? motion.div;
 
+  /* The build paints each hero's backdrop straight from the HTML (see
+     seoShell.js). When React takes over, fading in from nothing would blank a
+     picture the visitor is already looking at, so this one arrives as it is. */
+  const [inHtml] = useState(
+    () => (hero || (as === "img" && mount)) && Boolean(document.querySelector(".seo-hero")),
+  );
+
   return (
     <Tag
-      initial={still ? false : { opacity: 0 }}
+      initial={still || inHtml ? false : { opacity: 0 }}
       {...(still ? {} : trigger(mount, { opacity }))}
       style={still ? { ...style, opacity } : style}
       transition={{ duration, ease: "easeOut", delay }}

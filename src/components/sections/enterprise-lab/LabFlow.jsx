@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-// import "./LabFlow.css";
 
 /* ------------------------------------------------------------------ *
  * Enterprise Labs — request → provision → validate
@@ -38,18 +37,41 @@ export default function LabFlow({ className = "" }) {
   const ref = useRef(null);
   const [live, setLive] = useState(false);
 
+  /* Animating a mask and a clip path inside an SVG re-runs style and layout on
+     the main thread every frame. Starting that while the page is still loading
+     cost a phone seconds of layout, so the loop waits for the page to finish
+     and the browser to go idle. */
   useEffect(() => {
     const el = ref.current;
     if (!el || typeof IntersectionObserver === "undefined") {
       setLive(true);
       return;
     }
-    const io = new IntersectionObserver(
-      ([e]) => setLive(e.isIntersecting),
-      { threshold: 0.25 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
+
+    let io;
+    let idle;
+    const watch = () => {
+      io = new IntersectionObserver(([e]) => setLive(e.isIntersecting), { threshold: 0.25 });
+      io.observe(el);
+    };
+    const start = () => {
+      idle = setTimeout(() => {
+        if (typeof window.requestIdleCallback === "function") {
+          window.requestIdleCallback(watch, { timeout: 2000 });
+        } else {
+          watch();
+        }
+      }, 1500);
+    };
+
+    if (document.readyState === "complete") start();
+    else window.addEventListener("load", start, { once: true });
+
+    return () => {
+      window.removeEventListener("load", start);
+      clearTimeout(idle);
+      io?.disconnect();
+    };
   }, []);
 
   return (
